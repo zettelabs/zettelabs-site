@@ -59,7 +59,7 @@ return [
             'Hızlı kaydet ve paylaş',
         ],
         'play_store' => 'https://play.google.com/store/apps/details?id=com.remove.background.change.photo',
-        'privacy_url' => '/privacy_policy',
+        'privacy_url' => '/privacy_policy_circlepix',
     ],
 
     'simple-alarm' => [

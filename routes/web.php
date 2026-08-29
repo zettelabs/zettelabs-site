@@ -30,6 +30,14 @@ Route::get('/privacy_policy_simple_alarm', [PageController::class, 'legacyPrivac
     ->defaults('appName', 'Simple Alarm')
     ->name('legacy.privacy.simple-alarm');
 
+// New — CirclePix previously shared /privacy_policy with Learn Words (a
+// pre-existing Play Console mix-up). This gives it its own URL; the Play
+// Console listing for CirclePix still needs to be updated by hand to point
+// here (see PLAN.md).
+Route::get('/privacy_policy_circlepix', [PageController::class, 'legacyPrivacy'])
+    ->defaults('appName', 'CirclePix')
+    ->name('legacy.privacy.circlepix');
+
 // Per-app branding pages, driven by config/apps.php.
 Route::get('/{slug}', [PageController::class, 'app'])
     ->where('slug', 'background-wizard|learn-words|cleanpix|circlepix|simple-alarm')

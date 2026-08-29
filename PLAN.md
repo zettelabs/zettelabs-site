@@ -27,7 +27,7 @@ listeleme sayfalarından doğrulandı, browser ile kontrol edildi):
 
 | URL (değiştirilemez) | Uygulama | Play Console applicationId |
 |---|---|---|
-| `/privacy_policy` | Learn Words **ve** CirclePix (ikisi de aynı URL'i kullanıyor — muhtemelen bir hata, ama şu an canlı durum bu) | `com.zettelabs.learnwords`, `com.remove.background.change.photo` |
+| `/privacy_policy` | Learn Words | `com.zettelabs.learnwords` |
 | `/privacy_policy_background_wizard` | Background Wizard | `background.erase.replace.change.blur.remove` |
 | `/privacy_policy_photo_finder` | CleanPix (Play Store'da "Photo Finder"dan "CleanPix: Clean Duplicate Pics"e yeniden adlandırılmış, ama gizlilik URL'i eski adla kaldı) | `com.similarphotofinder.cleaner.removeduplicate` |
 | `/privacy_policy_simple_alarm` | Simple Alarm | `com.alarm.simple.clock` |
@@ -40,9 +40,12 @@ bu da ilgili uygulamanın Play Store'da askıya alınmasına yol açabilir.
 
 `/ads.txt` da aynı sebeple korunuyor (Google AdSense yayıncı kimliği, eski projeden aynen taşındı).
 
-**Açık sorun**: `/privacy_policy`'nin hem Learn Words hem CirclePix tarafından kullanılması muhtemelen
-bir hata. Kullanıcı isterse CirclePix için Play Console'da ayrı bir URL (`/privacy_policy_circlepix`
-gibi) tanımlayıp kaydı güncelleyebilir — ama bu adımı ben atamam, Play Console'a kullanıcı girmeli.
+**Düzeltildi**: CirclePix, Play Console'da hâlâ Learn Words ile aynı `/privacy_policy` URL'ini
+kullanıyordu (eski bir karışıklık). Site tarafında `/privacy_policy_circlepix` adında ayrı bir
+route + sayfa eklendi (`config/apps.php`'deki CirclePix `privacy_url`'i buna güncellendi).
+**Kullanıcının yapması gereken tek adım**: Play Console'da CirclePix uygulamasının gizlilik
+politikası URL'ini `https://zettelabs.app/privacy_policy_circlepix` olarak güncellemek — bu adımı
+Claude atamıyor, Play Console hesabına giriş gerektiriyor.
 
 ## Uygulama portföyü (`config/apps.php`)
 
