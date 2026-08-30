@@ -19,10 +19,9 @@
                     <a href="{{ route('home') }}" class="flex items-center gap-2">
                         <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg" style="background-image: linear-gradient(135deg, #ff007c, #a855f7 60%, #38bdf8);">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <rect x="3" y="3" width="8" height="8" rx="1.5" fill="white"/>
-                                <rect x="13" y="13" width="8" height="8" rx="1.5" fill="white"/>
-                                <rect x="13" y="3" width="8" height="8" rx="1.5" fill="white" fill-opacity="0.45"/>
-                                <rect x="3" y="13" width="8" height="8" rx="1.5" fill="white" fill-opacity="0.45"/>
+                                <rect x="4" y="4" width="16" height="4" rx="1" fill="white"/>
+                                <rect x="4" y="16" width="16" height="4" rx="1" fill="white"/>
+                                <polygon points="16.5,8 20,8 7.5,16 4,16" fill="white"/>
                             </svg>
                         </span>
                         <span class="text-lg font-bold tracking-tight text-ink">Zettelabs</span>

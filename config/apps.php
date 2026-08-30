@@ -15,6 +15,8 @@ return [
         ],
         'play_store' => 'https://play.google.com/store/apps/details?id=background.erase.replace.change.blur.remove',
         'privacy_url' => '/privacy_policy_background_wizard',
+        'icon' => 'icon-background-wizard.webp',
+        'screenshots' => ['shot-background-wizard-1.webp', 'shot-background-wizard-2.webp', 'shot-background-wizard-3.webp', 'shot-background-wizard-4.webp', 'shot-background-wizard-5.webp'],
     ],
 
     'learn-words' => [
@@ -30,6 +32,8 @@ return [
         ],
         'play_store' => 'https://play.google.com/store/apps/details?id=com.zettelabs.learnwords',
         'privacy_url' => '/privacy_policy',
+        'icon' => 'icon-learn-words.webp',
+        'screenshots' => ['shot-learn-words-1.webp', 'shot-learn-words-2.webp', 'shot-learn-words-3.webp', 'shot-learn-words-4.webp', 'shot-learn-words-5.webp', 'shot-learn-words-6.webp'],
     ],
 
     'cleanpix' => [
@@ -45,6 +49,8 @@ return [
         ],
         'play_store' => 'https://play.google.com/store/apps/details?id=com.similarphotofinder.cleaner.removeduplicate',
         'privacy_url' => '/privacy_policy_photo_finder',
+        'icon' => 'icon-cleanpix.webp',
+        'screenshots' => ['shot-cleanpix-1.webp', 'shot-cleanpix-2.webp', 'shot-cleanpix-3.webp', 'shot-cleanpix-4.webp'],
     ],
 
     'circlepix' => [
@@ -60,6 +66,8 @@ return [
         ],
         'play_store' => 'https://play.google.com/store/apps/details?id=com.remove.background.change.photo',
         'privacy_url' => '/privacy_policy_circlepix',
+        'icon' => 'icon-circlepix.webp',
+        'screenshots' => ['shot-circlepix-1.webp', 'shot-circlepix-2.webp', 'shot-circlepix-3.webp', 'shot-circlepix-4.webp'],
     ],
 
     'simple-alarm' => [
@@ -75,6 +83,8 @@ return [
         ],
         'play_store' => 'https://play.google.com/store/apps/details?id=com.alarm.simple.clock',
         'privacy_url' => '/privacy_policy_simple_alarm',
+        'icon' => 'icon-simple-alarm.webp',
+        'screenshots' => ['shot-simple-alarm-1.webp', 'shot-simple-alarm-2.webp', 'shot-simple-alarm-3.webp', 'shot-simple-alarm-4.webp'],
     ],
 
 ];
