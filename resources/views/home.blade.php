@@ -5,22 +5,24 @@
 
 @section('content')
 
-    <section class="border-b border-line bg-surface">
-        <div class="mx-auto max-w-5xl px-6 py-16 md:py-24">
-            <span class="inline-flex items-center gap-2 rounded-full border border-line bg-canvas px-3 py-1 font-mono text-xs uppercase tracking-wider text-ink-dim">
+    <section class="relative overflow-hidden border-b border-line bg-canvas">
+        <div class="glow-blob pointer-events-none absolute -top-40 left-1/2 h-[420px] w-[720px] -translate-x-1/2"></div>
+        <div class="dot-grid pointer-events-none absolute inset-0"></div>
+        <div class="relative mx-auto max-w-5xl px-6 py-20 md:py-28">
+            <span class="inline-flex items-center gap-2 rounded-full border border-line bg-surface/70 px-3 py-1 font-mono text-xs uppercase tracking-wider text-ink-dim">
                 {{ __('Mobil uygulama stüdyosu') }}
             </span>
-            <h1 class="mt-5 max-w-2xl text-4xl font-semibold leading-tight text-balance text-ink md:text-5xl">
-                {{ __('Küçük bir ekip, gündelik problemler için odaklı uygulamalar yapıyor.') }}
+            <h1 class="mt-5 max-w-2xl text-4xl font-bold leading-tight text-balance text-ink md:text-5xl">
+                {{ __('Küçük bir ekip, gündelik problemler için') }} <span class="gradient-text">{{ __('odaklı uygulamalar') }}</span> {{ __('yapıyor.') }}
             </h1>
             <p class="mt-4 max-w-xl text-lg text-ink-dim">
                 {{ __('Zettelabs bağımsız bir mobil uygulama stüdyosu. Her uygulama tek bir problemi iyi çözmek için var — büyük, karmaşık platformlar değil.') }}
             </p>
             <div class="mt-8 flex flex-wrap items-center gap-3">
-                <a href="#urunler" class="inline-flex items-center gap-2 rounded-lg bg-ink px-5 py-3 text-sm font-medium text-canvas hover:bg-ink/90">
+                <a href="#urunler" class="inline-flex items-center gap-2 rounded-full bg-ink px-5 py-3 text-sm font-semibold text-canvas hover:bg-ink/90">
                     {{ __('Uygulamalarımızı gör') }}
                 </a>
-                <a href="mailto:zettelabs@gmail.com" class="inline-flex items-center gap-2 rounded-lg border border-line px-5 py-3 text-sm font-medium text-ink hover:border-ink/40">
+                <a href="mailto:zettelabs@gmail.com" class="inline-flex items-center gap-2 rounded-full border border-accent/50 px-5 py-3 text-sm font-medium text-ink hover:border-accent">
                     {{ __('Bize ulaşın') }}
                 </a>
             </div>
@@ -32,7 +34,7 @@
         <p class="mt-2 max-w-xl text-ink-dim">{{ __('Her biri tek bir işi iyi yapmak için tasarlandı.') }}</p>
 
         <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            <div class="flex flex-col rounded-2xl border border-line bg-surface p-6">
+            <div class="flex flex-col rounded-2xl border border-line bg-surface p-6 transition-colors hover:border-accent/40">
                 <span class="inline-flex w-fit items-center gap-1.5 rounded-full bg-accent-soft px-2.5 py-1 font-mono text-[0.65rem] uppercase tracking-wider text-accent-deep">
                     {{ __("Web'de yayında") }}
                 </span>
@@ -49,7 +51,7 @@
             </div>
 
             @foreach ($apps as $slug => $item)
-                <div class="flex flex-col rounded-2xl border border-line bg-surface p-6">
+                <div class="flex flex-col rounded-2xl border border-line bg-surface p-6 transition-colors hover:border-accent/40">
                     <span class="inline-flex w-fit items-center gap-1.5 rounded-full bg-accent-soft px-2.5 py-1 font-mono text-[0.65rem] uppercase tracking-wider text-accent-deep">
                         {{ __($item['kicker']) }}
                     </span>
@@ -92,12 +94,15 @@
     </section>
 
     <section id="iletisim" class="mx-auto max-w-5xl px-6 py-16 md:py-24">
-        <div class="rounded-2xl border border-line bg-surface p-10 text-center">
-            <h2 class="text-2xl font-semibold text-ink md:text-3xl">{{ __('Bir sorunuz mu var?') }}</h2>
-            <p class="mx-auto mt-2 max-w-md text-ink-dim">{{ __('Uygulamalarımız, iş birlikleri ya da başka bir konuda bize ulaşın.') }}</p>
-            <a href="mailto:zettelabs@gmail.com" class="mt-6 inline-flex items-center gap-2 rounded-lg bg-ink px-5 py-3 text-sm font-medium text-canvas hover:bg-ink/90">
-                zettelabs@gmail.com
-            </a>
+        <div class="relative overflow-hidden rounded-2xl border border-line bg-surface p-10 text-center">
+            <div class="glow-blob pointer-events-none absolute -bottom-32 left-1/2 h-[280px] w-[500px] -translate-x-1/2 opacity-60"></div>
+            <div class="relative">
+                <h2 class="text-2xl font-semibold text-ink md:text-3xl">{{ __('Bir sorunuz mu var?') }}</h2>
+                <p class="mx-auto mt-2 max-w-md text-ink-dim">{{ __('Uygulamalarımız, iş birlikleri ya da başka bir konuda bize ulaşın.') }}</p>
+                <a href="mailto:zettelabs@gmail.com" class="mt-6 inline-flex items-center gap-2 rounded-full bg-ink px-5 py-3 text-sm font-semibold text-canvas hover:bg-ink/90">
+                    zettelabs@gmail.com
+                </a>
+            </div>
         </div>
     </section>
 

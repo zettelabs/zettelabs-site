@@ -22,10 +22,10 @@
             <p class="mt-4 max-w-xl text-ink-dim">{{ __($app['description']) }}</p>
 
             <div class="mt-8 flex flex-wrap items-center gap-3">
-                <a href="{{ $app['play_store'] }}" target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-lg bg-ink px-5 py-3 text-sm font-medium text-canvas hover:bg-ink/90">
+                <a href="{{ $app['play_store'] }}" target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-full bg-ink px-5 py-3 text-sm font-semibold text-canvas hover:bg-ink/90">
                     {{ __("Google Play'de aç") }}
                 </a>
-                <a href="{{ $app['privacy_url'] }}" class="inline-flex items-center gap-2 rounded-lg border border-line px-5 py-3 text-sm font-medium text-ink hover:border-ink/40">
+                <a href="{{ $app['privacy_url'] }}" class="inline-flex items-center gap-2 rounded-full border border-accent/50 px-5 py-3 text-sm font-medium text-ink hover:border-accent">
                     {{ __('Gizlilik Politikası') }}
                 </a>
             </div>

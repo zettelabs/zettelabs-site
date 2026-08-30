@@ -11,7 +11,7 @@
         </span>
         <h1 class="mt-5 text-3xl font-semibold text-ink md:text-4xl">{{ $appName }} — Privacy Policy</h1>
 
-        <div class="prose prose-neutral mt-8 max-w-none prose-headings:font-semibold prose-headings:text-ink prose-p:text-ink-dim prose-li:text-ink-dim prose-a:text-accent prose-strong:text-ink">
+        <div class="prose prose-invert mt-8 max-w-none prose-headings:font-semibold prose-headings:text-ink prose-p:text-ink-dim prose-li:text-ink-dim prose-a:text-accent prose-strong:text-ink">
             @include('legal.partials.legacy-body', ['appName' => $appName])
         </div>
     </div>

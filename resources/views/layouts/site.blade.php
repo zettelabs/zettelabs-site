@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#16181d">
+        <meta name="theme-color" content="#0f0c18">
 
         <title>@yield('title', 'Zettelabs')</title>
         <meta name="description" content="@yield('description', __('Zettelabs — mobil uygulamalar geliştiren küçük bir ekip.'))">
@@ -17,15 +17,15 @@
             <header class="border-b border-line">
                 <div class="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-x-4 gap-y-2 px-4 py-4 sm:px-6 sm:py-5">
                     <a href="{{ route('home') }}" class="flex items-center gap-2">
-                        <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-ink text-canvas">
+                        <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg" style="background-image: linear-gradient(135deg, #ff007c, #a855f7 60%, #38bdf8);">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <rect x="3" y="3" width="8" height="8" rx="1.5" fill="currentColor"/>
-                                <rect x="13" y="13" width="8" height="8" rx="1.5" fill="currentColor"/>
-                                <rect x="13" y="3" width="8" height="8" rx="1.5" fill="currentColor" fill-opacity="0.35"/>
-                                <rect x="3" y="13" width="8" height="8" rx="1.5" fill="currentColor" fill-opacity="0.35"/>
+                                <rect x="3" y="3" width="8" height="8" rx="1.5" fill="white"/>
+                                <rect x="13" y="13" width="8" height="8" rx="1.5" fill="white"/>
+                                <rect x="13" y="3" width="8" height="8" rx="1.5" fill="white" fill-opacity="0.45"/>
+                                <rect x="3" y="13" width="8" height="8" rx="1.5" fill="white" fill-opacity="0.45"/>
                             </svg>
                         </span>
-                        <span class="text-lg font-semibold tracking-tight text-ink">Zettelabs</span>
+                        <span class="text-lg font-bold tracking-tight text-ink">Zettelabs</span>
                     </a>
                     <nav class="flex items-center gap-3 text-sm sm:gap-5">
                         <a href="{{ route('home') }}#urunler" class="text-ink-dim hover:text-ink">{{ __('Uygulamalar') }}</a>
