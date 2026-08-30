@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#0f0c18">
+        <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
 
         <title>@yield('title', 'Zettelabs')</title>
         <meta name="description" content="@yield('description', __('Zettelabs — mobil uygulamalar geliştiren küçük bir ekip.'))">
