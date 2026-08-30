@@ -11,6 +11,7 @@ Route::get('/privacy', [PageController::class, 'privacy'])->name('privacy');
 Route::get('/language/{locale}', [LocaleController::class, 'switch'])->name('locale.switch');
 
 Route::get('/ads.txt', [PageController::class, 'adsTxt']);
+Route::get('/app-ads.txt', [PageController::class, 'adsTxt']);
 
 // Legacy Play Console privacy policy URLs — do not rename, live apps' store
 // listings link here directly. See ZETTELABSOLD_LEGACY.md for provenance.
