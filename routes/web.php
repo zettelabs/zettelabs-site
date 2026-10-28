@@ -19,17 +19,13 @@ Route::get('/privacy_policy', [PageController::class, 'legacyPrivacy'])
     ->defaults('appName', 'Learn Words')
     ->name('legacy.privacy.learn-words');
 
-Route::get('/privacy_policy_background_wizard', [PageController::class, 'legacyPrivacy'])
-    ->defaults('appName', 'Background Wizard')
-    ->name('legacy.privacy.background-wizard');
+// Each app's policy now lives on its own Firebase Hosting site; these old
+// URLs forward there so store links keep working and only one text exists.
+Route::permanentRedirect('/privacy_policy_background_wizard', 'https://backgroundmagic-beb46.web.app/privacy-policy');
 
-// CleanPix and CirclePix's Play Console listings use their Firebase-hosted
-// policies; old site URLs forward there so only one text exists per app.
 Route::permanentRedirect('/privacy_policy_photo_finder', 'https://similiar-finder.web.app/privacy-policy');
 
-Route::get('/privacy_policy_simple_alarm', [PageController::class, 'legacyPrivacy'])
-    ->defaults('appName', 'Simple Alarm')
-    ->name('legacy.privacy.simple-alarm');
+Route::permanentRedirect('/privacy_policy_simple_alarm', 'https://simple-alarm-79b72.web.app/privacy-policy');
 
 Route::permanentRedirect('/privacy_policy_circlepix', 'https://circlepix-3db60.web.app/privacy-policy');
 

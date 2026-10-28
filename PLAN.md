@@ -74,4 +74,4 @@ npm run dev    # ya da npm run build
 
 ## Gizlilik politikaları (2026-10-28)
 
-Play Console'daki adresler: CirclePix → `circlepix-3db60.web.app/privacy-policy`, CleanPix → `similiar-finder.web.app/privacy-policy`, Simple Alarm ve Background Wizard → `zettelabs.app/privacy_policy_*`. Sitedeki CirclePix/CleanPix sayfaları Firebase adreslerine 301 yönlendiriyor.
+Play Console'daki adresler: CirclePix → `circlepix-3db60.web.app/privacy-policy`, CleanPix → `similiar-finder.web.app/privacy-policy`, Simple Alarm ve Background Wizard → `zettelabs.app/privacy_policy_*`, bunlar da `simple-alarm-79b72.web.app` / `backgroundmagic-beb46.web.app`'e 301. Tüm metinler artık ilgili app reposundaki `docs/privacy-policy.html` (Firebase Hosting).
