@@ -41,8 +41,11 @@ class PageController extends Controller
         $dirs = app()->getLocale() === 'en' ? ['en/', ''] : ['', 'en/'];
 
         foreach ($dirs as $dir) {
-            if (file_exists(public_path("images/apps/{$dir}{$file}"))) {
-                return "images/apps/{$dir}{$file}";
+            $path = public_path("images/apps/{$dir}{$file}");
+
+            if (file_exists($path)) {
+                // Version by content so replaced images bypass browser caches.
+                return "images/apps/{$dir}{$file}?v=" . substr(md5_file($path), 0, 8);
             }
         }
 

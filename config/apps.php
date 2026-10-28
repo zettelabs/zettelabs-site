@@ -15,7 +15,7 @@ return [
         ],
         'play_store' => 'https://play.google.com/store/apps/details?id=background.erase.replace.change.blur.remove',
         'privacy_url' => '/privacy_policy_background_wizard',
-        'icon' => 'icon-background-wizard.webp',
+        'icon' => 'icon-background-wizard.webp?v=2',
         'screenshots' => ['shot-background-wizard-1.webp', 'shot-background-wizard-2.webp', 'shot-background-wizard-3.webp', 'shot-background-wizard-4.webp', 'shot-background-wizard-5.webp'],
     ],
 
@@ -32,7 +32,7 @@ return [
         ],
         'play_store' => 'https://play.google.com/store/apps/details?id=com.similarphotofinder.cleaner.removeduplicate',
         'privacy_url' => '/privacy_policy_photo_finder',
-        'icon' => 'icon-cleanpix.webp',
+        'icon' => 'icon-cleanpix.webp?v=2',
         'screenshots' => ['shot-cleanpix-1.webp', 'shot-cleanpix-2.webp', 'shot-cleanpix-3.webp', 'shot-cleanpix-4.webp', 'shot-cleanpix-5.webp', 'shot-cleanpix-6.webp'],
     ],
 
@@ -49,7 +49,7 @@ return [
         ],
         'play_store' => 'https://play.google.com/store/apps/details?id=com.remove.background.change.photo',
         'privacy_url' => '/privacy_policy_circlepix',
-        'icon' => 'icon-circlepix.webp',
+        'icon' => 'icon-circlepix.webp?v=2',
         'screenshots' => ['shot-circlepix-1.webp', 'shot-circlepix-2.webp', 'shot-circlepix-3.webp', 'shot-circlepix-4.webp', 'shot-circlepix-5.webp', 'shot-circlepix-6.webp'],
     ],
 
