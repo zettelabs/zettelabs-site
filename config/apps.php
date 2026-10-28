@@ -33,7 +33,7 @@ return [
         'play_store' => 'https://play.google.com/store/apps/details?id=com.similarphotofinder.cleaner.removeduplicate',
         'privacy_url' => '/privacy_policy_photo_finder',
         'icon' => 'icon-cleanpix.webp',
-        'screenshots' => ['shot-cleanpix-1.webp', 'shot-cleanpix-2.webp', 'shot-cleanpix-3.webp', 'shot-cleanpix-4.webp'],
+        'screenshots' => ['shot-cleanpix-1.webp', 'shot-cleanpix-2.webp', 'shot-cleanpix-3.webp', 'shot-cleanpix-4.webp', 'shot-cleanpix-5.webp', 'shot-cleanpix-6.webp'],
     ],
 
     'circlepix' => [
@@ -50,7 +50,7 @@ return [
         'play_store' => 'https://play.google.com/store/apps/details?id=com.remove.background.change.photo',
         'privacy_url' => '/privacy_policy_circlepix',
         'icon' => 'icon-circlepix.webp',
-        'screenshots' => ['shot-circlepix-1.webp', 'shot-circlepix-2.webp', 'shot-circlepix-3.webp', 'shot-circlepix-4.webp'],
+        'screenshots' => ['shot-circlepix-1.webp', 'shot-circlepix-2.webp', 'shot-circlepix-3.webp', 'shot-circlepix-4.webp', 'shot-circlepix-5.webp', 'shot-circlepix-6.webp'],
     ],
 
     'simple-alarm' => [
@@ -67,7 +67,7 @@ return [
         'play_store' => 'https://play.google.com/store/apps/details?id=com.alarm.simple.clock',
         'privacy_url' => '/privacy_policy_simple_alarm',
         'icon' => 'icon-simple-alarm.webp',
-        'screenshots' => ['shot-simple-alarm-1.webp', 'shot-simple-alarm-2.webp', 'shot-simple-alarm-3.webp', 'shot-simple-alarm-4.webp'],
+        'screenshots' => ['shot-simple-alarm-1.webp', 'shot-simple-alarm-2.webp', 'shot-simple-alarm-3.webp', 'shot-simple-alarm-4.webp', 'shot-simple-alarm-5.webp'],
     ],
 
 ];
