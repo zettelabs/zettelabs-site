@@ -29,7 +29,24 @@ class PageController extends Controller
 
         abort_unless($app, 404);
 
+        $app['screenshots'] = array_map($this->localizedImage(...), $app['screenshots']);
+        $app['banner'] = $this->localizedImage("banner-{$slug}.webp");
+
         return view('apps.show', ['app' => $app]);
+    }
+
+    // English assets live in images/apps/en/; the root holds Turkish ones. Fall back either way.
+    private function localizedImage(string $file): ?string
+    {
+        $dirs = app()->getLocale() === 'en' ? ['en/', ''] : ['', 'en/'];
+
+        foreach ($dirs as $dir) {
+            if (file_exists(public_path("images/apps/{$dir}{$file}"))) {
+                return "images/apps/{$dir}{$file}";
+            }
+        }
+
+        return null;
     }
 
     public function legacyPrivacy(string $appName): View

@@ -14,6 +14,10 @@
                 {{ __('Tüm uygulamalar') }}
             </a>
 
+            @if ($app['banner'])
+                <img src="{{ asset($app['banner']) }}" alt="" width="1024" height="500" class="mt-6 aspect-[1024/500] w-full rounded-2xl border border-line object-cover">
+            @endif
+
             <div class="mt-6 flex items-center gap-4">
                 <img src="{{ asset('images/apps/' . $app['icon']) }}" alt="" class="h-16 w-16 shrink-0 rounded-2xl border border-line">
                 <div>
@@ -34,7 +38,7 @@
                 @for ($i = 0; $i < 2; $i++)
                     @foreach ($app['screenshots'] as $screenshot)
                         <div class="ml-4 aspect-[9/16] w-48 shrink-0 overflow-hidden rounded-2xl border border-line bg-surface sm:w-56">
-                            <img src="{{ asset('images/apps/' . $screenshot) }}" alt="" loading="lazy" class="h-full w-full object-cover object-top">
+                            <img src="{{ asset($screenshot) }}" alt="" loading="lazy" class="h-full w-full object-cover object-top">
                         </div>
                     @endforeach
                 @endfor
