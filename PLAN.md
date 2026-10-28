@@ -29,7 +29,7 @@ listeleme sayfalarından doğrulandı, browser ile kontrol edildi):
 |---|---|---|
 | `/privacy_policy` | Learn Words | `com.zettelabs.learnwords` |
 | `/privacy_policy_background_wizard` | Background Wizard | `background.erase.replace.change.blur.remove` |
-| `/privacy_policy_photo_finder` | CleanPix (Play Store'da "Photo Finder"dan "CleanPix: Clean Duplicate Pics"e yeniden adlandırılmış, ama gizlilik URL'i eski adla kaldı) | `com.similarphotofinder.cleaner.removeduplicate` |
+| `/privacy_policy_photo_finder` (artık `similiar-finder.web.app/privacy-policy`'ye 301) | CleanPix (Play Store'da "Photo Finder"dan "CleanPix: Clean Duplicate Pics"e yeniden adlandırılmış, ama gizlilik URL'i eski adla kaldı) | `com.similarphotofinder.cleaner.removeduplicate` |
 | `/privacy_policy_simple_alarm` | Simple Alarm | `com.alarm.simple.clock` |
 
 Bu 4 route (`routes/web.php`'de "Legacy Play Console" yorumuyla işaretli) ve içerikleri
@@ -70,3 +70,8 @@ cd ~/zettelabs-site
 php artisan serve --host=127.0.0.1 --port=8001   # thriftai'nin 8000 portuyla çakışmasın diye 8001
 npm run dev    # ya da npm run build
 ```
+
+
+## Gizlilik politikaları (2026-10-28)
+
+Play Console'daki adresler: CirclePix → `circlepix-3db60.web.app/privacy-policy`, CleanPix → `similiar-finder.web.app/privacy-policy`, Simple Alarm ve Background Wizard → `zettelabs.app/privacy_policy_*`. Sitedeki CirclePix/CleanPix sayfaları Firebase adreslerine 301 yönlendiriyor.

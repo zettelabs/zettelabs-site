@@ -23,21 +23,15 @@ Route::get('/privacy_policy_background_wizard', [PageController::class, 'legacyP
     ->defaults('appName', 'Background Wizard')
     ->name('legacy.privacy.background-wizard');
 
-Route::get('/privacy_policy_photo_finder', [PageController::class, 'legacyPrivacy'])
-    ->defaults('appName', 'Photo Finder')
-    ->name('legacy.privacy.photo-finder');
+// CleanPix and CirclePix's Play Console listings use their Firebase-hosted
+// policies; old site URLs forward there so only one text exists per app.
+Route::permanentRedirect('/privacy_policy_photo_finder', 'https://similiar-finder.web.app/privacy-policy');
 
 Route::get('/privacy_policy_simple_alarm', [PageController::class, 'legacyPrivacy'])
     ->defaults('appName', 'Simple Alarm')
     ->name('legacy.privacy.simple-alarm');
 
-// New — CirclePix previously shared /privacy_policy with Learn Words (a
-// pre-existing Play Console mix-up). This gives it its own URL; the Play
-// Console listing for CirclePix still needs to be updated by hand to point
-// here (see PLAN.md).
-Route::get('/privacy_policy_circlepix', [PageController::class, 'legacyPrivacy'])
-    ->defaults('appName', 'CirclePix')
-    ->name('legacy.privacy.circlepix');
+Route::permanentRedirect('/privacy_policy_circlepix', 'https://circlepix-3db60.web.app/privacy-policy');
 
 // Per-app branding pages, driven by config/apps.php.
 Route::get('/{slug}', [PageController::class, 'app'])
