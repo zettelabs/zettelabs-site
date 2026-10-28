@@ -19,23 +19,6 @@ return [
         'screenshots' => ['shot-background-wizard-1.webp', 'shot-background-wizard-2.webp', 'shot-background-wizard-3.webp', 'shot-background-wizard-4.webp', 'shot-background-wizard-5.webp'],
     ],
 
-    'learn-words' => [
-        'name' => 'Learn Words',
-        'kicker' => "Google Play'de yayında",
-        'tagline' => '5 farklı oyun moduyla kelime hazineni günlük bir alışkanlıkla geliştir.',
-        'description' => 'Learn Words, yeni bir dilde kelime öğrenmeyi eğlenceli oyun modlarıyla sürdürülebilir bir alışkanlığa dönüştürür.',
-        'features' => [
-            '5 farklı oyun modu',
-            'İlerlemeni takip et',
-            'İnternetsiz de çalışır',
-            '13 dilde İngilizce kelime öğrenimi',
-        ],
-        'play_store' => 'https://play.google.com/store/apps/details?id=com.zettelabs.learnwords',
-        'privacy_url' => '/privacy_policy',
-        'icon' => 'icon-learn-words.webp',
-        'screenshots' => ['shot-learn-words-1.webp', 'shot-learn-words-2.webp', 'shot-learn-words-3.webp', 'shot-learn-words-4.webp', 'shot-learn-words-5.webp', 'shot-learn-words-6.webp'],
-    ],
-
     'cleanpix' => [
         'name' => 'CleanPix',
         'kicker' => "Google Play'de yayında",
