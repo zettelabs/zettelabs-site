@@ -36,13 +36,12 @@
         <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             <div class="flex flex-col rounded-2xl border border-line bg-surface p-6 transition-colors hover:border-accent/40">
                 <div class="flex items-center gap-3">
-                    <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-line bg-canvas">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="11" cy="11" r="6.5" stroke="#ff007c" stroke-width="2"/>
-                            <path d="M15.5 15.5L20 20" stroke="#ff007c" stroke-width="2" stroke-linecap="round"/>
-                            <path d="M11 8V11L13 12.5" stroke="#a855f7" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </span>
+                    <img
+                        src="{{ asset('images/apps/icon-fiyat-radari.webp') }}"
+                        alt=""
+                        loading="lazy"
+                        class="h-10 w-10 shrink-0 rounded-xl border border-line"
+                    >
                     <span class="inline-flex w-fit items-center gap-1.5 rounded-full bg-accent-soft px-2.5 py-1 font-mono text-[0.65rem] uppercase tracking-wider text-accent-deep">
                         {{ __("Web'de yayında") }}
                     </span>

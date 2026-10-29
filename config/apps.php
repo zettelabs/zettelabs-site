@@ -66,7 +66,7 @@ return [
         ],
         'play_store' => 'https://play.google.com/store/apps/details?id=com.alarm.simple.clock',
         'privacy_url' => 'https://simple-alarm-79b72.web.app/privacy-policy',
-        'icon' => 'icon-simple-alarm.webp',
+        'icon' => 'icon-simple-alarm.webp?v=2',
         'screenshots' => ['shot-simple-alarm-1.webp', 'shot-simple-alarm-2.webp', 'shot-simple-alarm-3.webp', 'shot-simple-alarm-4.webp', 'shot-simple-alarm-5.webp'],
     ],
 
