@@ -37,7 +37,7 @@ class PageController extends Controller
         $app['screenshots'] = array_map($this->localizedImage(...), $app['screenshots']);
         $app['banner'] = $this->localizedImage("banner-{$slug}.webp");
 
-        return view('apps.show', ['app' => $app]);
+        return view("apps.{$slug}", ['app' => $app]);
     }
 
     // English assets live in images/apps/en/; the root holds Turkish ones. Fall back either way.
