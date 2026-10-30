@@ -84,13 +84,14 @@
     .sa-folders { margin-top: auto; padding-top: 6rem; }
     .sa-band { position: relative; width: 100%; margin-inline: auto; }
     .sa-band-strip { height: 3.25rem; }
+    /* The tab runs 4px down into its own band, so the hover lift shows more tab, never a gap. */
     .sa-tab {
-        position: absolute; bottom: 100%; height: 2rem; padding: 0 1.25rem; display: flex; align-items: center;
+        position: absolute; bottom: calc(100% - 4px); height: calc(2rem + 4px); padding: 0 1.25rem 4px; display: flex; align-items: center;
         font-size: var(--sa-small); font-weight: 700; background: inherit; color: inherit;
         clip-path: polygon(.75rem 0, calc(100% - .75rem) 0, 100% 100%, 0 100%);
         transition: transform .2s cubic-bezier(.2,.7,.2,1);
     }
-    .sa-tab:hover { transform: translateY(-4px); }
+    @media (hover: hover) { .sa-tab:hover { transform: translateY(-4px); } }
     /* The front tab never sits over the big time: right on a phone, far left on desktop. */
     .sa-band:nth-child(1) .sa-tab { right: 1rem; }
     .sa-band:nth-child(2) .sa-tab { left: 50%; translate: -50% 0; }
@@ -105,7 +106,7 @@
     @media (min-width: 1024px) {
         .sa-band, .sa-panel { width: 86%; }
         .sa-band-strip { height: 4rem; }
-        .sa-tab { height: 2.5rem; padding: 0 1.75rem; font-size: var(--sa-body); clip-path: polygon(1rem 0, calc(100% - 1rem) 0, 100% 100%, 0 100%); }
+        .sa-tab { height: calc(2.5rem + 4px); padding: 0 1.75rem 4px; font-size: var(--sa-body); clip-path: polygon(1rem 0, calc(100% - 1rem) 0, 100% 100%, 0 100%); }
         .sa-band:nth-child(1) .sa-tab { right: auto; left: 78%; }
         .sa-band:nth-child(2) .sa-tab { left: 56%; translate: none; }
         .sa-band:nth-child(3) .sa-tab { left: 30%; }
@@ -120,11 +121,12 @@
     .sa-plate { position: relative; aspect-ratio: 1; background: var(--sa-band-1); overflow: hidden; }
     .sa-plate img {
         position: absolute; top: 6%; left: 50%; height: 88%; width: auto; aspect-ratio: 9 / 16; translate: -50% 0;
-        opacity: 0; transition: opacity .24s ease-out;
+        opacity: 0; transition: opacity 0s .2s;
     }
-    .sa-plate img.is-on { opacity: 1; }
+    /* The new screen fades in on top while the old one holds underneath, so the plate never dims. */
+    .sa-plate img.is-on { opacity: 1; z-index: 1; transition: opacity .2s cubic-bezier(.2,.7,.2,1); }
     .sa-plate img:first-child { position: relative; display: block; }
-    .sa-index button { display: block; width: 100%; padding: .875rem 1rem; text-align: left; color: var(--sa-paper-muted); transition: background-color .24s ease-out, color .24s ease-out; }
+    .sa-index button { display: block; width: 100%; padding: .875rem 1rem; text-align: left; color: var(--sa-paper-muted); transition: background-color .15s ease-out, color .15s ease-out; }
     .sa-index button[aria-pressed='true'] { background: var(--sa-paper-2); color: var(--sa-paper-ink); }
     .sa-index button:hover { color: var(--sa-paper-ink); }
     .sa-index strong { display: block; font-size: var(--sa-m); line-height: 1.25; }
@@ -144,6 +146,13 @@
     /* Mirrored so the open sea sits behind the heading and the cliff behind the slip. */
     .sa-morning video { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; object-fit: cover; object-position: 80% 60%; transform: scaleX(-1); }
     .sa-morning::after { content: ''; position: absolute; inset: 0; z-index: -1; background: rgb(18 18 20 / .7); }
+    .sa-waves-toggle {
+        position: absolute; right: 1rem; bottom: 1rem; display: flex; align-items: center; gap: .5rem; min-height: 2.75rem; padding: 0 1rem;
+        border: 1px solid rgb(244 243 240 / .3); color: var(--sa-muted); font-size: var(--sa-small); font-weight: 600;
+        transition: background-color .15s ease-out, color .15s ease-out;
+    }
+    .sa-waves-toggle:hover { color: var(--sa-ink); }
+    .sa-waves-toggle[aria-pressed='true'] { background: var(--sa-ink); color: var(--sa-ground); }
     .sa-slip { padding: 2.5rem 1.25rem 3.5rem; }
     .sa-slip-total { display: flex; justify-content: space-between; align-items: center; min-height: 2.75rem; padding: 0 1rem; margin-inline: -1rem; background: var(--sa-paper-ink); color: var(--sa-paper); font-weight: 700; }
     @media (min-width: 768px) { .sa-slip { padding: 3rem 2.5rem 4rem; } .sa-slip-total { margin-inline: -2.5rem; padding: 0 2.5rem; } }
@@ -167,8 +176,8 @@
     .sa-dialog .sa-btn:focus-visible { outline-color: var(--sa-ink); }
 
     @media (prefers-reduced-motion: reduce) {
-        .sa-plate img, .sa-tab, .sa-index button { transition: none; }
-        .sa-tab:hover { transform: none; }
+        .sa-plate img, .sa-plate img.is-on, .sa-tab, .sa-index button { transition: none; }
+        .sa-tab:hover, .sa-btn:active, .sa-chip:active { transform: none; }
     }
 </style>
 
@@ -213,8 +222,8 @@
     <section id="screens" class="sa-panel sa-paperish scroll-mt-6">
         <div class="sa-wrap grid gap-10 pt-8 pb-16 lg:grid-cols-12 lg:gap-6 lg:pb-28">
             <div class="lg:col-span-5 lg:col-start-8 lg:row-start-1">
-                <h2 class="sa-h-l" data-reveal>{{ $t('screens_title') }}</h2>
-                <p class="mt-5 max-w-[34ch]" data-reveal>{{ $t('screens_text') }}</p>
+                <h2 class="sa-h-l">{{ $t('screens_title') }}</h2>
+                <p class="mt-5 max-w-[34ch]">{{ $t('screens_text') }}</p>
             </div>
             <div class="lg:col-span-6 lg:row-span-2 lg:row-start-1">
                 <div class="sa-plate" data-reveal>
@@ -224,7 +233,7 @@
                 </div>
             </div>
             <div class="flex flex-col justify-end gap-10 lg:col-span-6 lg:col-start-7">
-                <ul class="sa-index" data-reveal>
+                <ul class="sa-index">
                     @foreach ($screens as $i => [$title, $line])
                         <li>
                             <button type="button" aria-pressed="{{ $i === 0 ? 'true' : 'false' }}" data-sa-shot="{{ $i }}">
@@ -234,7 +243,7 @@
                         </li>
                     @endforeach
                 </ul>
-                <div class="sa-cells" data-reveal>
+                <div class="sa-cells">
                     <a href="{{ $app['play_store'] }}" target="_blank" rel="noopener" class="sa-btn-ink">{{ $t('play') }}</a>
                     <a href="{{ $app['privacy_url'] }}" class="sa-cell-2">{{ $t('privacy') }}</a>
                 </div>
@@ -272,8 +281,8 @@
         </video>
         <div class="sa-wrap grid gap-12 md:grid-cols-12 md:gap-6">
             <div class="md:col-span-5">
-                <h2 class="sa-h-l" data-reveal>{{ $t('morning_title') }}</h2>
-                <p class="mt-6 max-w-[30ch]" data-reveal>{{ $t('morning_text') }}</p>
+                <h2 class="sa-h-l">{{ $t('morning_title') }}</h2>
+                <p class="mt-6 max-w-[30ch]">{{ $t('morning_text') }}</p>
             </div>
             <div class="sa-slip sa-paperish tnum md:col-span-6 md:col-start-7 lg:col-span-5 lg:col-start-7" style="clip-path: {{ $zigzag(false, true, 18, 12) }}" data-reveal>
                 @foreach ($t('morning') as $when => $rows)
@@ -287,14 +296,18 @@
                 <p class="sa-slip-total mt-8"><span>{{ $t('morning_total')[0] }}</span><span>{{ $t('morning_total')[1] }}</span></p>
             </div>
         </div>
+        <button type="button" class="sa-waves-toggle" aria-pressed="false" data-sa-waves>
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><rect x="2" y="1.5" width="2.5" height="9"/><rect x="7.5" y="1.5" width="2.5" height="9"/></svg>
+            {{ $t('waves_pause') }}
+        </button>
     </section>
 
     {{-- Set one --}}
     <section id="set" class="sa-amberish py-20 md:py-32">
         <div class="sa-wrap grid min-h-[70svh] gap-12 lg:grid-cols-12 lg:gap-6">
             <div class="self-end lg:col-span-7">
-                <h2 class="sa-h-xl" data-reveal>{{ $t('set_title') }}</h2>
-                <p class="mt-8 max-w-[38ch]" data-reveal>{{ $t('set_text') }}</p>
+                <h2 class="sa-h-xl">{{ $t('set_title') }}</h2>
+                <p class="mt-8 max-w-[38ch]">{{ $t('set_text') }}</p>
             </div>
             <div class="self-center md:max-w-[28rem] lg:col-span-5 lg:max-w-none" data-reveal>
                 <form class="sa-dialog" data-ui onsubmit="return false">
@@ -431,9 +444,24 @@
         render();
         setInterval(render, 30000);
 
-        // The sea moves only for visitors who have not asked for less motion; the poster stays otherwise.
+        // The sea moves only while it is on screen and not paused; reduced motion starts it paused, on the poster.
         const video = root.querySelector('[data-sa-video]');
-        if (!reduce) video.play().catch(() => {});
+        const wavesToggle = root.querySelector('[data-sa-waves]');
+        let paused = reduce;
+        let inView = false;
+        const syncWaves = () => {
+            wavesToggle.setAttribute('aria-pressed', paused);
+            paused || !inView ? video.pause() : video.play().catch(() => {});
+        };
+        wavesToggle.addEventListener('click', () => {
+            paused = !paused;
+            syncWaves();
+        });
+        new IntersectionObserver(([entry]) => {
+            inView = entry.isIntersecting;
+            syncWaves();
+        }).observe(video.parentElement);
+        syncWaves();
     })();
 </script>
 @endsection

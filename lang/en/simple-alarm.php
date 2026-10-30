@@ -5,6 +5,7 @@ return [
     'lead' => 'A simple, flexible, and customizable alarm app.',
     'play' => 'Open on Google Play',
     'privacy' => 'Privacy Policy',
+    'waves_pause' => 'Pause the waves',
 
     'next' => 'Next alarm',
     'next_fallback' => 'Every weekday morning',

@@ -5,6 +5,7 @@ return [
     'lead' => 'Sade, esnek ve kişiselleştirilebilir bir alarm uygulaması.',
     'play' => "Google Play'de aç",
     'privacy' => 'Gizlilik Politikası',
+    'waves_pause' => 'Dalgaları durdur',
 
     'next' => 'Sonraki alarm',
     'next_fallback' => 'Hafta içi her sabah',
