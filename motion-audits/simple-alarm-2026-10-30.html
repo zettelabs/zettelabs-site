@@ -1,0 +1,873 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Simple Alarm page motion audit — 2026-10-30</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;500;600;700&family=Public+Sans:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    /* ——— Fixed identity: COOL slate-graphite + chalk (near-achromatic) ——— */
+    --ink:        oklch(0.155 0.006 255);
+    --surface:    oklch(0.195 0.007 255);
+    --surface-2:  oklch(0.235 0.008 255);
+    --paper:      oklch(0.945 0.004 255);
+    --paper-dim:  oklch(0.800 0.006 255);
+    --muted:      oklch(0.680 0.008 255);
+    --faint:      oklch(0.505 0.008 255);
+    --line:       oklch(0.95 0.01 255 / 0.09);
+    --line-strong:oklch(0.95 0.01 255 / 0.16);
+
+    /* ——— Accent (NEUTRAL BY DEFAULT) ———
+       The report has no primary color. --accent aliases the contrast
+       neutral (--paper) so any element that historically wanted a brand
+       splash now reads as quiet chrome. An individual audit can repoint
+       these three to a sampled brand color if appropriate, but the
+       default — and the worked example — keeps the chrome neutral and
+       lets severity be the only color in the report. */
+    --accent:      var(--paper);
+    --accent-soft: var(--paper-dim);
+    --accent-tint: color-mix(in oklch, var(--paper) 12%, transparent);
+
+    /* ——— Severity (FIXED — never adaptive) ——— */
+    --crit:      oklch(0.655 0.185 25);
+    --crit-tint: oklch(0.655 0.185 25 / 0.15);
+    --imp:       oklch(0.805 0.125 78);
+    --imp-tint:  oklch(0.805 0.125 78 / 0.15);
+    --opp:       oklch(0.745 0.135 152);
+    --opp-tint:  oklch(0.745 0.135 152 / 0.15);
+
+    /* ——— Timing-budget ramp (FIXED — diagram + its legend only) ——— */
+    --t-good:  oklch(0.745 0.135 152);  /* instant + responsive */
+    --t-mid:   oklch(0.805 0.125 78);   /* deliberate           */
+    --t-slow:  oklch(0.655 0.185 25);   /* sluggish             */
+
+    /* ——— Verdict (FIXED — lens table) ——— */
+    --strong:  var(--opp);
+    --concern: var(--imp);
+    --problem: var(--crit);
+
+    /* ——— Spacing (4pt scale, semantic) ——— */
+    --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px;
+    --s6:32px; --s7:48px; --s8:64px; --s9:96px;
+
+    --display: "Familjen Grotesk", "Hanken Grotesk", system-ui, sans-serif;
+    --sans: "Public Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  }
+
+  /* ═══════════════ LIGHT-MODE OVERRIDES ═══════════════
+     Activated when the global theme toggle is set to Light. Every token
+     above gets a counterpart here — same hue, mirrored L — so the report
+     reads cleanly on light backgrounds. Hue stays 255 (cool slate) so the
+     identity is the same character, just inverted. */
+  :root:has(#theme-light:checked) {
+    --ink:        oklch(0.985 0.003 255);  /* light page bg */
+    --surface:    oklch(0.965 0.004 255);
+    --surface-2:  oklch(0.940 0.005 255);
+    --paper:      oklch(0.180 0.006 255);  /* dark text */
+    --paper-dim:  oklch(0.330 0.008 255);
+    --muted:      oklch(0.475 0.010 255);
+    --faint:      oklch(0.640 0.009 255);
+    --line:       oklch(0.180 0.010 255 / 0.12);
+    --line-strong:oklch(0.180 0.010 255 / 0.22);
+
+    /* Accent stays aliased to --paper (now the dark ink in light mode),
+       so chrome inverts automatically. No additional override needed. */
+
+    /* Severity: same hues, deeper L for legibility on light bg */
+    --crit:      oklch(0.555 0.195 25);
+    --crit-tint: oklch(0.555 0.195 25 / 0.12);
+    --imp:       oklch(0.580 0.155 78);
+    --imp-tint:  oklch(0.580 0.155 78 / 0.14);
+    --opp:       oklch(0.555 0.140 152);
+    --opp-tint:  oklch(0.555 0.140 152 / 0.13);
+
+    /* Timing ramp follows severity */
+    --t-good: oklch(0.555 0.140 152);
+    --t-mid:  oklch(0.580 0.155 78);
+    --t-slow: oklch(0.555 0.195 25);
+  }
+
+  /* SVG dot label: light text in light-mode (deeper dots), dark text in dark-mode (lighter dots) */
+  :root:has(#theme-light:checked) .tf-dot-text { fill: oklch(0.985 0.003 255); }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection { background: var(--accent-tint); }
+  a { color: var(--accent-soft); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+
+  .wrap { max-width: 1080px; margin: 0 auto; padding: clamp(40px, 6vw, 72px) clamp(20px, 5vw, 40px) 96px; }
+
+  /* shared micro-label */
+  .mono-label {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+  }
+  code { font-family: var(--mono); font-size: 0.86em; color: var(--paper-dim); }
+
+  /* visually-hidden (theme + stage radios) */
+  .vh { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+  /* ───────────── Global theme switch ───────────── */
+  .theme-switch { display: flex; justify-content: flex-end; margin-bottom: var(--s5); }
+  .theme-switch__pill { display: inline-flex; align-items: center; gap: 0; border: 1px solid var(--line-strong); border-radius: 100px; overflow: hidden; }
+  .theme-switch__pill label { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); padding: 6px 14px; cursor: pointer; user-select: none; transition: background 0.15s ease, color 0.15s ease; }
+  #theme-dark:checked  ~ .theme-switch__pill label[for="theme-dark"],
+  #theme-light:checked ~ .theme-switch__pill label[for="theme-light"] { background: var(--accent-tint); color: var(--accent-soft); }
+
+  /* ───────────── Header ───────────── */
+  header.doc { padding-bottom: var(--s7); margin-bottom: var(--s8); border-bottom: 1px solid var(--line); }
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--muted); display: inline-flex; align-items: center; gap: var(--s3);
+  }
+  .eyebrow::before { content: ""; width: 22px; height: 2px; background: var(--accent); display: inline-block; }
+  h1.title {
+    font-family: var(--display);
+    font-size: clamp(38px, 6vw, 60px);
+    font-weight: 700; letter-spacing: -0.025em; line-height: 1.02;
+    margin: var(--s5) 0 var(--s4); color: var(--paper); max-width: 17ch;
+  }
+  .lede { font-size: clamp(17px, 2.2vw, 19px); color: var(--paper-dim); max-width: 66ch; line-height: 1.6; }
+  .meta-row { display: flex; flex-wrap: wrap; gap: var(--s6); margin-top: var(--s6); }
+  .meta-row .k { display: block; margin-bottom: 4px; }
+  .meta-row .v { font-size: 15px; color: var(--paper); }
+
+  .stats { display: flex; gap: clamp(20px, 4vw, 44px); margin-top: var(--s7); flex-wrap: wrap; }
+  .stat .num { font-family: var(--display); font-size: 40px; font-weight: 600; letter-spacing: -0.02em; line-height: 1; font-variant-numeric: tabular-nums; }
+  .stat.crit .num { color: var(--crit); }
+  .stat.imp .num  { color: var(--imp); }
+  .stat.opp .num  { color: var(--opp); }
+  .stat .lbl { margin-top: var(--s2); }
+  .stat a { color: inherit; text-decoration: none; }
+  .stat a:hover .num { text-decoration: underline; text-underline-offset: 5px; text-decoration-thickness: 2px; }
+
+  /* ───────────── Section scaffolding ───────────── */
+  section { margin-bottom: var(--s9); }
+  .sec-index { font-family: var(--mono); font-size: 12px; letter-spacing: 0.16em; color: var(--accent-soft); }
+  h2.section-title {
+    font-family: var(--display);
+    font-size: clamp(24px, 3.4vw, 32px);
+    font-weight: 600; letter-spacing: -0.02em; line-height: 1.1;
+    margin: var(--s2) 0 var(--s4); color: var(--paper);
+  }
+  .section-sub { color: var(--paper-dim); max-width: 74ch; margin: 0 0 var(--s6); }
+  .section-sub em { color: var(--paper); font-style: italic; }
+
+  /* ───────────── Overall assessment ───────────── */
+  .assessment { border-top: 1px solid var(--line); padding-top: var(--s6); }
+  .assessment .mono-label { color: var(--accent-soft); }
+  .assessment p { font-family: var(--display); font-weight: 400; font-size: clamp(20px, 2.8vw, 26px); line-height: 1.42; letter-spacing: -0.01em; color: var(--paper); max-width: 34ch; margin: var(--s4) 0 0; }
+  .assessment p em { font-style: italic; color: var(--accent-soft); }
+
+  /* ───────────── Lens summary table ───────────── */
+  .lens-table { width: 100%; border-collapse: collapse; border: 1px solid var(--line); }
+  .lens-table th, .lens-table td { padding: var(--s4) var(--s5); text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .lens-table tr:last-child td { border-bottom: none; }
+  .lens-table thead th { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--faint); font-weight: 500; }
+  .lens-table tbody tr:hover { background: oklch(0.95 0.01 255 / 0.018); }
+  .lens-name { font-weight: 600; color: var(--paper); width: 28%; }
+  .lens-name .who { display: block; margin-top: 2px; color: var(--muted); font-weight: 400; font-size: 13.5px; }
+  .lens-name .weight { display: inline-block; margin-top: 6px; font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-soft); }
+  .lens-read { color: var(--paper-dim); }
+  .lens-read em { color: var(--paper); font-style: italic; }
+  .verdict { display: inline-flex; align-items: center; gap: 7px; font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; }
+  .verdict::before { content: ""; width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .v-strong  { color: var(--strong); }  .v-strong::before  { background: var(--strong); }
+  .v-concern { color: var(--concern); } .v-concern::before { background: var(--concern); }
+  .v-problem { color: var(--problem); } .v-problem::before { background: var(--problem); }
+  .v-mixed   { color: var(--muted); }   .v-mixed::before   { background: var(--muted); }
+
+  /* ───────────── Timing-budget diagram ───────────── */
+  .timing-grid { display: grid; grid-template-columns: 1fr 320px; gap: clamp(28px, 5vw, 56px); align-items: start; }
+  @media (max-width: 860px) { .timing-grid { grid-template-columns: 1fr; } }
+  .timing-figure { width: 100%; height: auto; }
+  .timing-key h4 { margin: 0 0 var(--s4); }
+  .key-list { list-style: none; margin: 0 0 var(--s6); padding: 0; display: grid; gap: 2px; }
+  .key-list li { display: grid; grid-template-columns: 22px 1fr auto; align-items: baseline; gap: var(--s3); padding: var(--s2) 0; border-bottom: 1px solid var(--line); }
+  .key-list li:last-child { border-bottom: none; }
+  .key-list .kn { font-family: var(--mono); font-size: 12px; color: var(--paper); font-variant-numeric: tabular-nums; }
+  .key-list .ka { color: var(--paper-dim); }
+  .key-list .kt { font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em; font-variant-numeric: tabular-nums; }
+  .kt.good { color: var(--t-good); }
+  .kt.mid  { color: var(--t-mid); }
+  .kt.slow { color: var(--t-slow); }
+  .kt.none { color: var(--faint); }
+  .zone-defs { display: grid; gap: var(--s3); margin-top: var(--s5); }
+  .zone-def { display: grid; grid-template-columns: 12px 1fr; gap: var(--s3); align-items: start; }
+  .zone-def .dot { width: 11px; height: 11px; border-radius: 50%; margin-top: 6px; }
+  .zone-def .zt { font-weight: 600; color: var(--paper); }
+  .zone-def .zd { font-size: 13.5px; color: var(--muted); }
+  .whats-off { margin-top: var(--s5); padding-top: var(--s5); border-top: 1px solid var(--line); }
+  .whats-off .mono-label { color: var(--accent-soft); }
+  .whats-off p { margin: var(--s2) 0 0; color: var(--paper-dim); font-size: 14px; max-width: 60ch; }
+
+  /* ───────────── Per-lens sections ───────────── */
+  .lens-sec { margin-bottom: var(--s9); padding-top: var(--s6); border-top: 1px solid var(--line); }
+  .lens-sec__head { display: flex; align-items: baseline; gap: var(--s4); flex-wrap: wrap; margin-bottom: var(--s2); }
+  .lens-sec__head h3 { font-family: var(--display); font-size: clamp(22px, 3vw, 28px); font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin: 0; color: var(--paper); }
+  .lens-sec__weight { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-soft); border: 1px solid var(--line-strong); border-radius: 100px; padding: 4px 10px; }
+  .lens-sec__verdict { margin: 0 0 var(--s6); }
+
+  .lens-block { margin: var(--s6) 0; }
+  .lens-block > .mono-label { display: block; margin-bottom: var(--s4); }
+  .lens-list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s3); max-width: 78ch; }
+  .lens-list li { display: grid; grid-template-columns: 22px 1fr; gap: var(--s2); align-items: start; color: var(--paper-dim); }
+  .lens-list .mk { font-family: var(--mono); font-size: 13px; line-height: 1.5; }
+  .lens-list.good .mk { color: var(--strong); }
+  .lens-list.opp .mk  { color: var(--accent-soft); }
+  .lens-list li em { color: var(--paper); font-style: italic; }
+
+  .lens-take { margin-top: var(--s6); background: var(--surface-2); border-radius: 10px; padding: var(--s5); }
+  .lens-take .mono-label { color: var(--accent-soft); display: block; margin-bottom: var(--s2); }
+  .lens-take p { margin: 0; color: var(--paper); max-width: 70ch; }
+
+  .lens-empty { font-style: italic; color: var(--faint); padding: var(--s3) 0; }
+
+  /* ───────────── Finding rows (prose + live demo card) ───────────── */
+  .findings { display: flex; flex-direction: column; gap: var(--s5); }
+  .finding-row { display: grid; grid-template-columns: 1fr 380px; gap: clamp(24px, 3vw, 36px); align-items: start; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: clamp(22px, 3vw, 30px); }
+  .finding-row[data-sev="crit"] { border-color: var(--crit-tint); }
+  @media (max-width: 860px) { .finding-row { grid-template-columns: 1fr; } }
+
+  .find-tags { display: flex; flex-wrap: wrap; gap: var(--s2); align-items: center; margin-bottom: var(--s3); }
+  .severity { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 500; padding: 4px 9px; border-radius: 100px; }
+  .severity.crit { background: var(--crit-tint); color: var(--crit); }
+  .severity.imp  { background: var(--imp-tint);  color: var(--imp); }
+  .severity.opp  { background: var(--opp-tint);  color: var(--opp); }
+  .lens-chip { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); padding: 4px 9px; border: 1px solid var(--line-strong); border-radius: 100px; }
+  .find-title { font-family: var(--display); font-size: clamp(19px, 2.4vw, 23px); font-weight: 600; letter-spacing: -0.015em; line-height: 1.22; margin: 0 0 var(--s4); color: var(--paper); }
+  .find-body { display: grid; gap: var(--s4); }
+  .find-body p { margin: 0; color: var(--paper-dim); }
+  .find-body p em { color: var(--paper); font-style: italic; }
+  .find-body .label { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 3px; }
+  .fix { background: var(--surface-2); border-radius: 8px; padding: var(--s4) var(--s5); }
+  .fix .label { color: var(--accent-soft); }
+  .fix p { color: var(--paper); }
+  .find-loc { font-size: 13px; }
+
+  /* ───────────── Demo card (the centerpiece) ───────────── */
+  .demo { position: relative; align-self: start; position: sticky; top: var(--s5); }
+  @media (max-width: 860px) { .demo { position: static; } }
+  .demo__bar { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--s3); margin-bottom: var(--s3); }
+  .demo__meta { min-width: 0; }
+  .demo__title { display: block; font-size: 13.5px; font-weight: 600; color: var(--paper); line-height: 1.3; }
+  .demo__timing { display: block; font-family: var(--mono); font-size: 11px; color: var(--muted); margin-top: 2px; font-variant-numeric: tabular-nums; }
+  .demo__controls { display: flex; align-items: center; gap: var(--s3); flex-shrink: 0; }
+  .demo__loop { font-family: var(--mono); font-size: 12px; color: var(--faint); }
+
+  /* segmented Auto/Light/Dark stage toggle (pure CSS).
+     Auto = follow global theme via theme tokens. Light/Dark = locked overrides. */
+  .seg { display: inline-flex; border: 1px solid var(--line-strong); border-radius: 100px; overflow: hidden; }
+  .seg label { font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); padding: 4px 9px; cursor: pointer; user-select: none; transition: background 0.15s ease, color 0.15s ease; }
+  .demo input[id$="-a"]:checked ~ .demo__bar .seg label[for$="-a"],
+  .demo input[id$="-l"]:checked ~ .demo__bar .seg label[for$="-l"],
+  .demo input[id$="-d"]:checked ~ .demo__bar .seg label[for$="-d"] { background: var(--accent-tint); color: var(--accent-soft); }
+
+  .demo__stage {
+    /* AUTO default — stage uses the report's elevated surface, follows theme */
+    --st-bg: var(--surface-2);
+    --st-fg: var(--paper);
+    --st-line: var(--line-strong);
+    --st-dim: color-mix(in oklch, var(--paper) 55%, transparent);
+    background: var(--st-bg); color: var(--st-fg);
+    border: 1px solid var(--line); border-radius: 10px;
+    padding: var(--s6) var(--s5); min-height: 168px;
+    display: flex; align-items: center; justify-content: center; overflow: hidden;
+  }
+  /* Locked Light: hardcoded light, regardless of report theme */
+  .demo input[id$="-l"]:checked ~ .demo__stage {
+    --st-bg: oklch(0.985 0.003 255);
+    --st-fg: oklch(0.180 0.006 255);
+    --st-line: oklch(0.180 0.010 255 / 0.18);
+    --st-dim: oklch(0.180 0.010 255 / 0.45);
+  }
+  /* Locked Dark: hardcoded dark, regardless of report theme */
+  .demo input[id$="-d"]:checked ~ .demo__stage {
+    --st-bg: oklch(0.180 0.006 255);
+    --st-fg: oklch(0.985 0.003 255);
+    --st-line: oklch(0.985 0.010 255 / 0.18);
+    --st-dim: oklch(0.985 0.010 255 / 0.50);
+  }
+
+  /* generic demo primitives, themed by the stage vars
+     (intentionally follow --st-fg/--st-bg, NOT the page accent — so they
+     contrast correctly even when a stage is locked to a different theme
+     than the page). */
+  .ui-btn { display: inline-flex; align-items: center; justify-content: center; padding: 9px 18px; border-radius: 8px; background: var(--st-fg); color: var(--st-bg); font-family: var(--sans); font-size: 13px; font-weight: 600; }
+  .ui-card { background: var(--st-bg); border: 1px solid var(--st-line); border-radius: 10px; padding: 14px 16px; min-width: 180px; box-shadow: 0 8px 24px oklch(0 0 0 / 0.12); }
+  .ui-row { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--st-fg); }
+  .ui-check { width: 22px; height: 22px; border-radius: 7px; background: var(--st-fg); display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .ui-check svg { width: 13px; height: 13px; stroke: var(--st-bg); }
+  .ui-num { font-family: var(--display); font-size: 34px; font-weight: 700; color: var(--st-fg); font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+  .ui-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--st-dim); }
+  /* milestone badge + sparks read off stage tokens (--st-fg disc, --st-bg ink),
+     set inline on the elements — same contract as every other stage primitive,
+     never --accent, correct in any locked stage. */
+
+  /* ───────────── Combined recommendations ───────────── */
+  .rec { margin-bottom: var(--s7); }
+  .rec .tier-label { display: flex; align-items: center; gap: var(--s4); margin: 0 0 var(--s4); }
+  .rec .tier-label .mono-label { white-space: nowrap; }
+  .rec .tier-label .rule { height: 1px; background: var(--line); flex: 1; }
+  .rec .tier-label .count { font-family: var(--mono); font-size: 11px; color: var(--faint); }
+  .rec.crit .mono-label { color: var(--crit); }
+  .rec.imp  .mono-label { color: var(--imp); }
+  .rec.opp  .mono-label { color: var(--opp); }
+  .rec-table { width: 100%; border-collapse: collapse; border: 1px solid var(--line); font-size: 14px; }
+  .rec-table th, .rec-table td { text-align: left; padding: var(--s3) var(--s4); border-bottom: 1px solid var(--line); vertical-align: top; }
+  .rec-table tr:last-child td { border-bottom: none; }
+  .rec-table thead th { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--faint); font-weight: 500; }
+  .rec-table td:first-child { color: var(--paper); }
+  .rec-table td:nth-child(2) { white-space: nowrap; }
+  .rec-table td { color: var(--paper-dim); }
+
+  /* ───────────── Reference summary (closing) ───────────── */
+  .ref-summary { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: clamp(24px, 4vw, 40px); }
+  .ref-summary .big { font-family: var(--display); font-size: clamp(18px, 2.4vw, 22px); font-weight: 600; letter-spacing: -0.015em; color: var(--paper); margin: var(--s2) 0 0; }
+  .ref-summary .why { color: var(--paper-dim); margin: var(--s3) 0 var(--s6); max-width: 64ch; }
+  .ref-lean { display: grid; gap: var(--s3); margin: 0; padding: 0; list-style: none; }
+  .ref-lean li { display: grid; grid-template-columns: 130px 1fr; gap: var(--s4); padding: var(--s3) 0; border-top: 1px solid var(--line); color: var(--paper-dim); font-size: 14px; }
+  .ref-lean .nm { font-weight: 600; color: var(--paper); }
+
+  footer.doc { margin-top: var(--s8); padding-top: var(--s5); border-top: 1px solid var(--line); font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; color: var(--faint); display: flex; justify-content: space-between; flex-wrap: wrap; gap: var(--s3); }
+
+  /* ───────────── Narrow screens ───────────── */
+  @media (max-width: 600px) {
+    .lens-table { display: block; padding: var(--s2) var(--s4); }
+    .lens-table thead { display: none; }
+    .lens-table tbody, .lens-table tr, .lens-table td { display: block; }
+    .lens-table tr { padding: var(--s4) 0; border-bottom: 1px solid var(--line); }
+    .lens-table tr:last-child { border-bottom: none; }
+    .lens-table td { padding: 0; border: none; }
+    .lens-table .lens-name { width: auto; margin-bottom: var(--s2); }
+    .lens-table .verdict { margin-bottom: var(--s2); }
+    .ref-lean li { grid-template-columns: 1fr; gap: var(--s1); }
+  }
+
+
+  /* ───────────── The ONLY animation in the report: the demo cards ───────────── */
+  .wave { height: 46px; width: 100%; overflow: hidden; border-radius: 8px; background: var(--st-line); position: relative; }
+  .wave i { position: absolute; inset: 0 -50% 0 0; background: repeating-linear-gradient(90deg, transparent 0 18px, var(--st-dim) 18px 20px); }
+  .pill { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border: 1px solid var(--st-line); font-size: 12px; font-weight: 600; color: var(--st-fg); }
+  .pill.on { background: var(--st-fg); color: var(--st-bg); }
+  .band { height: 34px; background: var(--st-fg); position: relative; margin-top: 30px; }
+  .tab { position: absolute; left: 30px; bottom: calc(100% - 4px); height: 30px; padding: 0 16px 4px; display: flex; align-items: center; background: var(--st-fg); color: var(--st-bg); font-size: 12px; font-weight: 700; clip-path: polygon(10px 0, calc(100% - 10px) 0, 100% 100%, 0 100%); }
+  .plate { position: relative; width: 88px; height: 130px; border-radius: 6px; background: oklch(0.2 0.006 255); margin: 0 auto; overflow: hidden; }
+  .plate b { position: absolute; inset: 10px 14px; border-radius: 6px; }
+  .plate .a { background: oklch(0.75 0.13 75); }
+  .plate .b { background: oklch(0.92 0.01 90); }
+  .demo-4__mt .h { font-family: var(--display); font-size: 22px; font-weight: 700; color: var(--st-fg); letter-spacing: -0.02em; }
+  .demo-4__mt .p { height: 8px; width: 70%; border-radius: 4px; background: var(--st-line); margin-top: 8px; }
+  .demo-4__mt .obj { margin-top: 14px; height: 60px; border-radius: 6px; background: var(--st-fg); }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .lens-table tbody tr, .finding-row { transition: border-color 0.2s ease; }
+
+    /* 01 · the sea plays in view, holds out of view or when paused */
+    @keyframes m1 { 0% { transform: translateX(0); } 60% { transform: translateX(-33%); } 100% { transform: translateX(-33%); } }
+    @keyframes m1p { 0%, 59% { background: transparent; color: var(--st-fg); } 60%, 100% { background: var(--st-fg); color: var(--st-bg); } }
+    .demo-1__mt .wave i { animation: m1 3s linear infinite; }
+    .demo-1__mt .pill { animation: m1p 3s steps(1) infinite; }
+
+    /* 02 · tab lifts 4px and carries its own foot, no seam */
+    @keyframes m2 { 0%, 10% { transform: none; } 25%, 50% { transform: translateY(-4px); } 66%, 100% { transform: none; } }
+    .demo-2__mt .tab { animation: m2 3s cubic-bezier(0.2,0.7,0.2,1) infinite; }
+
+    /* 03 · incoming screen fades in over the outgoing one */
+    @keyframes m3 { 0%, 15% { opacity: 0; } 40%, 100% { opacity: 1; } }
+    .demo-3__mt .b { animation: m3 3s cubic-bezier(0.2,0.7,0.2,1) infinite; }
+
+    /* 04 · heading stays, the section's one object rises 12px */
+    @keyframes m4 { 0% { opacity: 0; transform: translateY(12px); } 45% { opacity: 1; transform: none; } 100% { opacity: 1; transform: none; } }
+    .demo-4__mt .obj { animation: m4 3s cubic-bezier(0.2,0.7,0.2,1) infinite; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .demo__loop { display: none; }
+    [class*="__mt"], [class*="__mt"] * { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="theme-switch" role="radiogroup" aria-label="Report theme">
+    <input class="vh" type="radio" name="theme" id="theme-dark" checked>
+    <input class="vh" type="radio" name="theme" id="theme-light">
+    <div class="theme-switch__pill">
+      <label for="theme-dark">Dark</label>
+      <label for="theme-light">Light</label>
+    </div>
+  </div>
+
+  <header class="doc">
+    <div class="eyebrow">Motion audit · design-motion-principles</div>
+    <h1 class="title">Simple Alarm page: calm by design, with a sea that never stops</h1>
+    <p class="lede">
+      This audit covers the Simple Alarm app page (<code>/simple-alarm</code>) after its redesign as the app's own alarm cards:
+      the hero rise, the folder tabs, the screens index and plate, the scroll reveals, the looping waves video and the live
+      Edit Alarm dialog. It is read through three motion lenses, weighted for an alarm utility.
+    </p>
+    <div class="meta-row">
+      <div><span class="mono-label k">What it is</span><span class="v">Marketing page for an Android alarm app, mostly seen on phones</span></div>
+      <div><span class="mono-label k">Stack</span><span class="v">Laravel Blade · Tailwind 4 · page-local CSS + inline script · shared <code>app.css</code>/<code>app.js</code> reveals</span></div>
+      <div><span class="mono-label k">Date</span><span class="v">2026-10-30</span></div>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="num">7</div><div class="mono-label lbl">Findings</div></div>
+      <div class="stat crit"><a href="#rec-crit"><div class="num">0</div><div class="mono-label lbl">Critical</div></a></div>
+      <div class="stat imp"><a href="#rec-imp"><div class="num">4</div><div class="mono-label lbl">Important</div></a></div>
+      <div class="stat opp"><a href="#rec-opp"><div class="num">3</div><div class="mono-label lbl">Opportunities</div></a></div>
+    </div>
+  </header>
+
+  <section class="assessment">
+    <span class="mono-label">Overall</span>
+    <p>
+      The page already moves like a good alarm app: transform and opacity only, short state changes, a live countdown that
+      updates instantly, and a sunrise that stays still. Four things let it down. The waves video plays from first load, even
+      while it is far off screen, and nobody can stop it. The folder tabs come apart from their folders on hover and stay lifted
+      after a tap. The screens plate dims while one screenshot crossfades into the next. And the shared reveal runs on thirteen
+      elements, six of them plain headings and paragraphs.
+    </p>
+  </section>
+
+  <section>
+    <div class="sec-index">01</div>
+    <h2 class="section-title">How each practitioner reads the motion</h2>
+    <p class="section-sub">
+      An alarm is a utility, so Emil's restraint leads: an alarm page should feel quiet and on time. Jakub checks the finish
+      of the parts people touch (tabs, the screens index, the dialog). Jhey is selective, kept for the one or two moments that
+      belong to this app alone.
+    </p>
+    <table class="lens-table">
+      <thead><tr><th>Lens</th><th>Verdict</th><th>One-line read</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="lens-name">Restraint &amp; Speed <span class="who">Emil Kowalski</span><span class="weight">Primary</span></td>
+          <td><span class="verdict v-concern">Concern</span></td>
+          <td class="lens-read">The interactions are fast and the dialog is instant where it should be. But the sea loops forever, off screen and with no stop, and tab hovers stick on phones.</td>
+        </tr>
+        <tr>
+          <td class="lens-name">Production Polish <span class="who">Jakub Krehel</span><span class="weight">Secondary</span></td>
+          <td><span class="verdict v-mixed">Mixed</span></td>
+          <td class="lens-read">Good curves and durations. The plate crossfade dips through the dark plate, and the same reveal on every heading undoes the hierarchy the layout builds.</td>
+        </tr>
+        <tr>
+          <td class="lens-name">Experimentation &amp; Delight <span class="who">Jhey Tompkins</span><span class="weight">Selective</span></td>
+          <td><span class="verdict v-strong">Strong</span></td>
+          <td class="lens-read">The tab lift and the moving sea are the right kind of delight for this page. The itinerary slip could print in once, but nothing here needs more.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <div class="sec-index">02</div>
+    <h2 class="section-title">Where the timings land</h2>
+    <p class="section-sub">
+      Each dot is one of the page's animations, placed by its duration. Everything people touch sits in the responsive band.
+      Only the two entrances reach the deliberate band, and they run once.
+    </p>
+    <div class="timing-grid">
+      <svg class="timing-figure" viewBox="0 0 660 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Duration scale from 0 to 600 milliseconds. Button and chip press at 150ms, folder tab lift at 200ms, plate crossfade and index highlight at 240ms, scroll reveal at 400ms and hero rise at 500ms.">
+        <style>
+          .tf-track-stop-good { stop-color: var(--t-good); }
+          .tf-track-stop-mid  { stop-color: var(--t-mid); }
+          .tf-track-stop-slow { stop-color: var(--t-slow); }
+          .tf-track-stroke { stroke: var(--line-strong); }
+          .tf-grid { stroke: var(--line-strong); }
+          .tf-axis { fill: var(--faint); }
+          .tf-freq { fill: var(--muted); }
+          .tf-zone-good { fill: var(--t-good); }
+          .tf-zone-mid  { fill: var(--t-mid); }
+          .tf-zone-slow { fill: var(--t-slow); }
+          .tf-dot-good  { fill: var(--t-good); }
+          .tf-dot-mid   { fill: var(--t-mid); }
+          .tf-dot-text  { fill: oklch(0.165 0.006 255); }
+        </style>
+        <defs>
+          <linearGradient id="track" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%"   class="tf-track-stop-good" stop-opacity="0.30"/>
+            <stop offset="50%"  class="tf-track-stop-good" stop-opacity="0.22"/>
+            <stop offset="58%"  class="tf-track-stop-mid"  stop-opacity="0.26"/>
+            <stop offset="83%"  class="tf-track-stop-mid"  stop-opacity="0.26"/>
+            <stop offset="90%"  class="tf-track-stop-slow" stop-opacity="0.36"/>
+            <stop offset="100%" class="tf-track-stop-slow" stop-opacity="0.42"/>
+          </linearGradient>
+        </defs>
+        <rect x="40" y="118" width="600" height="58" rx="10" fill="url(#track)" class="tf-track-stroke"/>
+        <g class="tf-grid" stroke-dasharray="2 5">
+          <line x1="140" y1="112" x2="140" y2="182"/>
+          <line x1="340" y1="112" x2="340" y2="182"/>
+          <line x1="540" y1="112" x2="540" y2="182"/>
+        </g>
+        <g font-family="Geist Mono, monospace" font-size="11" class="tf-axis" text-anchor="middle">
+          <text x="40"  y="204">0</text>
+          <text x="140" y="204">100</text>
+          <text x="340" y="204">300</text>
+          <text x="540" y="204">500</text>
+          <text x="636" y="204" text-anchor="end">600ms+</text>
+        </g>
+        <g font-family="Geist Mono, monospace" font-size="9.5" letter-spacing="1.6">
+          <text x="90"  y="106" text-anchor="middle" class="tf-zone-good">INSTANT</text>
+          <text x="240" y="106" text-anchor="middle" class="tf-zone-good">RESPONSIVE</text>
+          <text x="440" y="106" text-anchor="middle" class="tf-zone-mid">DELIBERATE</text>
+          <text x="592" y="106" text-anchor="middle" class="tf-zone-slow">SLUGGISH</text>
+        </g>
+        <g font-family="Geist Mono, monospace" font-size="11" font-weight="600" text-anchor="middle">
+          <circle cx="190" cy="147" r="12" class="tf-dot-good"/><text x="190" y="151" class="tf-dot-text">1</text>
+          <circle cx="240" cy="147" r="12" class="tf-dot-good"/><text x="240" y="151" class="tf-dot-text">2</text>
+          <circle cx="278" cy="147" r="12" class="tf-dot-good"/><text x="278" y="151" class="tf-dot-text">3</text>
+          <circle cx="304" cy="147" r="12" class="tf-dot-good"/><text x="304" y="151" class="tf-dot-text">4</text>
+          <circle cx="440" cy="147" r="12" class="tf-dot-mid"/><text x="440" y="151" class="tf-dot-text">5</text>
+          <circle cx="540" cy="147" r="12" class="tf-dot-mid"/><text x="540" y="151" class="tf-dot-text">6</text>
+        </g>
+        <text x="440" y="244" font-family="Public Sans, sans-serif" font-size="11" text-anchor="middle" class="tf-freq">both run once per visit</text>
+      </svg>
+
+      <div class="timing-key">
+        <h4 class="mono-label">The animations</h4>
+        <ol class="key-list">
+          <li><span class="kn">1</span><span class="ka">Button / day-chip press, link &amp; preset colour</span><span class="kt good">150ms</span></li>
+          <li><span class="kn">2</span><span class="ka">Folder tab hover lift (4px)</span><span class="kt good">200ms</span></li>
+          <li><span class="kn">3</span><span class="ka">Screens plate crossfade</span><span class="kt good">240ms</span></li>
+          <li><span class="kn">4</span><span class="ka">Screens index highlight</span><span class="kt good">240ms</span></li>
+          <li><span class="kn">5</span><span class="ka">Scroll reveal, 12px (+50ms per batch item)</span><span class="kt mid">400ms</span></li>
+          <li><span class="kn">6</span><span class="ka">Hero h1 + lead rise (+50ms)</span><span class="kt mid">500ms</span></li>
+          <li><span class="kn">—</span><span class="ka">Waves video (not plotted)</span><span class="kt none">loop, forever</span></li>
+        </ol>
+        <div class="zone-defs">
+          <div class="zone-def"><span class="dot" style="background:var(--t-good)"></span><div><span class="zt">Instant / Responsive</span> · 0–300ms: <span class="zd">presses, hovers, the index.</span></div></div>
+          <div class="zone-def"><span class="dot" style="background:var(--t-mid)"></span><div><span class="zt">Deliberate</span> · 300–500ms: <span class="zd">one-off entrances.</span></div></div>
+          <div class="zone-def"><span class="dot" style="background:var(--t-slow)"></span><div><span class="zt">Sluggish</span> · 500ms+: <span class="zd">nothing lands here.</span></div></div>
+        </div>
+        <div class="whats-off">
+          <span class="mono-label">What's off</span>
+          <p>The budget is right. What's off is <em>where</em> motion runs: the index highlight (4) is driven by a moving pointer, so at 240ms it trails behind it; and the one motion with no end (the video) is the only one with no control.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ 03 · EMIL (primary) ═══════════ -->
+  <section class="lens-sec">
+    <div class="sec-index">03</div>
+    <div class="lens-sec__head">
+      <h3>Emil Kowalski — Restraint &amp; Speed</h3>
+      <span class="lens-sec__weight">Primary lens</span>
+    </div>
+    <p class="lens-sec__verdict"><span class="verdict v-concern">Concern</span></p>
+
+    <div class="lens-block">
+      <span class="mono-label">What's working well</span>
+      <ul class="lens-list good">
+        <li><span class="mk">✓</span><span>The Edit Alarm dialog changes its "Rings in …" line, the hero time and the chip states instantly on every tap. These are high-frequency, so no animation is the right call. <code>simple-alarm.blade.php:399-415</code></span></li>
+        <li><span class="mk">✓</span><span>The sunrise photo and the open front folder are still at first paint, so the Play button is there the moment the page loads. <code>simple-alarm.blade.php:178-209</code></span></li>
+        <li><span class="mk">✓</span><span>Presses are short and small: 150ms <code>scale(.97)</code> on buttons, <code>.94</code> on the small day chips. <code>simple-alarm.blade.php:62, 162</code></span></li>
+        <li><span class="mk">✓</span><span>Reduced motion is honoured: the video never starts, the tab lift and both crossfades turn off, the hero rise and reveals are gated in shared code. <code>simple-alarm.blade.php:169-172, 436</code></span></li>
+      </ul>
+    </div>
+
+    <div class="lens-block">
+      <span class="mono-label">Issues to address</span>
+      <div class="findings">
+
+        <!-- FINDING 1 -->
+        <div class="finding-row" data-sev="imp" id="finding-1">
+          <div class="finding-row__prose">
+            <div class="find-tags"><span class="severity imp">Important</span><span class="lens-chip">Emil</span><span class="lens-chip">Jhey</span></div>
+            <h4 class="find-title">The waves loop forever, off screen, with no way to stop them</h4>
+            <div class="find-body">
+              <p><span class="label">What</span>The script calls <code>video.play()</code> on load. Measured in the browser at the top of the page, the video is already playing (<code>paused: false</code>, fully buffered) while the "A morning" section is several screens below. It never pauses, and there is no control to stop it.</p>
+              <p><span class="label">Why it matters</span>Moving content that runs longer than five seconds next to other content needs a way to pause it (WCAG 2.2.2). Reduced motion covers only visitors who set it in their OS. And a video playing out of sight costs phone data and battery for nothing.</p>
+              <div class="fix"><p><span class="label">Recommended motion</span>Play only while the section is on screen (IntersectionObserver), and add a small "Pause the waves" toggle (<code>aria-pressed</code>, the same pattern as the site's marquee toggle) in the section's corner. Under reduced motion it starts paused, and the toggle can still play it.</p></div>
+              <p class="find-loc"><code>resources/views/apps/simple-alarm.blade.php:269-272, 434-436</code></p>
+            </div>
+          </div>
+          <div class="demo">
+            <input class="vh" type="radio" name="st1" id="st1-a" checked>
+            <input class="vh" type="radio" name="st1" id="st1-l">
+            <input class="vh" type="radio" name="st1" id="st1-d">
+            <div class="demo__bar">
+              <div class="demo__meta"><span class="demo__title">Plays in view, holds when paused</span><span class="demo__timing">loop · IntersectionObserver + toggle</span></div>
+              <div class="demo__controls">
+                <div class="seg"><label for="st1-a">Auto</label><label for="st1-l">Light</label><label for="st1-d">Dark</label></div>
+                <span class="demo__loop">↻</span>
+              </div>
+            </div>
+            <div class="demo__stage">
+              <div class="demo-1__mt" style="width:100%;">
+                <div class="wave"><i style="transform:translateX(-33%)"></i></div>
+                <div style="display:flex;justify-content:flex-end;margin-top:10px;"><span class="pill on">❚❚ Pause the waves</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FINDING 2 -->
+        <div class="finding-row" data-sev="imp" id="finding-2">
+          <div class="finding-row__prose">
+            <div class="find-tags"><span class="severity imp">Important</span><span class="lens-chip">Emil</span><span class="lens-chip">Jakub</span></div>
+            <h4 class="find-title">Folder tabs come apart from their folders, and stay lifted after a tap</h4>
+            <div class="find-body">
+              <p><span class="label">What</span><code>.sa-tab:hover</code> moves the tab up 4px. The tab ends exactly at its band's top edge, so the lift opens a 4px seam (measured: tab bottom 404px, band top 408px) through which the band behind, or the sunrise, shows. The rule is plain <code>:hover</code>, so on a phone the tab stays lifted after a tap until something else is touched.</p>
+              <p><span class="label">Why it matters</span>The idea of the hero is that each tab <em>is</em> its folder. A tab that floats free breaks that object for a moment, on the one hover the page invites. Sticky hover on touch reads as a stuck state.</p>
+              <div class="fix"><p><span class="label">Recommended motion</span>Keep the 4px / 200ms lift, but give the tab a 4px foot that runs down into its own band (same colour, hidden at rest), so the lift reveals more tab instead of a gap. Limit the lift to <code>@media (hover: hover)</code>.</p></div>
+              <p class="find-loc"><code>resources/views/apps/simple-alarm.blade.php:87-98, 108</code></p>
+            </div>
+          </div>
+          <div class="demo">
+            <input class="vh" type="radio" name="st2" id="st2-a" checked>
+            <input class="vh" type="radio" name="st2" id="st2-l">
+            <input class="vh" type="radio" name="st2" id="st2-d">
+            <div class="demo__bar">
+              <div class="demo__meta"><span class="demo__title">Tab lifts with its foot</span><span class="demo__timing">200ms · cubic-bezier(.2,.7,.2,1)</span></div>
+              <div class="demo__controls">
+                <div class="seg"><label for="st2-a">Auto</label><label for="st2-l">Light</label><label for="st2-d">Dark</label></div>
+                <span class="demo__loop">↻</span>
+              </div>
+            </div>
+            <div class="demo__stage">
+              <div class="demo-2__mt" style="width:100%;">
+                <div class="band"><span class="tab">Screens</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="lens-block">
+      <span class="mono-label">Opportunities</span>
+      <ul class="lens-list opp">
+        <li><span class="mk">💡</span><span>Fold the press scales (<code>.sa-btn:active</code>, <code>.sa-chip:active</code>) into the page's reduced-motion block, so every move on the page has its fallback, as the house rule asks. <code>simple-alarm.blade.php:62, 162, 169</code></span></li>
+      </ul>
+    </div>
+
+    <div class="lens-take">
+      <span class="mono-label">Through Emil's lens</span>
+      <p>The page does almost nothing, and that is right for an alarm. The two fixes are about control: a loop the visitor can stop, and a hover that lets go when the finger does.</p>
+    </div>
+  </section>
+
+  <!-- ═══════════ 04 · JAKUB (secondary) ═══════════ -->
+  <section class="lens-sec">
+    <div class="sec-index">04</div>
+    <div class="lens-sec__head">
+      <h3>Jakub Krehel — Production Polish</h3>
+      <span class="lens-sec__weight">Secondary lens</span>
+    </div>
+    <p class="lens-sec__verdict"><span class="verdict v-mixed">Mixed</span></p>
+
+    <div class="lens-block">
+      <span class="mono-label">What's working well</span>
+      <ul class="lens-list good">
+        <li><span class="mk">✓</span><span>One strong ease-out curve, <code>cubic-bezier(.2,.7,.2,1)</code>, for the tab lift, shared with the site's rise and reveal. No overshoot anywhere. <code>simple-alarm.blade.php:91</code></span></li>
+        <li><span class="mk">✓</span><span>Every hover and pressed state transitions colour at 150ms: buttons, cells, chips, presets and the closing links' underline fade. <code>simple-alarm.blade.php:61, 132, 160, 164, 336-360</code></span></li>
+        <li><span class="mk">✓</span><span>The screens index is driven by pointer, focus and click alike, so touch and keyboard visitors get the same plate change. <code>simple-alarm.blade.php:382-385</code></span></li>
+      </ul>
+    </div>
+
+    <div class="lens-block">
+      <span class="mono-label">Issues to address</span>
+      <div class="findings">
+
+        <!-- FINDING 3 -->
+        <div class="finding-row" data-sev="imp" id="finding-3">
+          <div class="finding-row__prose">
+            <div class="find-tags"><span class="severity imp">Important</span><span class="lens-chip">Jakub</span><span class="lens-chip">Emil</span></div>
+            <h4 class="find-title">The screens plate dims mid-crossfade, and the index trails the pointer</h4>
+            <div class="find-body">
+              <p><span class="label">What</span>Switching rows fades the old screenshot out and the new one in at the same time, both 240ms <code>ease-out</code>. Halfway through, each is near half opacity, so the dark plate shows through and the phone screen dims for a beat. The index row highlight also runs at 240ms while the pointer sweeps the list, so the grey bar lags a row behind.</p>
+              <p><span class="label">Why it matters</span>A crossfade should feel like one screen turning into another, not like the lights flickering. The index is the most-touched control on the page; at pointer speed it should feel attached to the pointer.</p>
+              <div class="fix"><p><span class="label">Recommended motion</span>Fade the incoming screenshot in <em>on top</em> (200ms, the page curve) while the outgoing one stays fully opaque underneath, then drop it once covered. Shorten the index highlight to 150ms. Keep the instant swap under reduced motion.</p></div>
+              <p class="find-loc"><code>resources/views/apps/simple-alarm.blade.php:121-127</code></p>
+            </div>
+          </div>
+          <div class="demo">
+            <input class="vh" type="radio" name="st3" id="st3-a" checked>
+            <input class="vh" type="radio" name="st3" id="st3-l">
+            <input class="vh" type="radio" name="st3" id="st3-d">
+            <div class="demo__bar">
+              <div class="demo__meta"><span class="demo__title">Incoming over outgoing, no dip</span><span class="demo__timing">200ms · cubic-bezier(.2,.7,.2,1)</span></div>
+              <div class="demo__controls">
+                <div class="seg"><label for="st3-a">Auto</label><label for="st3-l">Light</label><label for="st3-d">Dark</label></div>
+                <span class="demo__loop">↻</span>
+              </div>
+            </div>
+            <div class="demo__stage">
+              <div class="demo-3__mt" style="width:100%;">
+                <div class="plate"><b class="a"></b><b class="b"></b></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FINDING 4 -->
+        <div class="finding-row" data-sev="imp" id="finding-4">
+          <div class="finding-row__prose">
+            <div class="find-tags"><span class="severity imp">Important</span><span class="lens-chip">Jakub</span><span class="lens-chip">Emil</span></div>
+            <h4 class="find-title">Thirteen identical reveals, six of them on plain text</h4>
+            <div class="find-body">
+              <p><span class="label">What</span><code>data-reveal</code> sits on 13 elements: the h2 and paragraph of Screens, A morning and Set one (6), plus the plate, index list, button cells, settings sheet, settings screenshot, slip and dialog. All rise the same 12px over 400ms. The site-wide audit took reveals off headings and body text; this page adds them back.</p>
+              <p><span class="label">Why it matters</span>This is the uniform-fade and motion-on-static-text pattern. When every block rises, none of them leads, and the visitor waits to read words that could have been there. In the Screens section, the plate, index and cells arrive together and cascade, which is a lot of motion for one panel.</p>
+              <div class="fix"><p><span class="label">Recommended motion</span>One object per section rises: the plate, the settings sheet, the settings screenshot, the slip and the dialog. Headings, paragraphs, the index list and the button cells are simply there.</p></div>
+              <p class="find-loc"><code>resources/views/apps/simple-alarm.blade.php:216-237, 275-276, 296-297</code></p>
+            </div>
+          </div>
+          <div class="demo">
+            <input class="vh" type="radio" name="st4" id="st4-a" checked>
+            <input class="vh" type="radio" name="st4" id="st4-l">
+            <input class="vh" type="radio" name="st4" id="st4-d">
+            <div class="demo__bar">
+              <div class="demo__meta"><span class="demo__title">Text static, one object rises</span><span class="demo__timing">400ms · 12px · cubic-bezier(.2,.7,.2,1)</span></div>
+              <div class="demo__controls">
+                <div class="seg"><label for="st4-a">Auto</label><label for="st4-l">Light</label><label for="st4-d">Dark</label></div>
+                <span class="demo__loop">↻</span>
+              </div>
+            </div>
+            <div class="demo__stage">
+              <div class="demo-4__mt" style="width:100%;">
+                <div class="h">A morning</div>
+                <div class="p"></div>
+                <div class="obj"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="lens-block">
+      <span class="mono-label">Opportunities</span>
+      <ul class="lens-list opp">
+        <li><span class="mk">💡</span><span>The folder tabs are in-page links that jump instantly. A motion-safe smooth scroll (<code>scroll-behavior: smooth</code> under <code>no-preference</code>) would read as "opening the folder". Left out for now: it is a site-wide choice and the other pages jump too. <code>simple-alarm.blade.php:188-200</code></span></li>
+      </ul>
+    </div>
+
+    <div class="lens-take">
+      <span class="mono-label">Through Jakub's lens</span>
+      <p>The finish is good where people touch things. Fix the crossfade dip and give the reveals a hierarchy, one object per section, and the page goes from "animated" to "considered."</p>
+    </div>
+  </section>
+
+  <!-- ═══════════ 05 · JHEY (selective) ═══════════ -->
+  <section class="lens-sec">
+    <div class="sec-index">05</div>
+    <div class="lens-sec__head">
+      <h3>Jhey Tompkins — Experimentation &amp; Delight</h3>
+      <span class="lens-sec__weight">Selective lens</span>
+    </div>
+    <p class="lens-sec__verdict"><span class="verdict v-strong">Strong</span></p>
+
+    <div class="lens-block">
+      <span class="mono-label">What's working well</span>
+      <ul class="lens-list good">
+        <li><span class="mk">✓</span><span>The tab lift is the page's one invitation to play, and it belongs to the page's own object. No hover-scale on cards, no pulse, no blur entrances. <code>simple-alarm.blade.php:87-92</code></span></li>
+        <li><span class="mk">✓</span><span>The sea behind "A morning" is real footage at 70% scrim, mirrored so it never fights the slip. Ambient, not attention-seeking. <code>simple-alarm.blade.php:143-146</code></span></li>
+      </ul>
+    </div>
+
+    <div class="lens-block">
+      <span class="mono-label">Issues to address</span>
+      <p class="lens-empty">No issues found at this severity level.</p>
+    </div>
+
+    <div class="lens-block">
+      <span class="mono-label">Opportunities</span>
+      <ul class="lens-list opp">
+        <li><span class="mk">💡</span><span>The itinerary slip could print in once, a top-to-bottom <code>clip-path</code> reveal like a receipt leaving a printer, instead of the generic rise. It is the page's one moment that is truly this app's. Not applied: the slip already uses <code>clip-path</code> for its zigzag edge, so it needs a wrapper and more code than it earns today. <code>simple-alarm.blade.php:278</code></span></li>
+      </ul>
+    </div>
+
+    <div class="lens-take">
+      <span class="mono-label">Through Jhey's lens</span>
+      <p>The delight is already in the right places: the tabs and the sea. If the page ever wants one more moment, make it the slip printing, and leave everything else still.</p>
+    </div>
+  </section>
+
+  <!-- ═══════════ 06 · COMBINED RECOMMENDATIONS ═══════════ -->
+  <section>
+    <div class="sec-index">06</div>
+    <h2 class="section-title">In the order I'd fix them</h2>
+    <p class="section-sub">No critical findings. The important ones are ordered by who feels them: accessibility first, then the hero, then polish.</p>
+
+    <div class="rec crit" id="rec-crit">
+      <div class="tier-label"><span class="mono-label">Critical · must fix</span><span class="rule"></span><span class="count">0</span></div>
+      <table class="rec-table">
+        <thead><tr><th>Issue</th><th>File</th><th>Fix</th></tr></thead>
+        <tbody><tr><td colspan="3" class="lens-empty">No critical findings: reduced motion is handled and only transform and opacity animate.</td></tr></tbody>
+      </table>
+    </div>
+
+    <div class="rec imp" id="rec-imp">
+      <div class="tier-label"><span class="mono-label">Important · should fix</span><span class="rule"></span><span class="count">4</span></div>
+      <table class="rec-table">
+        <thead><tr><th>Issue</th><th>File</th><th>Fix</th></tr></thead>
+        <tbody>
+          <tr><td>Waves loop off screen with no pause (WCAG 2.2.2)</td><td><code>simple-alarm.blade.php:434</code></td><td>Play only in view; "Pause the waves" toggle with <code>aria-pressed</code></td></tr>
+          <tr><td>Tab lift opens a 4px seam; sticks after tap</td><td><code>simple-alarm.blade.php:87</code></td><td>4px foot into the band; lift only under <code>(hover: hover)</code></td></tr>
+          <tr><td>Plate dims mid-crossfade; index trails pointer</td><td><code>simple-alarm.blade.php:121</code></td><td>Incoming fades in on top, outgoing holds; index 150ms</td></tr>
+          <tr><td>13 identical reveals, 6 on text</td><td><code>simple-alarm.blade.php:216</code></td><td>One object per section rises; text and controls static</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="rec opp" id="rec-opp">
+      <div class="tier-label"><span class="mono-label">Opportunities · could enhance</span><span class="rule"></span><span class="count">3</span></div>
+      <table class="rec-table">
+        <thead><tr><th>Enhancement</th><th>Where</th><th>Impact</th></tr></thead>
+        <tbody>
+          <tr><td>Press scales in the reduced-motion block</td><td><code>simple-alarm.blade.php:169</code></td><td>Every move has its fallback</td></tr>
+          <tr><td>Motion-safe smooth scroll for folder tabs</td><td><code>simple-alarm.blade.php:188</code></td><td>Tabs read as opening their folder</td></tr>
+          <tr><td>The slip prints in</td><td><code>simple-alarm.blade.php:278</code></td><td>One moment that belongs to this app</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ═══════════ 07 · LENS REFERENCE SUMMARY ═══════════ -->
+  <section style="margin-bottom: var(--s6);">
+    <div class="sec-index">07</div>
+    <h2 class="section-title">Which lens carried this audit</h2>
+    <div class="ref-summary">
+      <span class="mono-label">Referenced most</span>
+      <p class="big">Emil Kowalski — Restraint &amp; Speed</p>
+      <p class="why">An alarm page should feel calm and dependable, and most of its motion is already restrained. The real gaps were about control (a loop with no stop, a hover that sticks) and about motion running where nobody asked for it. Jakub finished the details people touch; Jhey only confirmed the delight is in the right two places.</p>
+      <ul class="ref-lean">
+        <li><span class="nm">Lean Emil</span><span>Drop the scroll reveals on this page entirely and start the waves paused. Nothing moves until the visitor does.</span></li>
+        <li><span class="nm">Lean Jakub</span><span>Keep one object rising per section at 8–12px and give the tab click a motion-safe smooth scroll.</span></li>
+        <li><span class="nm">Lean Jhey</span><span>Build the printing slip, and let the sea ripple under the tab stack on load once.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <footer class="doc">
+    <span>Simple Alarm page motion audit · design-motion-principles · 2026-10-30</span>
+    <span>7 findings · 0 critical · 4 important · 3 opportunities</span>
+  </footer>
+</div>
+</body>
+</html>
