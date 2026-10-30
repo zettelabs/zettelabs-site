@@ -120,7 +120,6 @@
                 flex: 0 0 calc(42% / 4);
                 min-width: 0;
                 overflow: hidden;
-                transition: flex-basis 450ms cubic-bezier(0.2, 0.7, 0.2, 1);
             }
             .cp-stage:has(input:checked) {
                 flex-basis: 58%;
@@ -136,7 +135,7 @@
                 writing-mode: vertical-rl;
                 transform: rotate(180deg);
             }
-            /* Fixed at the open width so the text does not reflow while the panel slides. */
+            /* Fixed at the open width so the closed panels crop it instead of reflowing it. */
             .cp-stage-body {
                 position: absolute;
                 inset: 0;
@@ -169,7 +168,7 @@
             color: var(--color-ink);
         }
         .cp-frame img {
-            transition: filter 200ms ease-out, transform 200ms ease-out;
+            transition: filter 200ms ease-out, transform 120ms ease-out;
         }
         /* Frames that would go fade to grey, like a struck-out frame on a contact sheet. */
         .cp-frame:has(input:not(:checked)) img {
@@ -179,8 +178,11 @@
             outline: 4px solid var(--color-canvas);
             outline-offset: -4px;
         }
-        .cp-frame:hover img {
-            filter: none;
+        /* Pointer preview of a struck frame; outranks the grey-out rule. Touch keeps no stuck hover. */
+        @media (hover: hover) {
+            .cp-board .cp-frame:hover img {
+                filter: none;
+            }
         }
         .cp-frame:has(input:focus-visible) {
             outline: 3px solid var(--color-canvas);
@@ -228,12 +230,9 @@
             letter-spacing: -0.04em;
         }
 
-        .reveal-on .cp [data-reveal]:not(.is-in) {
-            transform: translateY(24px);
-        }
         /* Board rows slide in sideways so a row on its way never covers the one above. */
         .reveal-on .cp-board [data-reveal]:not(.is-in) {
-            transform: translateX(-24px);
+            transform: translateX(-12px);
         }
 
         @media (prefers-reduced-motion: no-preference) {
@@ -244,13 +243,34 @@
                 animation-delay: 110ms;
             }
             .cp-after {
-                animation: rise 600ms cubic-bezier(0.2, 0.7, 0.2, 1) 500ms both;
+                animation: rise 500ms cubic-bezier(0.2, 0.7, 0.2, 1) 250ms both;
             }
             .cp-rise img {
                 animation: cp-lift 1200ms cubic-bezier(0.16, 1, 0.3, 1) 250ms both;
             }
-            .cp-frame:hover img {
-                transform: scale(1.03);
+            /* Content arrives when a panel or a board row opens; widths and heights just snap. */
+            .cp-stage:has(input:checked) .cp-stage-body {
+                animation: cp-in 240ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+            }
+            .cp-board li:has(> input:checked) .cp-detail {
+                animation: cp-drop 220ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+            }
+            .cp-frame:active img {
+                transform: scale(0.97);
+            }
+        }
+
+        @keyframes cp-in {
+            from {
+                opacity: 0;
+                transform: translateX(-8px);
+            }
+        }
+
+        @keyframes cp-drop {
+            from {
+                opacity: 0;
+                transform: translateY(-6px);
             }
         }
 
@@ -303,8 +323,8 @@
     {{-- The sample scan: the live thing. --}}
     <section class="pt-24 md:pt-40" data-roll>
         <div class="mx-auto grid max-w-6xl gap-6 px-6 md:grid-cols-12">
-            <h2 data-reveal class="text-[clamp(2.25rem,4vw,3.75rem)] font-bold leading-none tracking-[-0.03em] text-ink md:col-span-5">{{ __(':count grup bulundu', ['count' => count($roll)]) }}</h2>
-            <div data-reveal class="text-lg leading-relaxed text-ink md:col-span-6 md:col-start-7">
+            <h2 class="text-[clamp(2.25rem,4vw,3.75rem)] font-bold leading-none tracking-[-0.03em] text-ink md:col-span-5">{{ __(':count grup bulundu', ['count' => count($roll)]) }}</h2>
+            <div class="text-lg leading-relaxed text-ink md:col-span-6 md:col-start-7">
                 <p>{{ __('Örnek bir rulo: Palm Beach ve Nikkō\'da art arda çekilmiş :frames kare. Her grupta tutmak istediğin kareye dokun.', ['frames' => $frames]) }}</p>
                 <p class="mt-3 font-semibold" aria-live="polite">{!! __('Silinecek: :count kare. Geri kazanılan: :mb MB.', ['count' => '<span data-total-count>' . $toDelete . '</span>', 'mb' => '<span data-total-mb>' . $mb($freed) . '</span>']) !!}</p>
             </div>
@@ -312,7 +332,7 @@
 
         <ul class="cp-board mt-12 grid gap-1 px-2 lg:mt-16 lg:px-3">
             @foreach ($roll as $g => $group)
-                <li data-reveal data-group class="relative text-ink transition-colors">
+                <li data-reveal data-group class="relative text-ink">
                     <input type="radio" name="cp-group" id="cp-group-{{ $g }}" class="peer sr-only" @checked($g === 3)>
                     <label for="cp-group-{{ $g }}" class="grid h-16 cursor-pointer grid-cols-[1fr_auto] items-center gap-4 px-4 lg:h-[72px] lg:grid-cols-12 lg:px-6">
                         <span class="truncate text-xl font-bold tracking-[-0.01em] lg:col-span-5 lg:text-[28px]">{{ __($group['name']) }}</span>
@@ -349,8 +369,8 @@
     <section class="pt-32 md:pt-48">
         <div class="mx-auto max-w-6xl px-6">
             <div class="grid gap-6 md:grid-cols-12">
-                <h2 data-reveal class="text-[clamp(2.25rem,4vw,3.75rem)] font-bold leading-none tracking-[-0.03em] text-ink md:col-span-5">{{ __('Taramadan boş alana') }}</h2>
-                <p data-reveal class="text-lg leading-relaxed text-ink md:col-span-5 md:col-start-7">{{ __('CleanPix galerini beş adımda temizler. Sen onaylamadan hiçbir fotoğraf silinmez ve her grupta orijinal işaretli kalır.') }}</p>
+                <h2 class="text-[clamp(2.25rem,4vw,3.75rem)] font-bold leading-none tracking-[-0.03em] text-ink md:col-span-5">{{ __('Taramadan boş alana') }}</h2>
+                <p class="text-lg leading-relaxed text-ink md:col-span-5 md:col-start-7">{{ __('CleanPix galerini beş adımda temizler. Sen onaylamadan hiçbir fotoğraf silinmez ve her grupta orijinal işaretli kalır.') }}</p>
             </div>
 
             <div data-reveal class="cp-stages mt-12 md:mt-16">
@@ -375,9 +395,9 @@
     <section class="pt-32 md:pt-48">
         <div class="mx-auto grid max-w-6xl gap-10 px-6 md:grid-cols-12 md:gap-6">
             <div class="md:col-span-3">
-                <h2 data-reveal class="text-[clamp(2.25rem,4vw,3.75rem)] font-bold leading-none tracking-[-0.03em] text-ink">{{ __('Uygulamanın içinden') }}</h2>
-                <p data-reveal class="mt-5 max-w-[30ch] text-lg leading-relaxed text-ink">{{ __('Karşılaştırma telefonunda yapılır; CleanPix hiçbir fotoğrafı internete yüklemez.') }}</p>
-                <a data-reveal href="{{ $app['privacy_url'] }}" class="mt-5 inline-block font-semibold text-ink underline decoration-ink/40 underline-offset-4 transition-colors hover:decoration-current">{{ __('Gizlilik Politikası') }}</a>
+                <h2 class="text-[clamp(2.25rem,4vw,3.75rem)] font-bold leading-none tracking-[-0.03em] text-ink">{{ __('Uygulamanın içinden') }}</h2>
+                <p class="mt-5 max-w-[30ch] text-lg leading-relaxed text-ink">{{ __('Karşılaştırma telefonunda yapılır; CleanPix hiçbir fotoğrafı internete yüklemez.') }}</p>
+                <a href="{{ $app['privacy_url'] }}" class="mt-5 inline-block font-semibold text-ink underline decoration-ink/40 underline-offset-4 transition-colors hover:decoration-current">{{ __('Gizlilik Politikası') }}</a>
             </div>
 
             <ul class="grid grid-cols-2 gap-x-2.5 gap-y-8 md:col-span-9 md:grid-cols-3">

@@ -1,0 +1,944 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>cleanpix motion audit — 2026-10-30</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;500;600;700&family=Public+Sans:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    /* ——— Fixed identity: COOL slate-graphite + chalk (near-achromatic) ——— */
+    --ink:        oklch(0.155 0.006 255);
+    --surface:    oklch(0.195 0.007 255);
+    --surface-2:  oklch(0.235 0.008 255);
+    --paper:      oklch(0.945 0.004 255);
+    --paper-dim:  oklch(0.800 0.006 255);
+    --muted:      oklch(0.680 0.008 255);
+    --faint:      oklch(0.505 0.008 255);
+    --line:       oklch(0.95 0.01 255 / 0.09);
+    --line-strong:oklch(0.95 0.01 255 / 0.16);
+
+    /* ——— Accent (NEUTRAL BY DEFAULT) ———
+       The report has no primary color. --accent aliases the contrast
+       neutral (--paper) so any element that historically wanted a brand
+       splash now reads as quiet chrome. An individual audit can repoint
+       these three to a sampled brand color if appropriate, but the
+       default — and the worked example — keeps the chrome neutral and
+       lets severity be the only color in the report. */
+    --accent:      var(--paper);
+    --accent-soft: var(--paper-dim);
+    --accent-tint: color-mix(in oklch, var(--paper) 12%, transparent);
+
+    /* ——— Severity (FIXED — never adaptive) ——— */
+    --crit:      oklch(0.655 0.185 25);
+    --crit-tint: oklch(0.655 0.185 25 / 0.15);
+    --imp:       oklch(0.805 0.125 78);
+    --imp-tint:  oklch(0.805 0.125 78 / 0.15);
+    --opp:       oklch(0.745 0.135 152);
+    --opp-tint:  oklch(0.745 0.135 152 / 0.15);
+
+    /* ——— Timing-budget ramp (FIXED — diagram + its legend only) ——— */
+    --t-good:  oklch(0.745 0.135 152);  /* instant + responsive */
+    --t-mid:   oklch(0.805 0.125 78);   /* deliberate           */
+    --t-slow:  oklch(0.655 0.185 25);   /* sluggish             */
+
+    /* ——— Verdict (FIXED — lens table) ——— */
+    --strong:  var(--opp);
+    --concern: var(--imp);
+    --problem: var(--crit);
+
+    /* ——— Spacing (4pt scale, semantic) ——— */
+    --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px;
+    --s6:32px; --s7:48px; --s8:64px; --s9:96px;
+
+    --display: "Familjen Grotesk", "Hanken Grotesk", system-ui, sans-serif;
+    --sans: "Public Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  }
+
+  /* ═══════════════ LIGHT-MODE OVERRIDES ═══════════════
+     Activated when the global theme toggle is set to Light. Every token
+     above gets a counterpart here — same hue, mirrored L — so the report
+     reads cleanly on light backgrounds. Hue stays 255 (cool slate) so the
+     identity is the same character, just inverted. */
+  :root:has(#theme-light:checked) {
+    --ink:        oklch(0.985 0.003 255);  /* light page bg */
+    --surface:    oklch(0.965 0.004 255);
+    --surface-2:  oklch(0.940 0.005 255);
+    --paper:      oklch(0.180 0.006 255);  /* dark text */
+    --paper-dim:  oklch(0.330 0.008 255);
+    --muted:      oklch(0.475 0.010 255);
+    --faint:      oklch(0.640 0.009 255);
+    --line:       oklch(0.180 0.010 255 / 0.12);
+    --line-strong:oklch(0.180 0.010 255 / 0.22);
+
+    /* Accent stays aliased to --paper (now the dark ink in light mode),
+       so chrome inverts automatically. No additional override needed. */
+
+    /* Severity: same hues, deeper L for legibility on light bg */
+    --crit:      oklch(0.555 0.195 25);
+    --crit-tint: oklch(0.555 0.195 25 / 0.12);
+    --imp:       oklch(0.580 0.155 78);
+    --imp-tint:  oklch(0.580 0.155 78 / 0.14);
+    --opp:       oklch(0.555 0.140 152);
+    --opp-tint:  oklch(0.555 0.140 152 / 0.13);
+
+    /* Timing ramp follows severity */
+    --t-good: oklch(0.555 0.140 152);
+    --t-mid:  oklch(0.580 0.155 78);
+    --t-slow: oklch(0.555 0.195 25);
+  }
+
+  /* SVG dot label: light text in light-mode (deeper dots), dark text in dark-mode (lighter dots) */
+  :root:has(#theme-light:checked) .tf-dot-text { fill: oklch(0.985 0.003 255); }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection { background: var(--accent-tint); }
+  a { color: var(--accent-soft); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+
+  .wrap { max-width: 1080px; margin: 0 auto; padding: clamp(40px, 6vw, 72px) clamp(20px, 5vw, 40px) 96px; }
+
+  /* shared micro-label */
+  .mono-label {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+  }
+  code { font-family: var(--mono); font-size: 0.86em; color: var(--paper-dim); }
+
+  /* visually-hidden (theme + stage radios) */
+  .vh { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+  /* ───────────── Global theme switch ───────────── */
+  .theme-switch { display: flex; justify-content: flex-end; margin-bottom: var(--s5); }
+  .theme-switch__pill { display: inline-flex; align-items: center; gap: 0; border: 1px solid var(--line-strong); border-radius: 100px; overflow: hidden; }
+  .theme-switch__pill label { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); padding: 6px 14px; cursor: pointer; user-select: none; transition: background 0.15s ease, color 0.15s ease; }
+  #theme-dark:checked  ~ .theme-switch__pill label[for="theme-dark"],
+  #theme-light:checked ~ .theme-switch__pill label[for="theme-light"] { background: var(--accent-tint); color: var(--accent-soft); }
+
+  /* ───────────── Header ───────────── */
+  header.doc { padding-bottom: var(--s7); margin-bottom: var(--s8); border-bottom: 1px solid var(--line); }
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--muted); display: inline-flex; align-items: center; gap: var(--s3);
+  }
+  .eyebrow::before { content: ""; width: 22px; height: 2px; background: var(--accent); display: inline-block; }
+  h1.title {
+    font-family: var(--display);
+    font-size: clamp(38px, 6vw, 60px);
+    font-weight: 700; letter-spacing: -0.025em; line-height: 1.02;
+    margin: var(--s5) 0 var(--s4); color: var(--paper); max-width: 17ch;
+  }
+  .lede { font-size: clamp(17px, 2.2vw, 19px); color: var(--paper-dim); max-width: 66ch; line-height: 1.6; }
+  .meta-row { display: flex; flex-wrap: wrap; gap: var(--s6); margin-top: var(--s6); }
+  .meta-row .k { display: block; margin-bottom: 4px; }
+  .meta-row .v { font-size: 15px; color: var(--paper); }
+
+  .stats { display: flex; gap: clamp(20px, 4vw, 44px); margin-top: var(--s7); flex-wrap: wrap; }
+  .stat .num { font-family: var(--display); font-size: 40px; font-weight: 600; letter-spacing: -0.02em; line-height: 1; font-variant-numeric: tabular-nums; }
+  .stat.crit .num { color: var(--crit); }
+  .stat.imp .num  { color: var(--imp); }
+  .stat.opp .num  { color: var(--opp); }
+  .stat .lbl { margin-top: var(--s2); }
+  .stat a { color: inherit; text-decoration: none; }
+  .stat a:hover .num { text-decoration: underline; text-underline-offset: 5px; text-decoration-thickness: 2px; }
+
+  /* ───────────── Section scaffolding ───────────── */
+  section { margin-bottom: var(--s9); }
+  .sec-index { font-family: var(--mono); font-size: 12px; letter-spacing: 0.16em; color: var(--accent-soft); }
+  h2.section-title {
+    font-family: var(--display);
+    font-size: clamp(24px, 3.4vw, 32px);
+    font-weight: 600; letter-spacing: -0.02em; line-height: 1.1;
+    margin: var(--s2) 0 var(--s4); color: var(--paper);
+  }
+  .section-sub { color: var(--paper-dim); max-width: 74ch; margin: 0 0 var(--s6); }
+  .section-sub em { color: var(--paper); font-style: italic; }
+
+  /* ───────────── Overall assessment ───────────── */
+  .assessment { border-top: 1px solid var(--line); padding-top: var(--s6); }
+  .assessment .mono-label { color: var(--accent-soft); }
+  .assessment p { font-family: var(--display); font-weight: 400; font-size: clamp(20px, 2.8vw, 26px); line-height: 1.42; letter-spacing: -0.01em; color: var(--paper); max-width: 34ch; margin: var(--s4) 0 0; }
+  .assessment p em { font-style: italic; color: var(--accent-soft); }
+
+  /* ───────────── Lens summary table ───────────── */
+  .lens-table { width: 100%; border-collapse: collapse; border: 1px solid var(--line); }
+  .lens-table th, .lens-table td { padding: var(--s4) var(--s5); text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .lens-table tr:last-child td { border-bottom: none; }
+  .lens-table thead th { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--faint); font-weight: 500; }
+  .lens-table tbody tr:hover { background: oklch(0.95 0.01 255 / 0.018); }
+  .lens-name { font-weight: 600; color: var(--paper); width: 28%; }
+  .lens-name .who { display: block; margin-top: 2px; color: var(--muted); font-weight: 400; font-size: 13.5px; }
+  .lens-name .weight { display: inline-block; margin-top: 6px; font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-soft); }
+  .lens-read { color: var(--paper-dim); }
+  .lens-read em { color: var(--paper); font-style: italic; }
+  .verdict { display: inline-flex; align-items: center; gap: 7px; font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; }
+  .verdict::before { content: ""; width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .v-strong  { color: var(--strong); }  .v-strong::before  { background: var(--strong); }
+  .v-concern { color: var(--concern); } .v-concern::before { background: var(--concern); }
+  .v-problem { color: var(--problem); } .v-problem::before { background: var(--problem); }
+  .v-mixed   { color: var(--muted); }   .v-mixed::before   { background: var(--muted); }
+
+  /* ───────────── Timing-budget diagram ───────────── */
+  .timing-grid { display: grid; grid-template-columns: 1fr 320px; gap: clamp(28px, 5vw, 56px); align-items: start; }
+  @media (max-width: 860px) { .timing-grid { grid-template-columns: 1fr; } }
+  .timing-figure { width: 100%; height: auto; }
+  .timing-key h4 { margin: 0 0 var(--s4); }
+  .key-list { list-style: none; margin: 0 0 var(--s6); padding: 0; display: grid; gap: 2px; }
+  .key-list li { display: grid; grid-template-columns: 22px 1fr auto; align-items: baseline; gap: var(--s3); padding: var(--s2) 0; border-bottom: 1px solid var(--line); }
+  .key-list li:last-child { border-bottom: none; }
+  .key-list .kn { font-family: var(--mono); font-size: 12px; color: var(--paper); font-variant-numeric: tabular-nums; }
+  .key-list .ka { color: var(--paper-dim); }
+  .key-list .kt { font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em; font-variant-numeric: tabular-nums; }
+  .kt.good { color: var(--t-good); }
+  .kt.mid  { color: var(--t-mid); }
+  .kt.slow { color: var(--t-slow); }
+  .kt.none { color: var(--faint); }
+  .zone-defs { display: grid; gap: var(--s3); margin-top: var(--s5); }
+  .zone-def { display: grid; grid-template-columns: 12px 1fr; gap: var(--s3); align-items: start; }
+  .zone-def .dot { width: 11px; height: 11px; border-radius: 50%; margin-top: 6px; }
+  .zone-def .zt { font-weight: 600; color: var(--paper); }
+  .zone-def .zd { font-size: 13.5px; color: var(--muted); }
+  .whats-off { margin-top: var(--s5); padding-top: var(--s5); border-top: 1px solid var(--line); }
+  .whats-off .mono-label { color: var(--accent-soft); }
+  .whats-off p { margin: var(--s2) 0 0; color: var(--paper-dim); font-size: 14px; max-width: 60ch; }
+
+  /* ───────────── Per-lens sections ───────────── */
+  .lens-sec { margin-bottom: var(--s9); padding-top: var(--s6); border-top: 1px solid var(--line); }
+  .lens-sec__head { display: flex; align-items: baseline; gap: var(--s4); flex-wrap: wrap; margin-bottom: var(--s2); }
+  .lens-sec__head h3 { font-family: var(--display); font-size: clamp(22px, 3vw, 28px); font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin: 0; color: var(--paper); }
+  .lens-sec__weight { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-soft); border: 1px solid var(--line-strong); border-radius: 100px; padding: 4px 10px; }
+  .lens-sec__verdict { margin: 0 0 var(--s6); }
+
+  .lens-block { margin: var(--s6) 0; }
+  .lens-block > .mono-label { display: block; margin-bottom: var(--s4); }
+  .lens-list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s3); max-width: 78ch; }
+  .lens-list li { display: grid; grid-template-columns: 22px 1fr; gap: var(--s2); align-items: start; color: var(--paper-dim); }
+  .lens-list .mk { font-family: var(--mono); font-size: 13px; line-height: 1.5; }
+  .lens-list.good .mk { color: var(--strong); }
+  .lens-list.opp .mk  { color: var(--accent-soft); }
+  .lens-list li em { color: var(--paper); font-style: italic; }
+
+  .lens-take { margin-top: var(--s6); background: var(--surface-2); border-radius: 10px; padding: var(--s5); }
+  .lens-take .mono-label { color: var(--accent-soft); display: block; margin-bottom: var(--s2); }
+  .lens-take p { margin: 0; color: var(--paper); max-width: 70ch; }
+
+  .lens-empty { font-style: italic; color: var(--faint); padding: var(--s3) 0; }
+
+  /* ───────────── Finding rows (prose + live demo card) ───────────── */
+  .findings { display: flex; flex-direction: column; gap: var(--s5); }
+  .finding-row { display: grid; grid-template-columns: 1fr 380px; gap: clamp(24px, 3vw, 36px); align-items: start; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: clamp(22px, 3vw, 30px); }
+  .finding-row[data-sev="crit"] { border-color: var(--crit-tint); }
+  @media (max-width: 860px) { .finding-row { grid-template-columns: 1fr; } }
+
+  .find-tags { display: flex; flex-wrap: wrap; gap: var(--s2); align-items: center; margin-bottom: var(--s3); }
+  .severity { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 500; padding: 4px 9px; border-radius: 100px; }
+  .severity.crit { background: var(--crit-tint); color: var(--crit); }
+  .severity.imp  { background: var(--imp-tint);  color: var(--imp); }
+  .severity.opp  { background: var(--opp-tint);  color: var(--opp); }
+  .lens-chip { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); padding: 4px 9px; border: 1px solid var(--line-strong); border-radius: 100px; }
+  .find-title { font-family: var(--display); font-size: clamp(19px, 2.4vw, 23px); font-weight: 600; letter-spacing: -0.015em; line-height: 1.22; margin: 0 0 var(--s4); color: var(--paper); }
+  .find-body { display: grid; gap: var(--s4); }
+  .find-body p { margin: 0; color: var(--paper-dim); }
+  .find-body p em { color: var(--paper); font-style: italic; }
+  .find-body .label { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 3px; }
+  .fix { background: var(--surface-2); border-radius: 8px; padding: var(--s4) var(--s5); }
+  .fix .label { color: var(--accent-soft); }
+  .fix p { color: var(--paper); }
+  .find-loc { font-size: 13px; }
+
+  /* ───────────── Demo card (the centerpiece) ───────────── */
+  .demo { position: relative; align-self: start; position: sticky; top: var(--s5); }
+  @media (max-width: 860px) { .demo { position: static; } }
+  .demo__bar { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--s3); margin-bottom: var(--s3); }
+  .demo__meta { min-width: 0; }
+  .demo__title { display: block; font-size: 13.5px; font-weight: 600; color: var(--paper); line-height: 1.3; }
+  .demo__timing { display: block; font-family: var(--mono); font-size: 11px; color: var(--muted); margin-top: 2px; font-variant-numeric: tabular-nums; }
+  .demo__controls { display: flex; align-items: center; gap: var(--s3); flex-shrink: 0; }
+  .demo__loop { font-family: var(--mono); font-size: 12px; color: var(--faint); }
+
+  /* segmented Auto/Light/Dark stage toggle (pure CSS).
+     Auto = follow global theme via theme tokens. Light/Dark = locked overrides. */
+  .seg { display: inline-flex; border: 1px solid var(--line-strong); border-radius: 100px; overflow: hidden; }
+  .seg label { font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); padding: 4px 9px; cursor: pointer; user-select: none; transition: background 0.15s ease, color 0.15s ease; }
+  .demo input[id$="-a"]:checked ~ .demo__bar .seg label[for$="-a"],
+  .demo input[id$="-l"]:checked ~ .demo__bar .seg label[for$="-l"],
+  .demo input[id$="-d"]:checked ~ .demo__bar .seg label[for$="-d"] { background: var(--accent-tint); color: var(--accent-soft); }
+
+  .demo__stage {
+    /* AUTO default — stage uses the report's elevated surface, follows theme */
+    --st-bg: var(--surface-2);
+    --st-fg: var(--paper);
+    --st-line: var(--line-strong);
+    --st-dim: color-mix(in oklch, var(--paper) 55%, transparent);
+    background: var(--st-bg); color: var(--st-fg);
+    border: 1px solid var(--line); border-radius: 10px;
+    padding: var(--s6) var(--s5); min-height: 168px;
+    display: flex; align-items: center; justify-content: center; overflow: hidden;
+  }
+  /* Locked Light: hardcoded light, regardless of report theme */
+  .demo input[id$="-l"]:checked ~ .demo__stage {
+    --st-bg: oklch(0.985 0.003 255);
+    --st-fg: oklch(0.180 0.006 255);
+    --st-line: oklch(0.180 0.010 255 / 0.18);
+    --st-dim: oklch(0.180 0.010 255 / 0.45);
+  }
+  /* Locked Dark: hardcoded dark, regardless of report theme */
+  .demo input[id$="-d"]:checked ~ .demo__stage {
+    --st-bg: oklch(0.180 0.006 255);
+    --st-fg: oklch(0.985 0.003 255);
+    --st-line: oklch(0.985 0.010 255 / 0.18);
+    --st-dim: oklch(0.985 0.010 255 / 0.50);
+  }
+
+  /* generic demo primitives, themed by the stage vars
+     (intentionally follow --st-fg/--st-bg, NOT the page accent — so they
+     contrast correctly even when a stage is locked to a different theme
+     than the page). */
+  .ui-btn { display: inline-flex; align-items: center; justify-content: center; padding: 9px 18px; border-radius: 8px; background: var(--st-fg); color: var(--st-bg); font-family: var(--sans); font-size: 13px; font-weight: 600; }
+  .ui-card { background: var(--st-bg); border: 1px solid var(--st-line); border-radius: 10px; padding: 14px 16px; min-width: 180px; box-shadow: 0 8px 24px oklch(0 0 0 / 0.12); }
+  .ui-row { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--st-fg); }
+  .ui-check { width: 22px; height: 22px; border-radius: 7px; background: var(--st-fg); display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .ui-check svg { width: 13px; height: 13px; stroke: var(--st-bg); }
+  .ui-num { font-family: var(--display); font-size: 34px; font-weight: 700; color: var(--st-fg); font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+  .ui-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--st-dim); }
+  /* milestone badge + sparks read off stage tokens (--st-fg disc, --st-bg ink),
+     set inline on the elements — same contract as every other stage primitive,
+     never --accent, correct in any locked stage. */
+
+  /* ───────────── Combined recommendations ───────────── */
+  .rec { margin-bottom: var(--s7); }
+  .rec .tier-label { display: flex; align-items: center; gap: var(--s4); margin: 0 0 var(--s4); }
+  .rec .tier-label .mono-label { white-space: nowrap; }
+  .rec .tier-label .rule { height: 1px; background: var(--line); flex: 1; }
+  .rec .tier-label .count { font-family: var(--mono); font-size: 11px; color: var(--faint); }
+  .rec.crit .mono-label { color: var(--crit); }
+  .rec.imp  .mono-label { color: var(--imp); }
+  .rec.opp  .mono-label { color: var(--opp); }
+  .rec-table { width: 100%; border-collapse: collapse; border: 1px solid var(--line); font-size: 14px; }
+  .rec-table th, .rec-table td { text-align: left; padding: var(--s3) var(--s4); border-bottom: 1px solid var(--line); vertical-align: top; }
+  .rec-table tr:last-child td { border-bottom: none; }
+  .rec-table thead th { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--faint); font-weight: 500; }
+  .rec-table td:first-child { color: var(--paper); }
+  .rec-table td:nth-child(2) { white-space: nowrap; }
+  .rec-table td { color: var(--paper-dim); }
+
+  /* ───────────── Reference summary (closing) ───────────── */
+  .ref-summary { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: clamp(24px, 4vw, 40px); }
+  .ref-summary .big { font-family: var(--display); font-size: clamp(18px, 2.4vw, 22px); font-weight: 600; letter-spacing: -0.015em; color: var(--paper); margin: var(--s2) 0 0; }
+  .ref-summary .why { color: var(--paper-dim); margin: var(--s3) 0 var(--s6); max-width: 64ch; }
+  .ref-lean { display: grid; gap: var(--s3); margin: 0; padding: 0; list-style: none; }
+  .ref-lean li { display: grid; grid-template-columns: 130px 1fr; gap: var(--s4); padding: var(--s3) 0; border-top: 1px solid var(--line); color: var(--paper-dim); font-size: 14px; }
+  .ref-lean .nm { font-weight: 600; color: var(--paper); }
+
+  footer.doc { margin-top: var(--s8); padding-top: var(--s5); border-top: 1px solid var(--line); font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; color: var(--faint); display: flex; justify-content: space-between; flex-wrap: wrap; gap: var(--s3); }
+
+  /* ───────────── Narrow screens ───────────── */
+  @media (max-width: 600px) {
+    .lens-table { display: block; padding: var(--s2) var(--s4); }
+    .lens-table thead { display: none; }
+    .lens-table tbody, .lens-table tr, .lens-table td { display: block; }
+    .lens-table tr { padding: var(--s4) 0; border-bottom: 1px solid var(--line); }
+    .lens-table tr:last-child { border-bottom: none; }
+    .lens-table td { padding: 0; border: none; }
+    .lens-table .lens-name { width: auto; margin-bottom: var(--s2); }
+    .lens-table .verdict { margin-bottom: var(--s2); }
+    .ref-lean li { grid-template-columns: 1fr; gap: var(--s1); }
+  }
+
+
+
+  /* ───────────── The ONLY animation in the report: the demo cards ───────────── */
+  .sq { width: 22px; height: 22px; border-radius: 7px; background: var(--st-fg); flex-shrink: 0; }
+  .bar { height: 8px; border-radius: 4px; background: var(--st-line); flex: 1; }
+  .demo-1__mt { display: flex; width: 100%; height: 120px; gap: 4px; }
+  .demo-1__mt .tab { flex: 0 0 34px; border-radius: 6px; background: var(--st-line); }
+  .demo-1__mt .open { flex: 1; border-radius: 6px; border: 1px solid var(--st-line); padding: 14px; }
+  .demo-1__mt .body { display: grid; gap: 8px; }
+  .demo-1__mt .h { font-family: var(--display); font-weight: 700; font-size: 20px; color: var(--st-fg); }
+  .demo-2__mt { width: 100%; }
+  .demo-2__mt .row { height: 30px; border-radius: 5px; background: var(--st-fg); }
+  .demo-2__mt .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: 8px; }
+  .demo-2__mt .grid span { aspect-ratio: 3/2; border-radius: 4px; background: var(--st-line); }
+  .demo-2__mt .grid span:first-child { background: var(--st-fg); }
+  .demo-4__mt { display: grid; grid-template-columns: repeat(3, 64px); gap: 8px; }
+  .demo-4__mt span { aspect-ratio: 3/2; border-radius: 4px; background: var(--st-line); }
+  .demo-4__mt span.k { background: var(--st-fg); }
+  .demo-5__mt { width: 100%; text-align: center; }
+  .demo-5__mt .shout { font-family: var(--display); font-weight: 700; font-size: 26px; line-height: 1; color: var(--st-fg); text-transform: uppercase; }
+  .demo-5__mt .cta { display: inline-block; margin-top: 14px; padding: 8px 14px; border-radius: 4px; background: var(--st-fg); color: var(--st-bg); font-size: 13px; font-weight: 600; }
+  .demo-3__mt { width: 100%; }
+  .demo-3__mt .r { margin-top: 8px; display: flex; align-items: center; gap: 10px; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .lens-table tbody tr, .finding-row { transition: border-color 0.2s ease; }
+
+    /* 01 · panel snaps open, its content fades in 8px */
+    @keyframes m1 {
+      0%, 20% { opacity: 0; transform: translateX(-8px); }
+      40%  { opacity: 1; transform: none; }
+      100% { opacity: 1; transform: none; }
+    }
+    .demo-1__mt .body { animation: m1 3s cubic-bezier(0.2,0.7,0.2,1) infinite; }
+
+    /* 02 · opened row's frames arrive */
+    @keyframes m2 {
+      0%, 20% { opacity: 0; transform: translateY(-6px); }
+      38%  { opacity: 1; transform: none; }
+      100% { opacity: 1; transform: none; }
+    }
+    .demo-2__mt .grid { animation: m2 3s cubic-bezier(0.2,0.7,0.2,1) infinite; }
+
+    /* 04 · press, release */
+    @keyframes m4 {
+      0%, 30% { transform: none; }
+      34%  { transform: scale(0.96); }
+      44%  { transform: none; }
+      100% { transform: none; }
+    }
+    .demo-4__mt .k { animation: m4 3s ease-out infinite; }
+
+    /* 05 · CTA follows the shout at 250ms */
+    @keyframes m5a { 0% { opacity: 0; transform: translateY(100%); } 30%, 100% { opacity: 1; transform: none; } }
+    @keyframes m5b { 0%, 8% { opacity: 0; transform: translateY(12px); } 25%, 100% { opacity: 1; transform: none; } }
+    .demo-5__mt .shout { animation: m5a 3s cubic-bezier(0.16,1,0.3,1) infinite; }
+    .demo-5__mt .cta { animation: m5b 3s cubic-bezier(0.2,0.7,0.2,1) infinite; }
+
+    /* 03 · heading static, objects rise 12px */
+    @keyframes m3 {
+      0%   { opacity: 0; transform: translateY(12px); }
+      45%  { opacity: 1; transform: none; }
+      100% { opacity: 1; transform: none; }
+    }
+    .demo-3__mt .r { animation: m3 3s cubic-bezier(0.2,0.7,0.2,1) infinite; }
+    .demo-3__mt .r + .r { animation-delay: 0.05s; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .demo__loop { display: none; }
+    [class*="__mt"], [class*="__mt"] * { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="theme-switch" role="radiogroup" aria-label="Report theme">
+    <input class="vh" type="radio" name="theme" id="theme-dark" checked>
+    <input class="vh" type="radio" name="theme" id="theme-light">
+    <div class="theme-switch__pill">
+      <label for="theme-dark">Dark</label>
+      <label for="theme-light">Light</label>
+    </div>
+  </div>
+
+  <header class="doc">
+    <div class="eyebrow">Motion audit · design-motion-principles</div>
+    <h1 class="title">CleanPix page: a strong hero, but the live picker snaps and one panel ignores reduced motion</h1>
+    <p class="lede">
+      This audit covers the CleanPix app page (<code>/cleanpix</code>), redesigned as a darkroom contact sheet with a live
+      keeper picker. It looks at the hero entrance, the scroll reveals, the sample-scan board, the "how it works" panels and the closing band.
+    </p>
+    <div class="meta-row">
+      <div><span class="mono-label k">What it is</span><span class="v">Marketing page for a duplicate-photo cleaner, mostly visited on phones</span></div>
+      <div><span class="mono-label k">Stack</span><span class="v">Laravel Blade · Tailwind 4 · inline page CSS + a small inline script</span></div>
+      <div><span class="mono-label k">Date</span><span class="v">2026-10-30</span></div>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="num">9</div><div class="mono-label lbl">Findings</div></div>
+      <div class="stat crit"><a href="#rec-crit"><div class="num">1</div><div class="mono-label lbl">Critical</div></a></div>
+      <div class="stat imp"><a href="#rec-imp"><div class="num">4</div><div class="mono-label lbl">Important</div></a></div>
+      <div class="stat opp"><a href="#rec-opp"><div class="num">4</div><div class="mono-label lbl">Opportunities</div></a></div>
+    </div>
+  </header>
+
+  <section class="assessment">
+    <span class="mono-label">Overall</span>
+    <p>
+      The hero is the best motion on the site: a masked two-line shout and a screenshot that lifts from the bottom edge, all CSS,
+      all gated on reduced motion. Below the fold the page loses that care. The "how it works" panels slide their widths for 450ms
+      on a layout property with no reduced-motion guard. The live picker, the page's whole idea, opens rows with a hard snap and
+      gives frames a hover zoom that sticks on touch. And the page brings back the 24px reveal on headings and paragraphs that the site pass just removed.
+    </p>
+  </section>
+
+  <section>
+    <div class="sec-index">01</div>
+    <h2 class="section-title">How each practitioner reads the motion</h2>
+    <p class="section-sub">
+      CleanPix is a photo tool, but this is its marketing page, so Jakub's production polish leads. Jhey covers the keeper pick,
+      the page's one playful moment. Emil checks what people repeat: picking frames, switching panels, reaching the Play button.
+    </p>
+    <table class="lens-table">
+      <thead><tr><th>Lens</th><th>Verdict</th><th>One-line read</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="lens-name">Production Polish <span class="who">Jakub Krehel</span><span class="weight">Primary</span></td>
+          <td><span class="verdict v-problem">Problem</span></td>
+          <td class="lens-read">The hero is finished; the panels animate layout with no reduced-motion path, and the picker's rows snap open.</td>
+        </tr>
+        <tr>
+          <td class="lens-name">Experimentation &amp; Delight <span class="who">Jhey Tompkins</span><span class="weight">Secondary</span></td>
+          <td><span class="verdict v-mixed">Mixed</span></td>
+          <td class="lens-read">The grey-out of struck frames is the right idea; the contact-sheet metaphor has room for one more gesture.</td>
+        </tr>
+        <tr>
+          <td class="lens-name">Restraint &amp; Speed <span class="who">Emil Kowalski</span><span class="weight">Selective</span></td>
+          <td><span class="verdict v-concern">Concern</span></td>
+          <td class="lens-read">On a phone the Play button waits 1.1s, and every frame zooms on hover in a grid you click through 25 times.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <div class="sec-index">02</div>
+    <h2 class="section-title">Where the timings land</h2>
+    <p class="section-sub">
+      Each dot is one of the page's animations at its own duration. The hero sits past 600ms on purpose; the problem is the
+      phone CTA riding along with it, and the two picker states that have no motion at all.
+    </p>
+    <div class="timing-grid">
+      <svg class="timing-figure" viewBox="0 0 660 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Duration scale from 0 to 600 milliseconds. Frame grey-out and hover zoom at 200ms, scroll reveal at 400ms, stage panel width at 450ms, hero CTA rise at 600ms plus 500ms delay, headline mask at 900ms, hero picture lift at 1200ms. Board row opening and stage body have no transition.">
+        <style>
+          .tf-track-stop-good { stop-color: var(--t-good); }
+          .tf-track-stop-mid  { stop-color: var(--t-mid); }
+          .tf-track-stop-slow { stop-color: var(--t-slow); }
+          .tf-track-stroke { stroke: var(--line-strong); }
+          .tf-grid { stroke: var(--line-strong); }
+          .tf-axis { fill: var(--faint); }
+          .tf-freq { fill: var(--muted); }
+          .tf-bracket { stroke: var(--faint); fill: none; }
+          .tf-zone-good { fill: var(--t-good); }
+          .tf-zone-mid  { fill: var(--t-mid); }
+          .tf-zone-slow { fill: var(--t-slow); }
+          .tf-dot-good  { fill: var(--t-good); }
+          .tf-dot-mid   { fill: var(--t-mid); }
+          .tf-dot-slow  { fill: var(--t-slow); }
+          .tf-dot-text  { fill: oklch(0.165 0.006 255); }
+          .tf-missing-ring { stroke: var(--faint); }
+          .tf-missing-text { fill: var(--muted); }
+        </style>
+        <defs>
+          <linearGradient id="track" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%"   class="tf-track-stop-good" stop-opacity="0.30"/>
+            <stop offset="50%"  class="tf-track-stop-good" stop-opacity="0.22"/>
+            <stop offset="58%"  class="tf-track-stop-mid"  stop-opacity="0.26"/>
+            <stop offset="83%"  class="tf-track-stop-mid"  stop-opacity="0.26"/>
+            <stop offset="90%"  class="tf-track-stop-slow" stop-opacity="0.36"/>
+            <stop offset="100%" class="tf-track-stop-slow" stop-opacity="0.42"/>
+          </linearGradient>
+        </defs>
+        <rect x="40" y="118" width="600" height="58" rx="10" fill="url(#track)" class="tf-track-stroke"/>
+        <g class="tf-grid" stroke-dasharray="2 5">
+          <line x1="140" y1="112" x2="140" y2="182"/>
+          <line x1="340" y1="112" x2="340" y2="182"/>
+          <line x1="540" y1="112" x2="540" y2="182"/>
+        </g>
+        <g font-family="Geist Mono, monospace" font-size="11" class="tf-axis" text-anchor="middle">
+          <text x="40"  y="204">0</text>
+          <text x="140" y="204">100</text>
+          <text x="340" y="204">300</text>
+          <text x="540" y="204">500</text>
+          <text x="636" y="204" text-anchor="end">600ms+</text>
+        </g>
+        <g font-family="Geist Mono, monospace" font-size="9.5" letter-spacing="1.6">
+          <text x="90"  y="106" text-anchor="middle" class="tf-zone-good">INSTANT</text>
+          <text x="240" y="106" text-anchor="middle" class="tf-zone-good">RESPONSIVE</text>
+          <text x="440" y="106" text-anchor="middle" class="tf-zone-mid">DELIBERATE</text>
+          <text x="592" y="106" text-anchor="middle" class="tf-zone-slow">SLUGGISH</text>
+        </g>
+        <circle cx="40" cy="134" r="11" fill="none" class="tf-missing-ring" stroke-width="1.5" stroke-dasharray="3 3"/>
+        <text x="40" y="138" font-family="Geist Mono, monospace" font-size="11" font-weight="600" text-anchor="middle" class="tf-missing-text">8</text>
+        <circle cx="40" cy="160" r="11" fill="none" class="tf-missing-ring" stroke-width="1.5" stroke-dasharray="3 3"/>
+        <text x="40" y="164" font-family="Geist Mono, monospace" font-size="11" font-weight="600" text-anchor="middle" class="tf-missing-text">9</text>
+        <g font-family="Geist Mono, monospace" font-size="11" font-weight="600" text-anchor="middle">
+          <circle cx="240" cy="134" r="12" class="tf-dot-good"/><text x="240" y="138" class="tf-dot-text">1</text>
+          <circle cx="240" cy="160" r="12" class="tf-dot-good"/><text x="240" y="164" class="tf-dot-text">2</text>
+          <circle cx="440" cy="147" r="12" class="tf-dot-mid"/><text x="440" y="151" class="tf-dot-text">3</text>
+          <circle cx="490" cy="147" r="12" class="tf-dot-mid"/><text x="490" y="151" class="tf-dot-text">4</text>
+          <circle cx="586" cy="147" r="12" class="tf-dot-slow"/><text x="586" y="151" class="tf-dot-text">5</text>
+          <circle cx="612" cy="147" r="12" class="tf-dot-slow"/><text x="612" y="151" class="tf-dot-text">6</text>
+          <circle cx="638" cy="147" r="12" class="tf-dot-slow"/><text x="638" y="151" class="tf-dot-text">7</text>
+        </g>
+        <path class="tf-bracket" stroke-width="1" d="M586 218 L586 224 L638 224 L638 218 M612 224 L612 230"/>
+        <text x="638" y="244" font-family="Public Sans, sans-serif" font-size="11" text-anchor="end" class="tf-freq">hero settles at ~1.45s</text>
+      </svg>
+
+      <div class="timing-key">
+        <h4 class="mono-label">The animations</h4>
+        <ol class="key-list">
+          <li><span class="kn">1</span><span class="ka">Struck frame grey-out (filter)</span><span class="kt good">200ms</span></li>
+          <li><span class="kn">2</span><span class="ka">Frame hover zoom 1.03</span><span class="kt good">200ms</span></li>
+          <li><span class="kn">3</span><span class="ka">Scroll reveal, 24px (+50ms × batch)</span><span class="kt mid">400ms</span></li>
+          <li><span class="kn">4</span><span class="ka">Stage panel width (flex-basis)</span><span class="kt mid">450ms</span></li>
+          <li><span class="kn">5</span><span class="ka">Hero sentence + CTA rise, after 500ms</span><span class="kt slow">600ms</span></li>
+          <li><span class="kn">6</span><span class="ka">Headline line mask</span><span class="kt slow">900ms</span></li>
+          <li><span class="kn">7</span><span class="ka">Hero picture lift, after 250ms</span><span class="kt slow">1200ms</span></li>
+          <li><span class="kn">8</span><span class="ka">Board row opens (frames + line)</span><span class="kt none">none</span></li>
+          <li><span class="kn">9</span><span class="ka">Stage text + screenshot appear</span><span class="kt none">none</span></li>
+        </ol>
+
+        <div class="zone-defs">
+          <div class="zone-def"><span class="dot" style="background:var(--t-good)"></span><div><span class="zt">Instant / Responsive</span> · 0–300ms: <span class="zd">picks, presses, panel content.</span></div></div>
+          <div class="zone-def"><span class="dot" style="background:var(--t-mid)"></span><div><span class="zt">Deliberate</span> · 300–500ms: <span class="zd">Jakub's polish range. Right for a reveal, heavy for a panel you click through.</span></div></div>
+          <div class="zone-def"><span class="dot" style="background:var(--t-slow)"></span><div><span class="zt">Sluggish</span> · 500ms+: <span class="zd">fine once for a cinematic hero; costly when the primary action waits on it.</span></div></div>
+        </div>
+
+        <div class="whats-off">
+          <span class="mono-label">What's off</span>
+          <p>The hero (6, 7) is long on purpose and reads well. The phone CTA (5) shouldn't wait for it. The panel width (4) is the only layout animation on the site. The picker's two state changes (8, 9) have nothing at all.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ 03 · JAKUB (primary) ═══════════ -->
+  <section class="lens-sec">
+    <div class="sec-index">03</div>
+    <div class="lens-sec__head">
+      <h3>Jakub Krehel — Production Polish</h3>
+      <span class="lens-sec__weight">Primary lens</span>
+    </div>
+    <p class="lens-sec__verdict"><span class="verdict v-problem">Problem</span></p>
+
+    <div class="lens-block">
+      <span class="mono-label">What's working well</span>
+      <ul class="lens-list good">
+        <li><span class="mk">✓</span><span>The headline mask (<code>translateY(105%)</code> inside <code>overflow: hidden</code>) with a 110ms offset on line two is a clean, purposeful entrance on an expo-out curve. <code>cleanpix.blade.php:239-261</code></span></li>
+        <li><span class="mk">✓</span><span>All hero motion is CSS with <code>both</code> fill, inside <code>no-preference</code>: nothing waits on the script and nothing hides without motion.</span></li>
+        <li><span class="mk">✓</span><span>Board rows reveal sideways so a row in transit never overlaps the one above. A thought-through detail. <code>cleanpix.blade.php:235</code></span></li>
+        <li><span class="mk">✓</span><span>The picker is CSS radios: it works with no script and with motion off.</span></li>
+      </ul>
+    </div>
+
+    <div class="lens-block">
+      <span class="mono-label">Issues to address</span>
+      <div class="findings">
+
+        <!-- FINDING 1 -->
+        <div class="finding-row" data-sev="crit" id="finding-1">
+          <div class="finding-row__prose">
+            <div class="find-tags"><span class="severity crit">Critical</span><span class="lens-chip">Jakub</span><span class="lens-chip">Emil</span></div>
+            <h4 class="find-title">"How it works" panels slide their widths with no reduced-motion path</h4>
+            <div class="find-body">
+              <p><span class="label">What</span>At 1024px and up, <code>.cp-stage</code> transitions <code>flex-basis</code> for 450ms. The rule sits outside any <code>prefers-reduced-motion</code> block, so a visitor who asked for less motion still gets five panels sliding across 1100px. It's also the only layout-property animation on the site: every frame reflows the row. On phones the panel text and screenshot appear with no transition at all.</p>
+              <p><span class="label">Why it matters</span>Large horizontal movement is a vestibular trigger, and reduced motion is a hard rule in this house style. Panels are switched by click and arrow keys; keyboard-initiated changes shouldn't animate across half the screen.</p>
+              <div class="fix"><p><span class="label">Recommended motion</span>Let the widths snap, and move the motion to what's new: the opened panel's content fades in from 8px left over 240ms on the house ease-out, inside <code>no-preference</code>. Because <code>.cp-stage-body</code> goes from <code>display: none</code> to <code>grid</code>, a CSS <code>animation</code> on it replays on every open with no script, on every width. Transform and opacity only.</p></div>
+              <p class="find-loc"><code>resources/views/apps/cleanpix.blade.php:96-104, 119-127</code></p>
+            </div>
+          </div>
+          <div class="demo">
+            <input class="vh" type="radio" name="st1" id="st1-a" checked>
+            <input class="vh" type="radio" name="st1" id="st1-l">
+            <input class="vh" type="radio" name="st1" id="st1-d">
+            <div class="demo__bar">
+              <div class="demo__meta"><span class="demo__title">Panel snaps, content arrives</span><span class="demo__timing">240ms · cubic-bezier(.2,.7,.2,1)</span></div>
+              <div class="demo__controls">
+                <div class="seg"><label for="st1-a">Auto</label><label for="st1-l">Light</label><label for="st1-d">Dark</label></div>
+                <span class="demo__loop">↻</span>
+              </div>
+            </div>
+            <div class="demo__stage">
+              <div class="demo-1__mt">
+                <span class="tab"></span><span class="tab"></span>
+                <div class="open"><div class="body"><span class="h">Group</span><span class="bar"></span><span class="bar" style="flex:none;width:70%"></span></div></div>
+                <span class="tab"></span><span class="tab"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FINDING 2 -->
+        <div class="finding-row" data-sev="imp" id="finding-2">
+          <div class="finding-row__prose">
+            <div class="find-tags"><span class="severity imp">Important</span><span class="lens-chip">Jakub</span></div>
+            <h4 class="find-title">The live picker's rows snap open</h4>
+            <div class="find-body">
+              <p><span class="label">What</span>Choosing a group swaps <code>.cp-detail</code> from <code>display: none</code> to <code>grid</code>: four frames and the summary line appear in one frame, and the row below jumps down. The row's <code>transition-colors</code> is also dead once the reveal script runs, because the global <code>.reveal-on [data-reveal]</code> transition (unlayered) overrides the Tailwind utility; the pink fill snaps with JS and fades without it.</p>
+              <p><span class="label">Why it matters</span>This board is the page's whole idea. A hard cut on its main state change reads as unfinished, and the jump makes it hard to see which row just opened.</p>
+              <div class="fix"><p><span class="label">Recommended motion</span>Give the opened detail a short arrival: opacity 0 → 1 and 6px down → 0 over 220ms, motion-safe only. Height still snaps (no height animation in this house style), but the eye now lands on the frames. Drop the dead <code>transition-colors</code> so the fill behaves the same with and without the script.</p></div>
+              <p class="find-loc"><code>resources/views/apps/cleanpix.blade.php:161-166, 315</code></p>
+            </div>
+          </div>
+          <div class="demo">
+            <input class="vh" type="radio" name="st2" id="st2-a" checked>
+            <input class="vh" type="radio" name="st2" id="st2-l">
+            <input class="vh" type="radio" name="st2" id="st2-d">
+            <div class="demo__bar">
+              <div class="demo__meta"><span class="demo__title">Opened row's frames arrive</span><span class="demo__timing">220ms · cubic-bezier(.2,.7,.2,1)</span></div>
+              <div class="demo__controls">
+                <div class="seg"><label for="st2-a">Auto</label><label for="st2-l">Light</label><label for="st2-d">Dark</label></div>
+                <span class="demo__loop">↻</span>
+              </div>
+            </div>
+            <div class="demo__stage">
+              <div class="demo-2__mt"><div class="row"></div><div class="grid"><span></span><span></span><span></span><span></span></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FINDING 3 -->
+        <div class="finding-row" data-sev="imp" id="finding-3">
+          <div class="finding-row__prose">
+            <div class="find-tags"><span class="severity imp">Important</span><span class="lens-chip">Jakub</span><span class="lens-chip">Emil</span></div>
+            <h4 class="find-title">The page brings back the 24px reveal on headings and text</h4>
+            <div class="find-body">
+              <p><span class="label">What</span><code>.reveal-on .cp [data-reveal]</code> doubles the site's calmed 12px travel to 24px, and <code>data-reveal</code> sits on every h2, intro paragraph and the privacy link. The site-wide motion pass removed exactly this: reveals on text, at 24px.</p>
+              <p><span class="label">Why it matters</span>Motion on text only delays reading, and this page now moves differently from its three siblings. It's the uniform-fade-in and motion-on-static-text pattern from the anti-checklist.</p>
+              <div class="fix"><p><span class="label">Recommended motion</span>Remove <code>data-reveal</code> from headings, paragraphs and the link; keep it on objects (board rows, the stage strip, feature tiles). Drop the 24px override so objects use the site's 12px; board rows keep their sideways direction at 12px.</p></div>
+              <p class="find-loc"><code>resources/views/apps/cleanpix.blade.php:231-237, 306-307, 352-353, 378-380</code></p>
+            </div>
+          </div>
+          <div class="demo">
+            <input class="vh" type="radio" name="st3" id="st3-a" checked>
+            <input class="vh" type="radio" name="st3" id="st3-l">
+            <input class="vh" type="radio" name="st3" id="st3-d">
+            <div class="demo__bar">
+              <div class="demo__meta"><span class="demo__title">Heading static, rows rise 12px</span><span class="demo__timing">400ms · cubic-bezier(.2,.7,.2,1)</span></div>
+              <div class="demo__controls">
+                <div class="seg"><label for="st3-a">Auto</label><label for="st3-l">Light</label><label for="st3-d">Dark</label></div>
+                <span class="demo__loop">↻</span>
+              </div>
+            </div>
+            <div class="demo__stage">
+              <div class="demo-3__mt">
+                <div style="font-family:var(--display);font-size:22px;font-weight:700;color:var(--st-fg);letter-spacing:-0.02em;">8 groups found</div>
+                <div class="r"><span class="sq"></span><span class="bar"></span></div>
+                <div class="r"><span class="sq"></span><span class="bar"></span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="lens-block">
+      <span class="mono-label">Opportunities</span>
+      <ul class="lens-list opp">
+        <li><span class="mk">💡</span><span>The closing band flips field and word colour instantly on hover. That hard flip suits "the word is the button"; if it ever feels abrupt, 120ms on <code>background-color, color</code> is the most it needs. <code>cleanpix.blade.php:216</code></span></li>
+      </ul>
+    </div>
+
+    <div class="lens-take">
+      <span class="mono-label">Through Jakub's lens</span>
+      <p>The hero shows the standard; the rest of the page should meet it. Move the panel motion off layout and onto content, give the picker one honest arrival, and take motion off the text.</p>
+    </div>
+  </section>
+
+  <!-- ═══════════ 04 · JHEY (secondary) ═══════════ -->
+  <section class="lens-sec">
+    <div class="sec-index">04</div>
+    <div class="lens-sec__head">
+      <h3>Jhey Tompkins — Experimentation &amp; Delight</h3>
+      <span class="lens-sec__weight">Secondary lens</span>
+    </div>
+    <p class="lens-sec__verdict"><span class="verdict v-mixed">Mixed</span></p>
+
+    <div class="lens-block">
+      <span class="mono-label">What's working well</span>
+      <ul class="lens-list good">
+        <li><span class="mk">✓</span><span>Struck frames fade to grey over 200ms: a contact-sheet gesture that is also the state indicator. <code>cleanpix.blade.php:171-184</code></span></li>
+        <li><span class="mk">✓</span><span>The screenshot rising from the bottom edge, only its top showing, is a confident hero image move. <code>cleanpix.blade.php:249</code></span></li>
+      </ul>
+    </div>
+
+    <div class="lens-block">
+      <span class="mono-label">Issues to address</span>
+      <p class="lens-empty">No issues found at this severity level.</p>
+    </div>
+
+    <div class="lens-block">
+      <span class="mono-label">Opportunities</span>
+      <ul class="lens-list opp">
+        <li><span class="mk">💡</span><span>A grease-pencil strike: when a frame becomes a "drop", draw a thin diagonal line across it with <code>scaleX(0 → 1)</code> over 180ms. It deepens the darkroom borrowing the taste pass called thin, and it is still transform-only. <code>cleanpix.blade.php:174</code></span></li>
+        <li><span class="mk">💡</span><span>Let the page total ("freed: 141.10 MB") answer each pick with a 200ms accent tint, so the visitor sees the number they changed. Colour only, no count-up. <code>cleanpix.blade.php:309</code></span></li>
+      </ul>
+    </div>
+
+    <div class="lens-take">
+      <span class="mono-label">Through Jhey's lens</span>
+      <p>The grey-out already makes the metaphor move. One more mark from the darkroom, a pencil strike, would make the pick feel like editing a real sheet.</p>
+    </div>
+  </section>
+
+  <!-- ═══════════ 05 · EMIL (selective) ═══════════ -->
+  <section class="lens-sec">
+    <div class="sec-index">05</div>
+    <div class="lens-sec__head">
+      <h3>Emil Kowalski — Restraint &amp; Speed</h3>
+      <span class="lens-sec__weight">Selective lens</span>
+    </div>
+    <p class="lens-sec__verdict"><span class="verdict v-concern">Concern</span></p>
+
+    <div class="lens-block">
+      <span class="mono-label">What's working well</span>
+      <ul class="lens-list good">
+        <li><span class="mk">✓</span><span>The keep/drop labels and keyboard focus rings change instantly. Right for a control people step through with arrow keys.</span></li>
+        <li><span class="mk">✓</span><span>Both hero Play buttons use the shared <code>.press</code> 150ms press.</span></li>
+      </ul>
+    </div>
+
+    <div class="lens-block">
+      <span class="mono-label">Issues to address</span>
+      <div class="findings">
+
+        <!-- FINDING 4 -->
+        <div class="finding-row" data-sev="imp" id="finding-4">
+          <div class="finding-row__prose">
+            <div class="find-tags"><span class="severity imp">Important</span><span class="lens-chip">Emil</span><span class="lens-chip">Jakub</span></div>
+            <h4 class="find-title">Every frame zooms on hover; nothing answers a tap</h4>
+            <div class="find-body">
+              <p><span class="label">What</span><code>.cp-frame:hover img { transform: scale(1.03) }</code> runs on all 25 frames. The image has no clipping box, so the zoom grows past the 8px gutter and drags the keeper's inset outline with it. On touch, <code>:hover</code> sticks to the last tapped frame, so it stays zoomed. A tap itself gets no feedback. And the intended colour preview on hover never shows: <code>.cp-frame:hover img</code> (0,2,1) loses to the grey-out rule <code>.cp-frame:has(input:not(:checked)) img</code> (0,2,2), so only the zoom is visible.</p>
+              <p><span class="label">Why it matters</span>Picking a frame is the most repeated action on the page. Hover zoom across a grid is the hover-scale-on-everything pattern; what a repeated pick needs is a quick press, not a zoom.</p>
+              <div class="fix"><p><span class="label">Recommended motion</span>Drop the hover zoom; make the colour preview actually win (scope it under <code>.cp-board</code>) and limit it to <code>(hover: hover)</code> devices. Add a press: <code>:active</code> scales the frame to 0.97 over 120ms ease-out, the same press the site uses on buttons.</p></div>
+              <p class="find-loc"><code>resources/views/apps/cleanpix.blade.php:171-184, 252-254</code></p>
+            </div>
+          </div>
+          <div class="demo">
+            <input class="vh" type="radio" name="st4" id="st4-a" checked>
+            <input class="vh" type="radio" name="st4" id="st4-l">
+            <input class="vh" type="radio" name="st4" id="st4-d">
+            <div class="demo__bar">
+              <div class="demo__meta"><span class="demo__title">Press, not zoom</span><span class="demo__timing">120ms · ease-out · scale .97</span></div>
+              <div class="demo__controls">
+                <div class="seg"><label for="st4-a">Auto</label><label for="st4-l">Light</label><label for="st4-d">Dark</label></div>
+                <span class="demo__loop">↻</span>
+              </div>
+            </div>
+            <div class="demo__stage">
+              <div class="demo-4__mt"><span></span><span class="k"></span><span></span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FINDING 5 -->
+        <div class="finding-row" data-sev="imp" id="finding-5">
+          <div class="finding-row__prose">
+            <div class="find-tags"><span class="severity imp">Important</span><span class="lens-chip">Emil</span></div>
+            <h4 class="find-title">On a phone, the Play button waits 1.1s</h4>
+            <div class="find-body">
+              <p><span class="label">What</span><code>.cp-after</code> (the sentence and the Play button) rises over 600ms after a 500ms delay. On phones it sits right under the shout, so the page's primary action is invisible for half a second and only settles at 1.1s.</p>
+              <p><span class="label">Why it matters</span>The shout is legible by ~300ms on its expo-out curve; making the action wait another 800ms is pure tax on every visit.</p>
+              <div class="fix"><p><span class="label">Recommended motion</span>Start it at 250ms and run it for 500ms: it still follows the headline, but settles at 0.75s. Leave the picture's lift as it is; it is decoration and doesn't hold anything back.</p></div>
+              <p class="find-loc"><code>resources/views/apps/cleanpix.blade.php:246-248</code></p>
+            </div>
+          </div>
+          <div class="demo">
+            <input class="vh" type="radio" name="st5" id="st5-a" checked>
+            <input class="vh" type="radio" name="st5" id="st5-l">
+            <input class="vh" type="radio" name="st5" id="st5-d">
+            <div class="demo__bar">
+              <div class="demo__meta"><span class="demo__title">CTA follows the shout</span><span class="demo__timing">500ms · delay 250ms</span></div>
+              <div class="demo__controls">
+                <div class="seg"><label for="st5-a">Auto</label><label for="st5-l">Light</label><label for="st5-d">Dark</label></div>
+                <span class="demo__loop">↻</span>
+              </div>
+            </div>
+            <div class="demo__stage">
+              <div class="demo-5__mt"><div style="overflow:hidden"><div class="shout">Keep one.</div></div><span class="cta">Open on Google Play</span></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="lens-block">
+      <span class="mono-label">Opportunities</span>
+      <ul class="lens-list opp">
+        <li><span class="mk">💡</span><span>The hero picture's 1200ms lift is the longest motion on the site. 900ms would read the same and settle the hero sooner. <code>cleanpix.blade.php:250</code></span></li>
+      </ul>
+    </div>
+
+    <div class="lens-take">
+      <span class="mono-label">Through Emil's lens</span>
+      <p>The cinematic hero earns its time; the button underneath it doesn't need to share it. Things you repeat (picks, panel switches) should answer at once, and they mostly do.</p>
+    </div>
+  </section>
+
+  <!-- ═══════════ 06 · COMBINED RECOMMENDATIONS ═══════════ -->
+  <section>
+    <div class="sec-index">06</div>
+    <h2 class="section-title">In the order I'd fix them</h2>
+    <p class="section-sub">Accessibility first, then the live picker, then the timing and text reveals.</p>
+
+    <div class="rec crit" id="rec-crit">
+      <div class="tier-label"><span class="mono-label">Critical · must fix</span><span class="rule"></span><span class="count">1</span></div>
+      <table class="rec-table">
+        <thead><tr><th>Issue</th><th>File</th><th>Fix</th></tr></thead>
+        <tbody>
+          <tr><td>Stage panels slide widths (layout) with no reduced-motion path</td><td><code>cleanpix.blade.php:123</code></td><td>Snap widths; fade opened content in 8px / 240ms, motion-safe only</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="rec imp" id="rec-imp">
+      <div class="tier-label"><span class="mono-label">Important · should fix</span><span class="rule"></span><span class="count">4</span></div>
+      <table class="rec-table">
+        <thead><tr><th>Issue</th><th>File</th><th>Fix</th></tr></thead>
+        <tbody>
+          <tr><td>Picker rows snap open; row fill transition is dead under the reveal script</td><td><code>cleanpix.blade.php:164, 315</code></td><td>Detail arrives 6px / 220ms; remove dead <code>transition-colors</code></td></tr>
+          <tr><td>Hover zoom on all 25 frames, sticks on touch, no tap feedback</td><td><code>cleanpix.blade.php:252</code></td><td>Remove zoom; hover preview on <code>(hover: hover)</code> only; <code>:active</code> scale .97 / 120ms</td></tr>
+          <tr><td>Phone Play button waits 1.1s</td><td><code>cleanpix.blade.php:247</code></td><td>Delay 250ms, duration 500ms</td></tr>
+          <tr><td>24px reveal on headings and text, undoing the site pass</td><td><code>cleanpix.blade.php:231</code></td><td>Reveal objects only, at the site's 12px</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="rec opp" id="rec-opp">
+      <div class="tier-label"><span class="mono-label">Opportunities · could enhance</span><span class="rule"></span><span class="count">4</span></div>
+      <table class="rec-table">
+        <thead><tr><th>Enhancement</th><th>Where</th><th>Impact</th></tr></thead>
+        <tbody>
+          <tr><td>Grease-pencil strike on dropped frames</td><td><code>cleanpix.blade.php:174</code></td><td>Deepens the contact-sheet idea, transform-only</td></tr>
+          <tr><td>Accent tint on the total after each pick</td><td><code>cleanpix.blade.php:309</code></td><td>Visitor sees the number they changed</td></tr>
+          <tr><td>Hero picture lift 1200 → 900ms</td><td><code>cleanpix.blade.php:250</code></td><td>Hero settles sooner, same feel</td></tr>
+          <tr><td>120ms colour fade on the closing band</td><td><code>cleanpix.blade.php:216</code></td><td>Only if the hard flip ever feels abrupt</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ═══════════ 07 · LENS REFERENCE SUMMARY ═══════════ -->
+  <section style="margin-bottom: var(--s6);">
+    <div class="sec-index">07</div>
+    <h2 class="section-title">Which lens carried this audit</h2>
+    <div class="ref-summary">
+      <span class="mono-label">Referenced most</span>
+      <p class="big">Jakub Krehel — Production Polish</p>
+      <p class="why">The page's motion ideas are good; the gaps are finish: a layout animation without a reduced-motion path, a main state change with no arrival, and text reveals that drifted from the site. Emil set the timing for the CTA and the repeated pick; Jhey looked for the one gesture the metaphor still lacks.</p>
+      <ul class="ref-lean">
+        <li><span class="nm">Lean Emil</span><span>Remove the scroll reveals and the panel-content fade too; keep the hero and the grey-out only.</span></li>
+        <li><span class="nm">Lean Jakub</span><span>Apply the four fixes and the closing-band fade; every state change on the page then has a 120–240ms answer.</span></li>
+        <li><span class="nm">Lean Jhey</span><span>Add the grease-pencil strike and the total tint; let the picker feel like marking up a sheet.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <footer class="doc">
+    <span>cleanpix motion audit · design-motion-principles · 2026-10-30</span>
+    <span>9 findings · 1 critical · 4 important · 4 opportunities</span>
+  </footer>
+
+</div>
+</body>
+</html>
