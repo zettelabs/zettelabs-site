@@ -4,7 +4,6 @@ return [
 
     'background-wizard' => [
         'name' => 'Background Wizard',
-        'kicker' => "Google Play'de yayında",
         'tagline' => 'Fotoğraflardan arka planı kaldırın, değiştirin ya da bulanıklaştırın.',
         'description' => 'Yapay zekâ destekli otomatik arka plan kaldırma, hazır arka planlarla değiştirme ve profesyonel bulanıklaştırma efektleri — hepsi tek uygulamada.',
         'features' => [
@@ -21,7 +20,6 @@ return [
 
     'cleanpix' => [
         'name' => 'CleanPix',
-        'kicker' => "Google Play'de yayında",
         'tagline' => 'Tekrarlayan ve birbirine benzeyen fotoğrafları bulup telefonunda yer aç.',
         'description' => 'CleanPix, cihazındaki yinelenen ya da birbirine çok benzeyen fotoğrafları tarar; hangisini sileceğine sen karar verirsin.',
         'features' => [
@@ -38,7 +36,6 @@ return [
 
     'circlepix' => [
         'name' => 'CirclePix',
-        'kicker' => "Google Play'de yayında",
         'tagline' => 'Yapay zekâ ile saniyeler içinde şeffaf arka planlı profil fotoğrafı üret.',
         'description' => 'CirclePix, arka planı otomatik temizler; renkli çerçeveler ve neon efektlerle profil fotoğrafını öne çıkarır.',
         'features' => [
@@ -55,7 +52,6 @@ return [
 
     'simple-alarm' => [
         'name' => 'Simple Alarm',
-        'kicker' => "Google Play'de yayında",
         'tagline' => 'Sade, esnek ve kişiselleştirilebilir bir alarm uygulaması.',
         'description' => 'Simple Alarm, özelleştirilebilir arka planlar ve haftanın günlerine göre esnek programlarla sabahlarını kolaylaştırır.',
         'features' => [

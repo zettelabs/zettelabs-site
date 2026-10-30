@@ -15,7 +15,12 @@ class PageController extends Controller
 
     public function home(): View
     {
-        return view('home', ['apps' => config('apps')]);
+        $apps = array_map(
+            fn (array $app) => [...$app, 'shot' => $this->localizedImage($app['screenshots'][0])],
+            config('apps'),
+        );
+
+        return view('home', ['apps' => $apps]);
     }
 
     public function privacy(): View

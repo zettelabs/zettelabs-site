@@ -15,8 +15,8 @@
     </head>
     <body class="bg-canvas text-ink font-sans antialiased">
         <div class="flex min-h-screen flex-col">
-            <header class="border-b border-line">
-                <div class="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-x-4 gap-y-2 px-4 py-4 sm:px-6 sm:py-5">
+            <header>
+                <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-4 gap-y-2 px-6 py-4 sm:py-5">
                     <a href="{{ route('home') }}" class="flex items-center gap-2">
                         <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg" style="background-image: linear-gradient(135deg, #ff007c, #a855f7 60%, #38bdf8);">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -51,8 +51,8 @@
                 @yield('content')
             </main>
 
-            <footer class="border-t border-line">
-                <div class="mx-auto flex max-w-5xl flex-col gap-4 px-6 py-8 text-sm text-ink-dim sm:flex-row sm:items-center sm:justify-between">
+            <footer>
+                <div class="mx-auto flex max-w-6xl flex-col gap-4 px-6 py-10 text-sm text-ink-dim sm:flex-row sm:items-center sm:justify-between">
                     <p>{{ __('© :year Zettelabs. Tüm hakları saklıdır.', ['year' => date('Y')]) }}</p>
                     <div class="flex gap-5">
                         <a href="{{ route('privacy') }}" class="hover:text-ink">{{ __('Gizlilik Politikası') }}</a>
