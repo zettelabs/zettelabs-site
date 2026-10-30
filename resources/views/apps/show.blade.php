@@ -18,7 +18,7 @@
                 <a href="{{ $app['play_store'] }}" target="_blank" rel="noopener" class="press rounded-full bg-accent px-6 py-3.5 font-semibold text-canvas hover:bg-accent-deep">
                     {{ __("Google Play'de aç") }}
                 </a>
-                <a href="{{ $app['privacy_url'] }}" class="font-semibold text-ink underline-offset-4 hover:underline">
+                <a href="{{ $app['privacy_url'] }}" class="font-semibold text-ink underline decoration-transparent underline-offset-4 transition-colors hover:decoration-current">
                     {{ __('Gizlilik Politikası') }}
                 </a>
             </div>
@@ -32,8 +32,8 @@
     <section class="bg-surface py-24 md:py-32">
         <div class="mx-auto grid max-w-6xl gap-12 px-6 md:grid-cols-12 md:gap-6">
             <div class="md:col-span-5">
-                <h2 data-reveal class="text-4xl font-bold tracking-[-0.02em] text-ink md:text-5xl">{{ __('Özellikler') }}</h2>
-                <p data-reveal class="mt-5 text-lg text-ink">{{ __($app['description']) }}</p>
+                <h2 class="text-4xl font-bold tracking-[-0.02em] text-ink md:text-5xl">{{ __('Özellikler') }}</h2>
+                <p class="mt-5 text-lg text-ink">{{ __($app['description']) }}</p>
             </div>
             <ul class="grid gap-6 md:col-span-6 md:col-start-7">
                 @foreach ($app['features'] as $feature)
@@ -48,11 +48,17 @@
         </div>
 
         {{-- Four copies so half the track (the loop distance) always outruns a wide screen. --}}
-        <div class="marquee mt-20 md:mt-28" style="--marquee-duration: {{ count($app['screenshots']) * 8 }}s;">
+        <div class="mx-auto mt-20 flex max-w-6xl justify-end px-6 md:mt-28">
+            <button type="button" data-marquee-toggle aria-controls="screenshots" aria-pressed="false" class="flex items-center gap-2 rounded-full border border-line px-4 py-2 text-sm text-ink-dim transition-colors hover:text-ink aria-pressed:bg-ink aria-pressed:text-canvas">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><rect x="2" y="1.5" width="2.5" height="9" rx="1"/><rect x="7.5" y="1.5" width="2.5" height="9" rx="1"/></svg>
+                {{ __('Kaydırmayı durdur') }}
+            </button>
+        </div>
+        <div id="screenshots" class="marquee mt-6" style="--marquee-duration: {{ count($app['screenshots']) * 8 }}s;">
             <div class="marquee-track">
                 @for ($i = 0; $i < 4; $i++)
                     @foreach ($app['screenshots'] as $screenshot)
-                        <div class="ml-6 aspect-[9/16] w-56 shrink-0 overflow-hidden rounded-2xl sm:w-64">
+                        <div @if ($i) data-dup @endif class="ml-6 aspect-[9/16] w-56 shrink-0 overflow-hidden rounded-2xl sm:w-64">
                             <img src="{{ asset($screenshot) }}" alt="" loading="lazy" class="h-full w-full object-cover object-top">
                         </div>
                     @endforeach

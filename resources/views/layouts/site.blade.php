@@ -28,8 +28,8 @@
                         <span class="text-lg font-bold tracking-tight text-ink">Zettelabs</span>
                     </a>
                     <nav class="flex items-center gap-3 text-sm sm:gap-5">
-                        <a href="{{ route('home') }}#urunler" class="text-ink-dim hover:text-ink">{{ __('Uygulamalar') }}</a>
-                        <a href="{{ route('privacy') }}" class="text-ink-dim hover:text-ink">{{ __('Gizlilik') }}</a>
+                        <a href="{{ route('home') }}#urunler" class="text-ink-dim transition-colors hover:text-ink">{{ __('Uygulamalar') }}</a>
+                        <a href="{{ route('privacy') }}" class="text-ink-dim transition-colors hover:text-ink">{{ __('Gizlilik') }}</a>
                         <label class="relative">
                             <span class="sr-only">{{ __('Dil seçin') }}</span>
                             <select
@@ -55,8 +55,8 @@
                 <div class="mx-auto flex max-w-6xl flex-col gap-4 px-6 py-10 text-sm text-ink-dim sm:flex-row sm:items-center sm:justify-between">
                     <p>{{ __('© :year Zettelabs. Tüm hakları saklıdır.', ['year' => date('Y')]) }}</p>
                     <div class="flex gap-5">
-                        <a href="{{ route('privacy') }}" class="hover:text-ink">{{ __('Gizlilik Politikası') }}</a>
-                        <a href="mailto:zettelabs@gmail.com" class="hover:text-ink">{{ __('İletişim') }}</a>
+                        <a href="{{ route('privacy') }}" class="transition-colors hover:text-ink">{{ __('Gizlilik Politikası') }}</a>
+                        <a href="mailto:zettelabs@gmail.com" class="transition-colors hover:text-ink">{{ __('İletişim') }}</a>
                     </div>
                 </div>
             </footer>

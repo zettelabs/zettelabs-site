@@ -23,17 +23,17 @@
 @keyframes rise {
     from {
         opacity: 0;
-        transform: translateY(24px);
+        transform: translateY(12px);
     }
 }
 
 /* Parts below the fold rise once as they enter; app.js adds .reveal-on only when it can observe. */
 .reveal-on [data-reveal] {
     opacity: 0;
-    transform: translateY(24px);
+    transform: translateY(12px);
     transition:
-        opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1),
-        transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+        opacity 0.4s cubic-bezier(0.2, 0.7, 0.2, 1),
+        transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
 .reveal-on [data-reveal].is-in {
@@ -61,7 +61,9 @@
     animation: marquee-scroll var(--marquee-duration, 30s) linear infinite;
 }
 
-.marquee:hover .marquee-track {
+.marquee:hover .marquee-track,
+.marquee:focus-within .marquee-track,
+.marquee.is-paused .marquee-track {
     animation-play-state: paused;
 }
 
@@ -76,13 +78,28 @@
 
 @media (prefers-reduced-motion: no-preference) {
     .rise {
-        animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
-        animation-delay: calc(var(--i, 0) * 80ms);
+        animation: rise 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+        animation-delay: calc(var(--i, 0) * 50ms);
     }
 }
 
+/* Without motion the strip becomes a swipeable row, so every screenshot stays reachable. */
 @media (prefers-reduced-motion: reduce) {
+    .marquee {
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+    }
+
     .marquee-track {
         animation: none;
+    }
+
+    .marquee-track > * {
+        scroll-snap-align: start;
+    }
+
+    .marquee-track > [data-dup],
+    [data-marquee-toggle] {
+        display: none;
     }
 }

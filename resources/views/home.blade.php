@@ -17,7 +17,7 @@
                 <a href="#urunler" class="press rounded-full bg-accent px-6 py-3.5 font-semibold text-canvas hover:bg-accent-deep">
                     {{ __('Uygulamalarımızı gör') }}
                 </a>
-                <a href="mailto:zettelabs@gmail.com" class="font-semibold text-ink underline-offset-4 hover:underline">
+                <a href="mailto:zettelabs@gmail.com" class="font-semibold text-ink underline decoration-transparent underline-offset-4 transition-colors hover:decoration-current">
                     {{ __('Bize ulaşın') }}
                 </a>
             </div>
@@ -41,7 +41,7 @@
 
     <section id="urunler" class="scroll-mt-8 bg-surface">
         <div class="mx-auto max-w-6xl px-6 py-24 md:py-32">
-            <h2 data-reveal class="text-4xl font-bold tracking-[-0.02em] text-ink md:text-6xl">{{ __('Uygulamalarımız') }}</h2>
+            <h2 class="text-4xl font-bold tracking-[-0.02em] text-ink md:text-6xl">{{ __('Uygulamalarımız') }}</h2>
 
             <ul class="mt-12 md:mt-16">
                 <li data-reveal class="grid grid-cols-[3.5rem_1fr] items-center gap-x-5 gap-y-3 py-6 md:grid-cols-12 md:gap-x-6 md:py-8">
@@ -50,7 +50,7 @@
                     <p class="col-span-2 text-ink md:col-span-6">
                         {{ __('İkinci el ürünlerin piyasa değerini fotoğraflayarak saniyeler içinde öğrenin — sahibinden, dolap ve benzeri platformlarda fırsat avlayanlar için.') }}
                     </p>
-                    <a href="https://thriftai.zettelabs.app" class="col-span-2 font-semibold text-accent hover:text-accent-deep md:col-span-2 md:justify-self-end">
+                    <a href="https://thriftai.zettelabs.app" class="col-span-2 font-semibold text-accent transition-colors hover:text-accent-deep md:col-span-2 md:justify-self-end">
                         {{ __('Siteyi ziyaret et') }} ↗
                     </a>
                 </li>
@@ -59,7 +59,7 @@
                         <img src="{{ asset('images/apps/' . $item['icon']) }}" alt="" loading="lazy" class="h-14 w-14 rounded-2xl md:col-span-1">
                         <h3 class="text-2xl font-bold text-ink md:col-span-3 md:text-3xl">{{ $item['name'] }}</h3>
                         <p class="col-span-2 text-ink md:col-span-6">{{ __($item['tagline']) }}</p>
-                        <a href="{{ route('apps.show', $slug) }}" class="col-span-2 font-semibold text-accent hover:text-accent-deep md:col-span-2 md:justify-self-end">
+                        <a href="{{ route('apps.show', $slug) }}" class="col-span-2 font-semibold text-accent transition-colors hover:text-accent-deep md:col-span-2 md:justify-self-end">
                             {{ __('Uygulamayı gör') }} →
                         </a>
                     </li>
@@ -69,17 +69,17 @@
     </section>
 
     <section class="mx-auto grid max-w-6xl gap-12 px-6 py-24 md:grid-cols-12 md:gap-6 md:py-32">
-        <h2 data-reveal class="text-4xl font-bold tracking-[-0.02em] text-ink md:col-span-5 md:text-6xl">{{ __('Nasıl çalışıyoruz') }}</h2>
+        <h2 class="text-4xl font-bold tracking-[-0.02em] text-ink md:col-span-5 md:text-6xl">{{ __('Nasıl çalışıyoruz') }}</h2>
         <div class="grid gap-10 md:col-span-7 md:gap-12">
-            <div data-reveal>
+            <div>
                 <h3 class="text-2xl font-semibold text-ink">{{ __('Tek problem, tek uygulama') }}</h3>
                 <p class="mt-2 text-lg text-ink">{{ __('Her uygulama dar ve net bir ihtiyaca odaklanır, gereksiz özellik eklemeyiz.') }}</p>
             </div>
-            <div data-reveal>
+            <div>
                 <h3 class="text-2xl font-semibold text-ink">{{ __('Gizliliğe saygılı') }}</h3>
                 <p class="mt-2 text-lg text-ink">{{ __('Mümkün olduğunca az veri topluyoruz, verinin çoğu cihazında kalır.') }}</p>
             </div>
-            <div data-reveal>
+            <div>
                 <h3 class="text-2xl font-semibold text-ink">{{ __('Bağımsız ve küçük') }}</h3>
                 <p class="mt-2 text-lg text-ink">{{ __('Küçük bir ekip olarak çalışıyoruz — hızlı karar alır, hızlı iyileştiririz.') }}</p>
             </div>
