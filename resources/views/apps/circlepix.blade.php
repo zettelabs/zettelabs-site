@@ -40,8 +40,16 @@
         @media (prefers-reduced-motion: no-preference) {
             .cp-line > * { animation: cp-surface 0.9s cubic-bezier(0.16, 1, 0.3, 1) both; }
             .cp-line + .cp-line > * { animation-delay: 110ms; }
+            /* The circle lands with "halkan": same curve, same start as line two. */
+            .cp-ring { animation: cp-ring 0.9s cubic-bezier(0.16, 1, 0.3, 1) 110ms both; }
+            /* display: none → block restarts an animation, so every pick replays it without script. */
+            .cp-pair { animation: cp-swap 220ms cubic-bezier(0.2, 0.7, 0.2, 1); }
+            figure.cp-pair { animation-name: cp-settle; }
         }
         @keyframes cp-surface { from { transform: translateY(105%); } }
+        @keyframes cp-ring { from { opacity: 0; scale: 0.92; } }
+        @keyframes cp-swap { from { opacity: 0; } }
+        @keyframes cp-settle { from { opacity: 0; scale: 0.96; } }
 
         /* Showcase: the radio you pick shows its own pair; no script needed. */
         .cp-pair { display: none; }
@@ -91,7 +99,7 @@
                     CirclePix
                 </p>
                 <div class="min-h-6 flex-1"></div>
-                <img src="{{ asset('images/apps/circlepix-out-pastel.webp') }}" alt="{{ __('CirclePix ile yapılmış yuvarlak profil fotoğrafı: krem kenarlık, pembe dolgu') }}" width="800" height="800" class="rise mb-6 aspect-square w-[52vw] max-w-64 self-end [clip-path:circle(48.5%)] md:hidden" style="--i: 2">
+                <img src="{{ asset('images/apps/circlepix-out-pastel.webp') }}" alt="{{ __('CirclePix ile yapılmış yuvarlak profil fotoğrafı: krem kenarlık, pembe dolgu') }}" width="800" height="800" class="cp-ring mb-6 aspect-square w-[52vw] max-w-64 self-end [clip-path:circle(48.5%)] md:hidden">
                 <div class="relative">
                     <h1 class="cp-hl cp-hl-top">
                         <span class="cp-line"><span>{{ __('Senin') }}</span></span>
@@ -102,7 +110,7 @@
                         <i class="cp-line not-italic"><i class="not-italic">{{ __('halkan') }}</i></i>
                     </b>
                     <div class="cp-hl cp-sea"></div>
-                    <img src="{{ asset('images/apps/circlepix-out-pastel.webp') }}" alt="{{ __('CirclePix ile yapılmış yuvarlak profil fotoğrafı: krem kenarlık, pembe dolgu') }}" width="800" height="800" class="rise absolute top-[68%] right-0 z-[2] hidden aspect-square w-[min(34vw,27rem)] -translate-y-1/2 [clip-path:circle(48.5%)] md:block" style="--i: 2">
+                    <img src="{{ asset('images/apps/circlepix-out-pastel.webp') }}" alt="{{ __('CirclePix ile yapılmış yuvarlak profil fotoğrafı: krem kenarlık, pembe dolgu') }}" width="800" height="800" class="cp-ring absolute top-[68%] right-0 z-[2] hidden aspect-square w-[min(34vw,27rem)] -translate-y-1/2 [clip-path:circle(48.5%)] md:block">
                 </div>
                 <div class="min-h-8 flex-1"></div>
                 <div class="rise flex flex-col gap-6 bg-[var(--cp-coral)] text-[var(--cp-ink)] md:flex-row md:items-end md:justify-between" style="--i: 3">
@@ -126,7 +134,7 @@
                     </div>
                     <div class="flex flex-col gap-1.5">
                         @foreach ($styles as $key => [$name])
-                            <label data-reveal class="cp-pick flex cursor-pointer items-center gap-3 p-1.5 pr-3 text-base text-[var(--cp-paper)] transition-colors hover:bg-white/10 md:text-xl">
+                            <label class="cp-pick flex cursor-pointer items-center gap-3 p-1.5 pr-3 text-base text-[var(--cp-paper)] transition-colors hover:bg-white/10 md:text-xl">
                                 <input type="radio" name="cp-style" value="{{ $key }}" class="sr-only" @checked($loop->first)>
                                 <img src="{{ asset("images/apps/circlepix-in-{$key}.webp") }}" alt="" width="600" height="800" loading="lazy" class="aspect-square w-10 shrink-0 object-cover md:w-14">
                                 <span class="min-w-0 break-words">{{ __($name) }}</span>
@@ -157,7 +165,7 @@
         {{-- How it works: the app's own progress bar, enlarged until it is the diagram. --}}
         <section class="bg-[var(--cp-navy)] py-24 text-[var(--cp-paper)] md:py-40">
             <div class="mx-auto max-w-6xl px-6">
-                <h2 data-reveal class="cp-h">{{ __('Fotoğraftan profile') }}</h2>
+                <h2 class="cp-h">{{ __('Fotoğraftan profile') }}</h2>
                 <ol class="mt-12 flex flex-col gap-1.5 md:mt-16 md:flex-row" data-ui>
                     @foreach ($stages as [$colour, $grow, $time, $clause])
                         <li data-reveal class="cp-stage flex flex-col bg-[var(--seg)] p-4 text-[var(--cp-ink)] md:bg-transparent md:p-0 md:text-[var(--cp-paper)]" style="--seg: {{ $colour }}; --g: {{ $grow }}">
@@ -173,7 +181,7 @@
         <section class="bg-[#f3c6dc] py-24 md:py-40">
             <div class="cp-board mx-auto max-w-6xl px-6">
                 <div class="cp-head w6 bg-[var(--cp-navy)] p-5 text-[var(--cp-paper)] md:p-6">
-                    <h2 data-reveal class="cp-h max-w-[12ch]">{{ __('Her ayar, yakından') }}</h2>
+                    <h2 class="cp-h max-w-[12ch]">{{ __('Her ayar, yakından') }}</h2>
                 </div>
 
                 @foreach ([['w6', 'presets', 'Hazır stiller', 'Hazır görünümler, tek dokunuşla.'], ['w6 h4', 'badge', 'Rozet', '#OPENTOWORK, #HIRING, #FREELANCE ya da kendi yazın.']] as [$size, $file, $name, $line])
@@ -221,22 +229,22 @@
         <section class="bg-[var(--cp-coral)] text-[var(--cp-ink)]">
             <div class="mx-auto grid min-h-[90svh] max-w-6xl gap-12 px-6 py-20 md:grid-cols-12 md:gap-6 md:py-24">
                 <div class="flex flex-col md:col-span-7 md:justify-end">
-                    <h2 data-reveal class="cp-h">
+                    <h2 class="cp-h">
                         <span class="block">{{ __('Profilin') }}</span>
                         <span class="block">{{ __('hazır.') }}</span>
                     </h2>
-                    <p data-reveal class="mt-6 max-w-md text-lg">{{ __('CirclePix Android\'de ücretsiz. İndir, bir fotoğraf seç; kesim saniyeler sürer ve fotoğrafın telefonundan çıkmaz.') }}</p>
-                    <div data-reveal class="mt-8 flex flex-col gap-5 sm:flex-row sm:items-center">
+                    <p class="mt-6 max-w-md text-lg">{{ __('CirclePix Android\'de ücretsiz. İndir, bir fotoğraf seç; kesim saniyeler sürer ve fotoğrafın telefonundan çıkmaz.') }}</p>
+                    <div class="mt-8 flex flex-col gap-5 sm:flex-row sm:items-center">
                         <a href="{{ $app['play_store'] }}" target="_blank" rel="noopener" class="press flex h-13 items-center justify-center bg-[var(--cp-ink)] px-6 font-semibold text-[var(--cp-paper)] hover:bg-[#2a2440] focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-[var(--cp-ink)]">
                             {{ __("Google Play'de aç") }}
                         </a>
-                        <a href="{{ $app['privacy_url'] }}" class="font-semibold underline decoration-2 underline-offset-4 hover:decoration-transparent">
+                        <a href="{{ $app['privacy_url'] }}" class="font-semibold underline decoration-2 underline-offset-4 transition-colors hover:decoration-transparent">
                             {{ __('Gizlilik Politikası') }}
                         </a>
                     </div>
                 </div>
                 <figure data-reveal class="self-center md:col-span-4 md:col-start-9">
-                    <video class="mx-auto aspect-[9/20] w-full max-w-[18rem] rounded-[1.75rem] bg-[#111113] object-cover" src="{{ asset('images/apps/circlepix-flow.mp4') }}" poster="{{ asset('images/apps/circlepix-flow-poster.webp') }}" width="576" height="1280" muted loop playsinline autoplay data-cp-clip aria-describedby="cp-clip-caption"></video>
+                    <video class="mx-auto aspect-[9/20] w-full max-w-[18rem] rounded-[1.75rem] bg-[#111113] object-cover" src="{{ asset('images/apps/circlepix-flow.mp4') }}" poster="{{ asset('images/apps/circlepix-flow-poster.webp') }}" width="576" height="1280" muted loop playsinline autoplay controls controlslist="nodownload noplaybackrate" disablepictureinpicture data-cp-clip aria-describedby="cp-clip-caption"></video>
                     <figcaption id="cp-clip-caption" class="mx-auto mt-4 max-w-[18rem] text-base">{{ __('Uygulamadan gerçek bir kayıt: sokakta çekilmiş fotoğraf kesilir, neon halkaya yerleşir.') }}</figcaption>
                 </figure>
             </div>
@@ -244,9 +252,9 @@
     </div>
 
     <script>
-        // Respect reduced motion: hold the clip on its poster and hand the visitor the controls.
+        // Respect reduced motion: hold the clip on its poster until the visitor presses play.
         if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
-            document.querySelectorAll('[data-cp-clip]').forEach((v) => { v.pause(); v.removeAttribute('autoplay'); v.controls = true; });
+            document.querySelectorAll('[data-cp-clip]').forEach((v) => { v.pause(); v.removeAttribute('autoplay'); });
         }
     </script>
 @endsection
