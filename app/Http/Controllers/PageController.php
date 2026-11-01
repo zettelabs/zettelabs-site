@@ -15,7 +15,7 @@ class PageController extends Controller
 
     public function sitemap(): Response
     {
-        $urls = [route('home'), route('privacy'), ...array_map(fn (string $slug) => route('apps.show', $slug), array_keys(config('apps')))];
+        $urls = [route('home'), route('privacy'), route('terms'), ...array_map(fn (string $slug) => route('apps.show', $slug), array_keys(config('apps')))];
 
         $xml = '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
             . implode('', array_map(fn (string $u) => '<url><loc>' . e($u) . '</loc></url>', $urls))
@@ -37,6 +37,42 @@ class PageController extends Controller
     public function privacy(): View
     {
         return view('legal.privacy');
+    }
+
+    public function terms(): View
+    {
+        return view('legal.terms');
+    }
+
+    public function llmsTxt(): Response
+    {
+        $text = <<<TXT
+        # Zettelabs
+
+        > Zettelabs is an independent studio building small, focused Android apps that solve one everyday problem each. The apps are free and ad-supported; photo and alarm data stays on the device.
+
+        ## Apps
+
+        - [Background Wizard]({bw}): remove, replace or blur photo backgrounds on Android.
+        - [CleanPix]({cp}): find duplicate and similar photos and free up space.
+        - [CirclePix]({ci}): turn a photo into a profile picture with a cut-out subject in a styled circle.
+        - [Simple Alarm]({sa}): a simple, customizable alarm app.
+
+        ## Policies
+
+        - [Privacy policy]({privacy})
+        - [Terms of use]({terms})
+
+        ## Contact
+
+        zettelabs@gmail.com
+        TXT;
+
+        return response(strtr($text, [
+            '{bw}' => route('apps.show', 'background-wizard'), '{cp}' => route('apps.show', 'cleanpix'),
+            '{ci}' => route('apps.show', 'circlepix'), '{sa}' => route('apps.show', 'simple-alarm'),
+            '{privacy}' => route('privacy'), '{terms}' => route('terms'),
+        ]))->header('Content-Type', 'text/plain; charset=utf-8');
     }
 
     public function app(string $slug): View

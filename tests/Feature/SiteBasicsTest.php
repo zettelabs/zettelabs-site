@@ -34,4 +34,17 @@ class SiteBasicsTest extends TestCase
     {
         $this->get('/')->assertSee('href="#main"', false)->assertSee('id="main"', false);
     }
+
+    public function test_terms_and_llms_txt_exist(): void
+    {
+        $this->get('/terms')->assertOk()->assertSee('Terms of Use');
+        $this->get('/llms.txt')->assertOk()->assertHeader('Content-Type', 'text/plain; charset=utf-8')->assertSee('/background-wizard', false)->assertSee('/terms', false);
+    }
+
+    public function test_apps_without_their_own_faq_get_the_shared_one(): void
+    {
+        foreach (['cleanpix', 'circlepix', 'simple-alarm', 'background-wizard'] as $slug) {
+            $this->get("/{$slug}")->assertOk()->assertSee('Common questions');
+        }
+    }
 }

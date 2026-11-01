@@ -8,6 +8,10 @@ Route::get('/', [PageController::class, 'home'])->name('home');
 
 Route::get('/privacy', [PageController::class, 'privacy'])->name('privacy');
 
+Route::get('/terms', [PageController::class, 'terms'])->name('terms');
+
+Route::get('/llms.txt', [PageController::class, 'llmsTxt']);
+
 Route::get('/language/{locale}', [LocaleController::class, 'switch'])->name('locale.switch');
 
 Route::get('/sitemap.xml', [PageController::class, 'sitemap']);

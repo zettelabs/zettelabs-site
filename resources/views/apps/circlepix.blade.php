@@ -251,6 +251,14 @@
         </section>
     </div>
 
+@include('apps.partials.faq', ['faq' => [
+        'CirclePix ücretli mi?' => 'Hayır, ücretsizdir ve reklamlarla desteklenir. Pro stiller, ödüllü bir reklam izleyince sınırlı bir süre için açılır.',
+        'Fotoğraflarım bir yere yükleniyor mu?' => 'Hayır. Arka plan kesimi telefonunda çalışır. Model yalnızca bir kez Google Play hizmetleri üzerinden indirilir; fotoğrafların gönderilmez.',
+        'Kaydettiklerimi nerede bulurum?' => 'Galerindeki Pictures/Profile Picture Maker klasöründe. Uygulama içi kamerayla çektiklerin Pictures/CameraX-Image klasörüne kaydedilir.',
+        'Kamera izni neden isteniyor?' => 'Yalnızca uygulama içi kamerayı kullanmak istediğinde istenir. Galeriden fotoğraf seçmek için gerekmez.',
+        'Hesap açmam gerekiyor mu?' => 'Hayır. Hesap, e-posta adresi ya da telefon numarası istemez.',
+    ]])
+
     <script>
         // Respect reduced motion: hold the clip on its poster until the visitor presses play.
         if (matchMedia('(prefers-reduced-motion: reduce)').matches) {

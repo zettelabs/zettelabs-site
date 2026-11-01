@@ -439,6 +439,14 @@
     </section>
 </div>
 
+@include('apps.partials.faq', ['faq' => [
+        'CleanPix ücretli mi?' => 'Hayır, ücretsizdir ve reklamlarla desteklenir.',
+        'Fotoğraflarım bir yere yükleniyor mu?' => 'Hayır. Tarama ve karşılaştırma tamamen cihazında yapılır; fotoğrafların ve tarama sonuçları telefonundan çıkmaz.',
+        'Fotoğraflar kendiliğinden silinir mi?' => 'Hayır. Yalnızca senin seçip onayladığın fotoğraflar silinir. Android 11 ve üzerinde sistem de ayrıca onay sorar.',
+        'Neden fotoğraflara erişim istiyor?' => 'Galerindeki kopya ve benzer fotoğrafları bulmak için. Yalnızca seçtiğin fotoğraflara izin verirsen sadece onları tarar.',
+        'Hesap açmam gerekiyor mu?' => 'Hayır. Hesap, e-posta adresi ya da telefon numarası istemez.',
+    ]])
+
 <script>
     // Sample scan: picking a keeper updates that group's line and the page total.
     (() => {

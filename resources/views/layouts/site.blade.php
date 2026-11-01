@@ -67,6 +67,7 @@
                     <p>{{ __('© :year Zettelabs. Tüm hakları saklıdır.', ['year' => date('Y')]) }}</p>
                     <div class="flex gap-5">
                         <a href="{{ route('privacy') }}" class="transition-colors hover:text-ink">{{ __('Gizlilik Politikası') }}</a>
+                        <a href="{{ route('terms') }}" class="transition-colors hover:text-ink">{{ __('Kullanım Şartları') }}</a>
                         <a href="mailto:zettelabs@gmail.com" class="transition-colors hover:text-ink">{{ __('İletişim') }}</a>
                     </div>
                 </div>

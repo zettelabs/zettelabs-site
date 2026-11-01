@@ -379,6 +379,14 @@
     </section>
 </div>
 
+@include('apps.partials.faq', ['faq' => [
+        'Simple Alarm ücretli mi?' => 'Hayır, ücretsizdir ve reklamlarla desteklenir.',
+        'Alarmlarım bir yere yükleniyor mu?' => 'Hayır. Alarmların yalnızca cihazında, uygulamanın özel alanında saklanır.',
+        'Kendi alarm sesimi seçebilir miyim?' => 'Evet. Dosya seçiciden seçtiğin ses dosyası çalar; dosya yüklenmez, uygulama yalnızca seçtiğin dosyaya erişir.',
+        'Neden bildirim ve tam zamanlı alarm izni istiyor?' => 'Alarmın tam saatinde çalması ve kilit ekranında görünmesi için.',
+        'Hesap açmam gerekiyor mu?' => 'Hayır. Hesap, e-posta adresi ya da telefon numarası istemez.',
+    ]])
+
 <script>
     (() => {
         const root = document.querySelector('[data-sa]');
