@@ -1,7 +1,7 @@
 @extends('layouts.site')
 
 @section('title', "{$app['name']} — Zettelabs")
-@section('description', $app['tagline'])
+@section('description', __($app['tagline']))
 
 @php
     // Each style pairs a real demo photo with what the app made of it (cropped from its own screen captures).

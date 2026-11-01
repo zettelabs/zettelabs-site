@@ -1,7 +1,7 @@
 @extends('layouts.site')
 
 @section('title', "{$app['name']} — Zettelabs")
-@section('description', $app['tagline'])
+@section('description', __($app['tagline']))
 
 @php
     // The app's own before/after pairs: the same frame, only the background changes.

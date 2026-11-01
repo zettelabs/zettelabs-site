@@ -5,9 +5,19 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#0f0c18">
         <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
+        <link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}">
+        <link rel="canonical" href="{{ url()->current() }}">
 
         <title>@yield('title', 'Zettelabs')</title>
         <meta name="description" content="@yield('description', __('Zettelabs — mobil uygulamalar geliştiren küçük bir ekip.'))">
+
+        <meta property="og:type" content="website">
+        <meta property="og:site_name" content="Zettelabs">
+        <meta property="og:title" content="@yield('title', 'Zettelabs')">
+        <meta property="og:description" content="@yield('description', __('Zettelabs — mobil uygulamalar geliştiren küçük bir ekip.'))">
+        <meta property="og:url" content="{{ url()->current() }}">
+        <meta property="og:image" content="{{ asset('apple-touch-icon.png') }}">
+        <meta name="twitter:card" content="summary">
 
         @fonts
 

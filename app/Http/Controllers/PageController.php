@@ -13,6 +13,17 @@ class PageController extends Controller
             ->header('Content-Type', 'text/plain');
     }
 
+    public function sitemap(): Response
+    {
+        $urls = [route('home'), route('privacy'), ...array_map(fn (string $slug) => route('apps.show', $slug), array_keys(config('apps')))];
+
+        $xml = '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+            . implode('', array_map(fn (string $u) => '<url><loc>' . e($u) . '</loc></url>', $urls))
+            . '</urlset>';
+
+        return response($xml)->header('Content-Type', 'application/xml');
+    }
+
     public function home(): View
     {
         $apps = array_map(

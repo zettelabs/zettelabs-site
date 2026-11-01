@@ -10,6 +10,8 @@ Route::get('/privacy', [PageController::class, 'privacy'])->name('privacy');
 
 Route::get('/language/{locale}', [LocaleController::class, 'switch'])->name('locale.switch');
 
+Route::get('/sitemap.xml', [PageController::class, 'sitemap']);
+
 Route::get('/ads.txt', [PageController::class, 'adsTxt']);
 Route::get('/app-ads.txt', [PageController::class, 'adsTxt']);
 

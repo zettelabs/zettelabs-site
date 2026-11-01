@@ -1,0 +1,32 @@
+<?php
+
+namespace Tests\Feature;
+
+use Tests\TestCase;
+
+class SiteBasicsTest extends TestCase
+{
+    public function test_sitemap_lists_home_and_apps(): void
+    {
+        $this->get('/sitemap.xml')->assertOk()->assertSee('/background-wizard', false)->assertSee('/privacy', false);
+    }
+
+    public function test_pages_carry_security_headers_and_canonical(): void
+    {
+        $this->get('/')->assertOk()
+            ->assertHeader('X-Content-Type-Options', 'nosniff')
+            ->assertHeader('Strict-Transport-Security')
+            ->assertSee('rel="canonical"', false)
+            ->assertSee('property="og:title"', false);
+    }
+
+    public function test_custom_404_has_a_way_home(): void
+    {
+        $this->get('/nope')->assertNotFound()->assertSee('Page not found');
+    }
+
+    public function test_app_descriptions_are_english_by_default(): void
+    {
+        $this->get('/background-wizard')->assertSee('Remove, replace, or blur photo backgrounds.', false);
+    }
+}
