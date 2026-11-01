@@ -24,6 +24,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="bg-canvas text-ink font-sans antialiased">
+        <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-surface focus:px-4 focus:py-2 focus:text-ink">{{ __('İçeriğe geç') }}</a>
         <div class="flex min-h-screen flex-col">
             <header>
                 <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-4 gap-y-2 px-6 py-4 sm:py-5">
@@ -57,7 +58,7 @@
                 </div>
             </header>
 
-            <main class="flex-1">
+            <main id="main" class="flex-1">
                 @yield('content')
             </main>
 

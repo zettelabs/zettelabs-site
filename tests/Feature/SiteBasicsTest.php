@@ -29,4 +29,9 @@ class SiteBasicsTest extends TestCase
     {
         $this->get('/background-wizard')->assertSee('Remove, replace, or blur photo backgrounds.', false);
     }
+
+    public function test_skip_link_targets_main(): void
+    {
+        $this->get('/')->assertSee('href="#main"', false)->assertSee('id="main"', false);
+    }
 }

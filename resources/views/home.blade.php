@@ -45,7 +45,7 @@
 
             <ul class="mt-12 md:mt-16">
                 <li data-reveal class="grid grid-cols-[3.5rem_1fr] items-center gap-x-5 gap-y-3 py-6 md:grid-cols-12 md:gap-x-6 md:py-8">
-                    <img src="{{ asset('images/apps/icon-fiyat-radari.webp') }}" alt="" loading="lazy" class="h-14 w-14 rounded-2xl md:col-span-1">
+                    <img src="{{ asset('images/apps/icon-fiyat-radari.webp') }}" alt="" width="56" height="56" loading="lazy" class="h-14 w-14 rounded-2xl md:col-span-1">
                     <h3 class="text-2xl font-bold text-ink md:col-span-3 md:text-3xl">{{ __('Fiyat Radarı') }}</h3>
                     <p class="col-span-2 text-ink md:col-span-6">
                         {{ __('İkinci el ürünlerin piyasa değerini fotoğraflayarak saniyeler içinde öğrenin — sahibinden, dolap ve benzeri platformlarda fırsat avlayanlar için.') }}
@@ -56,7 +56,7 @@
                 </li>
                 @foreach ($apps as $slug => $item)
                     <li data-reveal class="grid grid-cols-[3.5rem_1fr] items-center gap-x-5 gap-y-3 py-6 md:grid-cols-12 md:gap-x-6 md:py-8">
-                        <img src="{{ asset('images/apps/' . $item['icon']) }}" alt="" loading="lazy" class="h-14 w-14 rounded-2xl md:col-span-1">
+                        <img src="{{ asset('images/apps/' . $item['icon']) }}" alt="" width="56" height="56" loading="lazy" class="h-14 w-14 rounded-2xl md:col-span-1">
                         <h3 class="text-2xl font-bold text-ink md:col-span-3 md:text-3xl">{{ $item['name'] }}</h3>
                         <p class="col-span-2 text-ink md:col-span-6">{{ __($item['tagline']) }}</p>
                         <a href="{{ route('apps.show', $slug) }}" class="col-span-2 font-semibold text-accent transition-colors hover:text-accent-deep md:col-span-2 md:justify-self-end">
