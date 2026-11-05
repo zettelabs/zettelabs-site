@@ -25,8 +25,7 @@
 
         <section class="mt-10 scroll-mt-6">
             <h2 class="text-xl font-semibold text-ink">{{ __('2. Uygulamalarımızın gizlilik politikaları') }}</h2>
-            <p class="mt-3 text-ink-dim">{{ __('Her mobil uygulamamızın kendi veri toplama ve kullanım politikası, o uygulamanın kendi sitesinde yayınlanır. Örneğin Fiyat Radarı için:') }}</p>
-            <a href="https://thriftai.zettelabs.app/privacy-policy" class="mt-2 inline-block text-accent underline underline-offset-2 transition-colors hover:text-accent-deep">thriftai.zettelabs.app/privacy-policy</a>
+            <p class="mt-3 text-ink-dim">{{ __('Her mobil uygulamamızın kendi veri toplama ve kullanım politikası, o uygulamanın kendi sitesinde yayınlanır.') }}</p>
         </section>
 
         <section class="mt-10 scroll-mt-6">
