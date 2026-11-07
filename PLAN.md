@@ -29,7 +29,7 @@ listeleme sayfalarından doğrulandı, browser ile kontrol edildi):
 |---|---|---|
 | `/privacy_policy` | Learn Words | `com.zettelabs.learnwords` |
 | `/privacy_policy_background_wizard` (301 yok, sayfa doğrudan sunuluyor) | Background Wizard | `background.erase.replace.change.blur.remove` |
-| `/privacy_policy_photo_finder` (artık `similiar-finder.web.app/privacy-policy`'ye 301) | CleanPix (Play Store'da "Photo Finder"dan "CleanPix: Clean Duplicate Pics"e yeniden adlandırılmış, ama gizlilik URL'i eski adla kaldı) | `com.similarphotofinder.cleaner.removeduplicate` |
+| `/privacy_policy_photo_finder` (301 yok, sayfa doğrudan sunuluyor) | CleanPix (Play Store'da "Photo Finder"dan "CleanPix: Clean Duplicate Pics"e yeniden adlandırılmış, ama gizlilik URL'i eski adla kaldı) | `com.similarphotofinder.cleaner.removeduplicate` |
 | `/privacy_policy_simple_alarm` | Simple Alarm | `com.alarm.simple.clock` |
 
 Bu 4 route (`routes/web.php`'de "Legacy Play Console" yorumuyla işaretli) ve içerikleri
@@ -74,4 +74,4 @@ npm run dev    # ya da npm run build
 
 ## Gizlilik politikaları (2026-10-28)
 
-Play Console'daki adresler: CirclePix → `circlepix-3db60.web.app/privacy-policy`, CleanPix → `similiar-finder.web.app/privacy-policy`, Simple Alarm → `zettelabs.app/privacy_policy_simple_alarm` (301 → `simple-alarm-79b72.web.app`), Background Wizard → `zettelabs.app/privacy_policy_background_wizard` (2026-11-07'den beri 301 YOK, metin doğrudan `resources/views/legal/background-wizard.blade.php`'den 200 olarak sunuluyor: Play 301'i "geçerli gizlilik politikası sayfası değil" diye reddetti). Tüm metinler artık ilgili app reposundaki `docs/privacy-policy.html` (Firebase Hosting).
+Play Console'daki adresler: Background Wizard → `zettelabs.app/privacy_policy_background_wizard`, Simple Alarm → `zettelabs.app/privacy_policy_simple_alarm`, CleanPix → `similiar-finder.web.app/privacy-policy` (Play Console'da hâlâ bu; `zettelabs.app/privacy_policy_photo_finder` da çalışıyor), CirclePix → `circlepix-3db60.web.app/privacy-policy` (`zettelabs.app/privacy_policy_circlepix` da çalışıyor). 2026-11-07'den beri bu 4 zettelabs.app URL'i 301 vermiyor, metni doğrudan `resources/views/legal/{background-wizard,cleanpix,simple-alarm,circlepix}.blade.php`'den 200 olarak sunuyor (Play, 301'i "geçerli gizlilik politikası sayfası değil" diye reddetti). Kaynak metin ilgili app reposundaki `docs/privacy-policy.html`; ikisini elle senkron tut.

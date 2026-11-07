@@ -113,4 +113,19 @@ class PageController extends Controller
     {
         return view('legal.background-wizard');
     }
+
+    public function cleanpixPrivacy(): View
+    {
+        return view('legal.cleanpix');
+    }
+
+    public function simpleAlarmPrivacy(): View
+    {
+        return view('legal.simple-alarm');
+    }
+
+    public function circlepixPrivacy(): View
+    {
+        return view('legal.circlepix');
+    }
 }

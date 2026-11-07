@@ -30,14 +30,16 @@ Route::get('/privacy_policy', [PageController::class, 'legacyPrivacy'])
 Route::get('/privacy_policy_background_wizard', [PageController::class, 'backgroundWizardPrivacy'])
     ->name('legacy.privacy.background-wizard');
 
-// The other apps' policies live on their own Firebase Hosting sites; these old
-// URLs forward there so store links keep working and only one text exists.
+// Same for the other apps: Play's crawler does not accept redirects to a
+// third-party host, so each policy is served here directly.
+Route::get('/privacy_policy_photo_finder', [PageController::class, 'cleanpixPrivacy'])
+    ->name('legacy.privacy.cleanpix');
 
-Route::permanentRedirect('/privacy_policy_photo_finder', 'https://similiar-finder.web.app/privacy-policy');
+Route::get('/privacy_policy_simple_alarm', [PageController::class, 'simpleAlarmPrivacy'])
+    ->name('legacy.privacy.simple-alarm');
 
-Route::permanentRedirect('/privacy_policy_simple_alarm', 'https://simple-alarm-79b72.web.app/privacy-policy');
-
-Route::permanentRedirect('/privacy_policy_circlepix', 'https://circlepix-3db60.web.app/privacy-policy');
+Route::get('/privacy_policy_circlepix', [PageController::class, 'circlepixPrivacy'])
+    ->name('legacy.privacy.circlepix');
 
 // Per-app branding pages, driven by config/apps.php.
 Route::get('/{slug}', [PageController::class, 'app'])
