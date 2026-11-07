@@ -90,6 +90,7 @@ return [
             'Renkli çerçeve ve neon efektler',
             'Daire, kare, yuvarlak köşeli kare ya da altıgen çerçeve şekli',
             'WhatsApp, Instagram, LinkedIn, Discord, Telegram, Slack ve Steam için boyut rehberi',
+            'Boyut kanıtı: avatarın 48, 32 ve 24 dp\'de koyu ve açık satırlarda, kaydetmeden önce sohbet listelerindeki küçük hâlini gör',
             'LinkedIn, WhatsApp ve benzeri platformlar için ideal',
             'Hızlı kaydet ve paylaş',
         ],
