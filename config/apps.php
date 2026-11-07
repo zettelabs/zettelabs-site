@@ -11,11 +11,12 @@ return [
             'Doğa, şehir, düz renk gibi hazır arka planlarla değiştirme',
             'Profesyonel görünüm için arka plan bulanıklaştırma',
             'Şeffaf arka planlı PNG kesimler',
+            'Vesikalık ve pasaport fotoğrafı: dört boyut, düz arka plan, 10×15 cm ya da A4 baskı sayfası',
         ],
         'play_store' => 'https://play.google.com/store/apps/details?id=background.erase.replace.change.blur.remove',
         'privacy_url' => 'https://backgroundmagic-beb46.web.app/privacy-policy',
         'icon' => 'icon-background-wizard.webp?v=2',
-        'screenshots' => ['shot-background-wizard-1.webp', 'shot-background-wizard-2.webp', 'shot-background-wizard-3.webp', 'shot-background-wizard-4.webp', 'shot-background-wizard-5.webp'],
+        'screenshots' => ['shot-background-wizard-1.webp', 'shot-background-wizard-2.webp', 'shot-background-wizard-3.webp', 'shot-background-wizard-4.webp', 'shot-background-wizard-5.webp', 'shot-background-wizard-6.webp'],
     ],
 
     'cleanpix' => [

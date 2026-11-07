@@ -141,6 +141,20 @@
             </div>
         </section>
 
+        {{-- ID / passport photo mode: store screenshot 6, with the sizes and print sheets. --}}
+        <section class="bg-surface">
+            <div class="mx-auto grid max-w-6xl items-center gap-10 px-6 py-24 md:grid-cols-12 md:gap-6 md:py-32">
+                <div class="md:col-span-6 md:col-start-1">
+                    <h2 class="text-[length:var(--bw-h)] font-bold leading-[1.05] tracking-[-0.025em] text-ink">{{ __('Vesikalık ve pasaport fotoğrafı') }}</h2>
+                    <p class="mt-5 max-w-[42ch] text-xl text-ink">{{ __('Değiştir sekmesinde Vesikalık\'ı seç. Boyutu seç (35×45 mm, 2×2 inç, 3×4 cm ya da 4×6 cm), düz beyaz, açık gri, açık mavi ya da kırmızı bir arka plan belirle; konu senin için kadraja oturtulur.') }}</p>
+                    <p class="mt-4 max-w-[42ch] text-base text-ink-dim">{{ __('Baskı sayfaları fotoğrafını 10×15 cm ya da A4 sayfaya 300 dpi\'de dizer. Yazdırmadan önce ülkendeki fotoğraf kurallarını kontrol et.') }}</p>
+                </div>
+                <div data-reveal class="md:col-span-5 md:col-start-8">
+                    <img src="{{ asset($app['screenshots'][5]) }}" alt="{{ __('Vesikalık ekranı: boyut ve düz arka plan seçimi') }}" width="540" height="960" loading="lazy" class="mx-auto w-[min(78%,20rem)] rounded-3xl">
+                </div>
+            </div>
+        </section>
+
         {{-- Three stages, each tile larger than the one before. --}}
         <section class="mx-auto max-w-6xl px-6 py-24 lg:py-40">
             <div class="grid gap-7 lg:grid-cols-12 lg:items-end lg:gap-2.5">
