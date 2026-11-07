@@ -151,7 +151,7 @@
                     <p class="mt-4 max-w-[42ch] text-base text-ink-dim">{{ __('Baskı sayfaları fotoğrafını 10×15 cm ya da A4 sayfaya 300 dpi\'de dizer. Yazdırmadan önce ülkendeki fotoğraf kurallarını kontrol et.') }}</p>
                 </div>
                 <div data-reveal class="md:col-span-5 md:col-start-8">
-                    <img src="{{ asset($app['screenshots'][5]) }}" alt="{{ __('Vesikalık ekranı: boyut ve düz arka plan seçimi') }}" width="540" height="960" loading="lazy" class="mx-auto w-[min(78%,20rem)] rounded-3xl">
+                    <img src="{{ asset($app['screenshots'][5]) }}" alt="{{ __('Vesikalık ekranı: boyut ve düz arka plan seçimi') }}" width="540" height="960" loading="lazy" class="mx-auto w-[min(78%,20rem)] rounded-3xl md:w-[min(100%,20rem)]">
                 </div>
             </div>
         </section>
