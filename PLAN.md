@@ -28,7 +28,7 @@ listeleme sayfalarından doğrulandı, browser ile kontrol edildi):
 | URL (değiştirilemez) | Uygulama | Play Console applicationId |
 |---|---|---|
 | `/privacy_policy` | Learn Words | `com.zettelabs.learnwords` |
-| `/privacy_policy_background_wizard` | Background Wizard | `background.erase.replace.change.blur.remove` |
+| `/privacy_policy_background_wizard` (301 yok, sayfa doğrudan sunuluyor) | Background Wizard | `background.erase.replace.change.blur.remove` |
 | `/privacy_policy_photo_finder` (artık `similiar-finder.web.app/privacy-policy`'ye 301) | CleanPix (Play Store'da "Photo Finder"dan "CleanPix: Clean Duplicate Pics"e yeniden adlandırılmış, ama gizlilik URL'i eski adla kaldı) | `com.similarphotofinder.cleaner.removeduplicate` |
 | `/privacy_policy_simple_alarm` | Simple Alarm | `com.alarm.simple.clock` |
 
@@ -74,4 +74,4 @@ npm run dev    # ya da npm run build
 
 ## Gizlilik politikaları (2026-10-28)
 
-Play Console'daki adresler: CirclePix → `circlepix-3db60.web.app/privacy-policy`, CleanPix → `similiar-finder.web.app/privacy-policy`, Simple Alarm ve Background Wizard → `zettelabs.app/privacy_policy_*`, bunlar da `simple-alarm-79b72.web.app` / `backgroundmagic-beb46.web.app`'e 301. Tüm metinler artık ilgili app reposundaki `docs/privacy-policy.html` (Firebase Hosting).
+Play Console'daki adresler: CirclePix → `circlepix-3db60.web.app/privacy-policy`, CleanPix → `similiar-finder.web.app/privacy-policy`, Simple Alarm → `zettelabs.app/privacy_policy_simple_alarm` (301 → `simple-alarm-79b72.web.app`), Background Wizard → `zettelabs.app/privacy_policy_background_wizard` (2026-11-07'den beri 301 YOK, metin doğrudan `resources/views/legal/background-wizard.blade.php`'den 200 olarak sunuluyor: Play 301'i "geçerli gizlilik politikası sayfası değil" diye reddetti). Tüm metinler artık ilgili app reposundaki `docs/privacy-policy.html` (Firebase Hosting).

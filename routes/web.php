@@ -25,9 +25,13 @@ Route::get('/privacy_policy', [PageController::class, 'legacyPrivacy'])
     ->defaults('appName', 'Learn Words')
     ->name('legacy.privacy.learn-words');
 
-// Each app's policy now lives on its own Firebase Hosting site; these old
+// Background Wizard's policy is served here directly (no redirect): Play's
+// crawler rejected the 301 to web.app as "not a valid privacy policy page".
+Route::get('/privacy_policy_background_wizard', [PageController::class, 'backgroundWizardPrivacy'])
+    ->name('legacy.privacy.background-wizard');
+
+// The other apps' policies live on their own Firebase Hosting sites; these old
 // URLs forward there so store links keep working and only one text exists.
-Route::permanentRedirect('/privacy_policy_background_wizard', 'https://backgroundmagic-beb46.web.app/privacy-policy');
 
 Route::permanentRedirect('/privacy_policy_photo_finder', 'https://similiar-finder.web.app/privacy-policy');
 

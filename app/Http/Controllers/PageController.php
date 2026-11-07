@@ -108,4 +108,9 @@ class PageController extends Controller
     {
         return view('legal.legacy', ['appName' => $appName]);
     }
+
+    public function backgroundWizardPrivacy(): View
+    {
+        return view('legal.background-wizard');
+    }
 }
