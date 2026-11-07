@@ -87,6 +87,7 @@
             .cp-board > * { grid-column: span 3; grid-row: span 2; }
             .cp-board > .w6 { grid-column: span 6; grid-row: span 2; }
             .cp-board > .h4 { grid-row: span 4; }
+            .cp-board > .h3 { grid-row: span 3; }
         }
     </style>
 
@@ -221,6 +222,26 @@
                         {{ __('Paylaş') }}
                     </span>
                     <figcaption class="relative p-5"><span class="block text-lg font-semibold">{{ __('Kaydet ve paylaş') }}</span><span class="block text-base">{{ __('Galeriye ya da doğrudan WhatsApp ve LinkedIn\'e.') }}</span></figcaption>
+                </figure>
+
+                {{-- 3.2.0: frame shapes and the per-platform size guide. --}}
+                <figure data-reveal class="w6 h3 relative flex flex-col justify-end bg-[var(--cp-cream)] text-[var(--cp-ink)]">
+                    <span data-ui aria-hidden="true" class="absolute top-[0.35em] left-5 flex items-center gap-[0.35em] text-[3.5rem] md:text-[4.5rem]">
+                        <span class="block h-[1em] w-[1em] rounded-full bg-[var(--cp-ink)]"></span>
+                        <span class="block h-[1em] w-[1em] bg-[var(--cp-ink)]"></span>
+                        <span class="block h-[1em] w-[1em] rounded-[22%] bg-[var(--cp-ink)]"></span>
+                        <span class="block h-[1em] w-[1em] bg-[var(--cp-coral)] [clip-path:polygon(50%_0,100%_25%,100%_75%,50%_100%,0_75%,0_25%)]"></span>
+                    </span>
+                    <figcaption class="relative p-5"><span class="block text-lg font-semibold">{{ __('Çerçeve şekilleri') }}</span><span class="block text-base">{{ __('Daire, kare, yuvarlak köşeli kare ya da altıgen.') }}</span></figcaption>
+                </figure>
+
+                <figure data-reveal class="w6 h3 flex flex-col justify-end bg-[var(--cp-ink)] text-[var(--cp-paper)]">
+                    <ul class="flex flex-wrap gap-2 p-5 text-base font-semibold">
+                        @foreach (['WhatsApp', 'Instagram', 'LinkedIn', 'Discord', 'Telegram', 'Slack', 'Steam'] as $platform)
+                            <li class="rounded-full border-2 border-[var(--cp-paper)]/40 px-4 py-1.5">{{ $platform }}</li>
+                        @endforeach
+                    </ul>
+                    <figcaption class="p-5 pt-0"><span class="block text-lg font-semibold">{{ __('Boyut rehberi') }}</span><span class="block text-base">{{ __('Her platform için önerilen profil fotoğrafı boyutu.') }}</span></figcaption>
                 </figure>
             </div>
         </section>
