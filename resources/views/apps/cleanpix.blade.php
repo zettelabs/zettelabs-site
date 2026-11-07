@@ -21,20 +21,21 @@
     $freed = array_sum(array_column($roll, 'frees'));
 
     $stages = [
-        ['name' => 'Tara', 'text' => 'Hızlı, Temel ya da Gelişmiş modu seç. Hızlı en çabuk olanı, Temel önerilen denge, Gelişmiş daha yavaş ama en isabetli. Tarama arka planda sürer.', 'shot' => 4],
+        ['name' => 'Tara', 'text' => 'Hızlı, Temel ya da Gelişmiş modu seç. Hızlı en çabuk olanı, Temel önerilen denge, Gelişmiş daha yavaş ama en isabetli. Tarama arka planda sürer.', 'shot' => 5],
         ['name' => 'Grupla', 'text' => 'Seri çekimler ve birbirine çok benzeyen kareler yan yana gruplanır; her grubun orijinali işaretlenir.', 'shot' => 1],
         ['name' => 'Seç', 'text' => 'Akıllı seçim her gruptaki en iyi fotoğrafı tutar, gerisini seçer. Her seçimi tek dokunuşla değiştirebilirsin.', 'shot' => 2],
-        ['name' => 'Karşılaştır', 'text' => 'Bir grubu tam ekranda aç ve silmeden önce kareler arasında kaydır. Neyin kalacağına sen karar verirsin.', 'shot' => 5],
-        ['name' => 'Sil', 'text' => 'Onayla; CleanPix kaç fotoğrafın gittiğini ve ne kadar yer açıldığını gösterir.', 'shot' => 6],
+        ['name' => 'Karşılaştır', 'text' => 'Bir grubu tam ekranda aç ve silmeden önce kareler arasında kaydır. Neyin kalacağına sen karar verirsin.', 'shot' => 6],
+        ['name' => 'Sil', 'text' => 'Onayla; CleanPix kaç fotoğrafın gittiğini ve ne kadar yer açıldığını gösterir.', 'shot' => 7],
     ];
 
     // Each tile is a crop of a real screenshot (540×960): [x, y, w, h] in its pixels, and the window's width in the tile.
     $tiles = [
-        ['name' => 'Üç tarama modu', 'fact' => 'Hızlı, Temel (önerilen) ve Gelişmiş.', 'shot' => 3, 'crop' => [84, 725, 372, 235], 'width' => 80],
-        ['name' => 'Depolama bir bakışta', 'fact' => 'Telefonunda ne kadar yer kullandığını tarama başlamadan gör.', 'shot' => 3, 'crop' => [84, 380, 372, 330], 'width' => 50, 'wide' => true],
+        ['name' => 'Üç tarama modu', 'fact' => 'Hızlı, Temel (önerilen) ve Gelişmiş.', 'shot' => 3, 'crop' => [84, 725, 372, 235], 'width' => 60, 'wide' => true],
         ['name' => 'Akıllı seçim', 'fact' => 'Her gruptan en iyisi kalır, gerisi seçilir.', 'shot' => 2, 'crop' => [96, 440, 348, 240], 'width' => 80],
-        ['name' => 'Tam ekran karşılaştırma', 'fact' => 'Silmeden önce her kareye büyük bak.', 'shot' => 5, 'crop' => [82, 370, 376, 560], 'width' => 58],
-        ['name' => 'Temiz bir galeri', 'fact' => 'Kaç fotoğrafın gittiğini ve açılan yeri gösterir.', 'shot' => 6, 'crop' => [96, 620, 348, 240], 'width' => 80],
+        ['name' => 'Depolama bir bakışta', 'fact' => 'Telefonunda ne kadar yer kullandığını tarama başlamadan gör.', 'shot' => 3, 'crop' => [84, 380, 372, 330], 'width' => 50, 'wide' => true],
+        ['name' => 'Tam ekran karşılaştırma', 'fact' => 'Silmeden önce her kareye büyük bak.', 'shot' => 6, 'crop' => [82, 370, 376, 560], 'width' => 58],
+        ['name' => 'Eski ekran görüntüleri ve büyük videolar', 'fact' => 'Depolama dökümü 90 günden eski ekran görüntülerini ve 100 MB üstü videoları bulur; birkaç dokunuşla yer aç.', 'shot' => 4, 'crop' => [92, 516, 356, 146], 'width' => 60, 'wide' => true],
+        ['name' => 'Temiz bir galeri', 'fact' => 'Kaç fotoğrafın gittiğini ve açılan yeri gösterir.', 'shot' => 7, 'crop' => [96, 620, 348, 240], 'width' => 80],
     ];
     $crop = fn (array $t) => sprintf(
         'width:%d%%;aspect-ratio:%d/%d;--w:%.2f%%;--x:%.2f%%;--y:%.2f%%',

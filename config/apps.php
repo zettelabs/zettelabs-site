@@ -24,6 +24,7 @@ return [
         'description' => 'CleanPix, cihazındaki yinelenen ya da birbirine çok benzeyen fotoğrafları tarar; hangisini sileceğine sen karar verirsin.',
         'features' => [
             'Hızlı tarama algoritması',
+            'Eski ekran görüntülerini ve büyük videoları temizle: Depolama dökümü 90 günden eski ekran görüntülerini ve 100 MB ve üzeri videoları bulur, birkaç dokunuşla yer açarsın.',
             'Silme kararı tamamen sende',
             'Fotoğraflar cihazından hiç çıkmaz',
             'Sade, kolay arayüz',
@@ -31,7 +32,7 @@ return [
         'play_store' => 'https://play.google.com/store/apps/details?id=com.similarphotofinder.cleaner.removeduplicate',
         'privacy_url' => 'https://similiar-finder.web.app/privacy-policy',
         'icon' => 'icon-cleanpix.webp?v=2',
-        'screenshots' => ['shot-cleanpix-1.webp', 'shot-cleanpix-2.webp', 'shot-cleanpix-3.webp', 'shot-cleanpix-4.webp', 'shot-cleanpix-5.webp', 'shot-cleanpix-6.webp'],
+        'screenshots' => ['shot-cleanpix-1.webp', 'shot-cleanpix-2.webp', 'shot-cleanpix-3.webp', 'shot-cleanpix-4.webp', 'shot-cleanpix-5.webp', 'shot-cleanpix-6.webp', 'shot-cleanpix-7.webp'],
         // The page's sample scan: real look-alike sequences from Wikimedia Commons (images/apps/cleanpix-roll/).
         // `mb` is each original file's size on Commons; `source` is its Commons file title.
         'roll' => [
