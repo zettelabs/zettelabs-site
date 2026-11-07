@@ -88,13 +88,15 @@ return [
         'features' => [
             'Yapay zekâ ile otomatik arka plan temizleme',
             'Renkli çerçeve ve neon efektler',
+            'Daire, kare, yuvarlak köşeli kare ya da altıgen çerçeve şekli',
+            'WhatsApp, Instagram, LinkedIn, Discord, Telegram, Slack ve Steam için boyut rehberi',
             'LinkedIn, WhatsApp ve benzeri platformlar için ideal',
             'Hızlı kaydet ve paylaş',
         ],
         'play_store' => 'https://play.google.com/store/apps/details?id=com.remove.background.change.photo',
         'privacy_url' => 'https://circlepix-3db60.web.app/privacy-policy',
         'icon' => 'icon-circlepix.webp?v=2',
-        'screenshots' => ['shot-circlepix-1.webp', 'shot-circlepix-2.webp', 'shot-circlepix-3.webp', 'shot-circlepix-4.webp', 'shot-circlepix-5.webp', 'shot-circlepix-6.webp'],
+        'screenshots' => ['shot-circlepix-1.webp', 'shot-circlepix-2.webp', 'shot-circlepix-3.webp', 'shot-circlepix-4.webp', 'shot-circlepix-5.webp', 'shot-circlepix-6.webp', 'shot-circlepix-7.webp'],
     ],
 
     'simple-alarm' => [
