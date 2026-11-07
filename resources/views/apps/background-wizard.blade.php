@@ -23,6 +23,7 @@
         'Fotoğraflarım bir yere yükleniyor mu?' => 'Hayır. Konuyu bulan yapay zekâ telefonunda çalışır; fotoğrafların cihazından çıkmaz.',
         'Kesimi hangi biçimde kaydediyor?' => 'Şeffaf arka planlı PNG olarak, tam çözünürlükte. İstersen boş kenarları kırpıp kesimi konuya sıkıca oturtabilirsin.',
         'Kendi fotoğrafımı arka plan yapabilir miyim?' => 'Evet. Galerindeki herhangi bir fotoğrafı seçebilir ya da şehir, fantastik, minimalist, doğa ve mevsimsel koleksiyonlarından veya düz renklerden birini kullanabilirsin.',
+        'Vesikalık fotoğrafını yazdırabilir miyim?' => 'Evet. Vesikalık modu 35×45 mm, 2×2 inç, 3×4 cm ya da 4×6 cm ölçüsünde, düz arka planlı fotoğraf hazırlar; baskı sayfası fotoğrafını 10×15 cm ya da A4 sayfaya 300 dpi\'de dizer. Kabul edilen ölçü ve arka plan ülkeden ülkeye değişir; yazdırmadan önce ülkendeki fotoğraf kurallarını kontrol et.',
         'Kaydettiklerimi nerede bulurum?' => 'Galerindeki “Background Wizard” albümünde. Kaydettikten sonra istediğin uygulamada doğrudan paylaşabilirsin.',
         'Hangi cihazlarda çalışır?' => 'Android 7.0 ve üzeri cihazlarda. Uygulama Türkçe, İngilizce ve altı dilde daha kullanılabilir.',
     ];
