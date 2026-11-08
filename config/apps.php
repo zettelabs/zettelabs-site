@@ -100,7 +100,7 @@ return [
         'play_store' => 'https://play.google.com/store/apps/details?id=com.remove.background.change.photo',
         'privacy_url' => 'https://circlepix-3db60.web.app/privacy-policy',
         'icon' => 'icon-circlepix.webp?v=2',
-        'screenshots' => ['shot-circlepix-1.webp', 'shot-circlepix-2.webp', 'shot-circlepix-3.webp', 'shot-circlepix-4.webp', 'shot-circlepix-5.webp', 'shot-circlepix-6.webp', 'shot-circlepix-7.webp'],
+        'screenshots' => ['shot-circlepix-1.webp', 'shot-circlepix-2.webp', 'shot-circlepix-3.webp', 'shot-circlepix-4.webp', 'shot-circlepix-5.webp', 'shot-circlepix-6.webp', 'shot-circlepix-7.webp', 'shot-circlepix-8.webp'],
     ],
 
     'simple-alarm' => [
