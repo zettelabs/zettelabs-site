@@ -22,7 +22,7 @@ return [
     'screens' => [
         ['Ringing alarm', 'Full-screen alarm with snooze and swipe to dismiss', 'Full-screen ringing alarm: 6:30 AM over a sea view with a Snooze (10 min) button'],
         ['Alarm list', 'See your next alarm and how long until it rings', 'Alarm list: the next alarm, 6:30 AM, with time left, then the Work, Gym and Weekend alarms'],
-        ['Setting an alarm', 'Weekdays, every day or once, it is up to you', 'Edit alarm screen: time picker, repeat days, alarm name, sound and volume'],
+        ['Setting an alarm', 'Weekdays, every day or once, it is up to you', 'Edit alarm screen: scrolling time wheel, repeat days and the scan code, math, shake and type code wake-up tasks'],
         ['Backgrounds', 'Choose a background for the alarm screen', 'Background gallery: a selected sea photograph among other photographs'],
         ['Sounds', '15 built-in tones or your own music', 'Sound list: Acoustic selected, the other built-in tones below and a My Tones button'],
     ],

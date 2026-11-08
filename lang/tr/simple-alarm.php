@@ -22,7 +22,7 @@ return [
     'screens' => [
         ['Çalan alarm', 'Tam ekran alarm, ertele ve kaydırarak kapat', 'Tam ekran çalan alarm: deniz manzarası üzerinde 06:30 ve Ertele (10 dk) düğmesi'],
         ['Alarm listesi', 'Sıradaki alarmını ve çalmasına kalan süreyi gör', 'Alarm listesi: en üstte sonraki alarm 06:30 ve kalan süre, altında İş, Spor ve Hafta sonu alarmları'],
-        ['Alarm kurma', 'Hafta içi, her gün ya da bir kez, seçim senin', 'Alarmı düzenleme ekranı: saat seçici, tekrar günleri, alarm adı, ses ve ses düzeyi'],
+        ['Alarm kurma', 'Hafta içi, her gün ya da bir kez, seçim senin', 'Alarmı düzenleme ekranı: kaydırmalı saat seçici, tekrar günleri ve kod tarama, matematik, sallama, kod yazma uyanma görevleri'],
         ['Arka planlar', 'Çalan alarmın arkasına bir fotoğraf koy', 'Arka plan galerisi: seçili deniz fotoğrafı ve diğer fotoğraflar'],
         ['Sesler', '15 hazır ses veya kendi müziğin', 'Ses listesi: Acoustic seçili, altında diğer hazır sesler ve Tonlarım düğmesi'],
     ],
