@@ -47,4 +47,10 @@ class SiteBasicsTest extends TestCase
             $this->get("/{$slug}")->assertOk()->assertSee('Common questions');
         }
     }
+
+    public function test_offline_scanner_page_links_its_privacy_policy(): void
+    {
+        $this->get('/offlinescanner')->assertOk()->assertSee('href="/offlinescanner/privacy"', false);
+        $this->get('/offlinescanner/privacy')->assertOk()->assertSee('Offline Scanner Privacy Policy');
+    }
 }

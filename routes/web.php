@@ -41,6 +41,9 @@ Route::get('/privacy_policy_simple_alarm', [PageController::class, 'simpleAlarmP
 Route::get('/privacy_policy_circlepix', [PageController::class, 'circlepixPrivacy'])
     ->name('legacy.privacy.circlepix');
 
+// Offline Scanner's policy lives under the app's own path (new app, no legacy Play URL).
+Route::view('/offlinescanner/privacy', 'legal.offlinescanner')->name('privacy.offlinescanner');
+
 // Per-app branding pages, driven by config/apps.php.
 Route::get('/{slug}', [PageController::class, 'app'])
     ->where('slug', 'background-wizard|cleanpix|circlepix|simple-alarm|offlinescanner')
