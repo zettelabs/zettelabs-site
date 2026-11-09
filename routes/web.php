@@ -43,5 +43,5 @@ Route::get('/privacy_policy_circlepix', [PageController::class, 'circlepixPrivac
 
 // Per-app branding pages, driven by config/apps.php.
 Route::get('/{slug}', [PageController::class, 'app'])
-    ->where('slug', 'background-wizard|cleanpix|circlepix|simple-alarm')
+    ->where('slug', 'background-wizard|cleanpix|circlepix|simple-alarm|offlinescanner')
     ->name('apps.show');
