@@ -119,7 +119,6 @@ return [
         'screenshots' => ['shot-simple-alarm-1.webp', 'shot-simple-alarm-2.webp', 'shot-simple-alarm-3.webp', 'shot-simple-alarm-4.webp', 'shot-simple-alarm-5.webp'],
     ],
 
-    // Not on Play yet: play_store stays null and the page shows "Yakında" until it is set.
     'offlinescanner' => [
         'name' => 'Offline Scanner',
         'tagline' => 'Belgeleri kamerayla tara; telefonunda PDF\'e ve aranabilir metne dönüştür.',
@@ -134,7 +133,7 @@ return [
             'Belgelerin telefonundan çıkmaz: tarama, PDF oluşturma ve metin tanıma cihazında yapılır. Yalnızca reklamlar internet kullanır.',
             'Tarayıcı modülü ilk kullanımda Google Play hizmetleri üzerinden bir kez indirilir (yaklaşık 200 KB); sonrası tamamen çevrimdışı çalışır.',
         ],
-        'play_store' => null,
+        'play_store' => 'https://play.google.com/store/apps/details?id=com.scanner.offline.pdf.ocr',
         'privacy_url' => '/offlinescanner/privacy',
         'icon' => 'icon-offlinescanner.webp',
         'screenshots' => ['shot-offlinescanner-1.webp', 'shot-offlinescanner-2.webp', 'shot-offlinescanner-3.webp', 'shot-offlinescanner-4.webp'],
