@@ -160,4 +160,25 @@ return [
         'screenshots' => ['shot-skydesk-1.webp', 'shot-skydesk-2.webp', 'shot-skydesk-3.webp', 'shot-skydesk-4.webp'],
     ],
 
+    // Not on Play yet: play_store stays null and the page shows "Yakında" until it is set.
+    'countdown' => [
+        'name' => 'Countdown Widget',
+        'tagline' => 'Kaç gün kaldı? Düğün, tatil, doğum günü için ana ekranda gün sayacı widget\'ı.',
+        'description' => 'Geri sayım widget\'ı ve gün sayacı: düğüne, tatile, doğum gününe ya da istediğin tarihe kaç gün kaldığını ana ekranında gör. Üzerinden kaç gün geçti de hesaplar.',
+        'features' => [
+            'Sınırsız sayaç: gelecek tarih için kaç gün kaldı, geçmiş tarih için kaç gün oldu',
+            'Doğum günü ve yıl dönümü için her yıl tekrar',
+            'Üç boyutta ana ekran widget\'ı: 2x1, 2x2 ve ilerleme çubuklu 4x2',
+            'Hazır şablonlar: düğün, tatil, doğum günü, doğum tarihi (bebek), terhis, kaç gün oldu, yıl dönümü, emeklilik, yılbaşı ve Noel',
+            'Hatırlatıcılar: 100, 30, 7 ve 1 gün kala ve o gün. "Kaç gün oldu" sayaçlarında 7, 30, 100 ve 365. gün',
+            '6 ücretsiz renk; bir reklam izleyerek 4 ek rengi ve fotoğraf arka planını kalıcı olarak aç',
+            'Her sayacı resim olarak paylaş',
+            'Hesap açmak ya da üye olmak yok. İnternetsiz çalışır, sayaçların cihazında kalır.',
+        ],
+        'play_store' => null,
+        'privacy_url' => 'https://zettelabs-countdown.web.app/privacy-policy',
+        'icon' => 'icon-countdown.webp',
+        'screenshots' => ['shot-countdown-1.webp', 'shot-countdown-2.webp', 'shot-countdown-3.webp', 'shot-countdown-4.webp'],
+    ],
+
 ];

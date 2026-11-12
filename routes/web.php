@@ -47,5 +47,5 @@ Route::view('/skydesk/privacy', 'legal.skydesk')->name('privacy.skydesk');
 
 // Per-app branding pages, driven by config/apps.php.
 Route::get('/{slug}', [PageController::class, 'app'])
-    ->where('slug', 'background-wizard|cleanpix|circlepix|simple-alarm|offlinescanner|skydesk')
+    ->where('slug', 'background-wizard|cleanpix|circlepix|simple-alarm|offlinescanner|skydesk|countdown')
     ->name('apps.show');

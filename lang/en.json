@@ -316,5 +316,20 @@
     "Ekranı kapatırsam sayaç durur mu?": "Does the timer stop if I turn off the screen?",
     "Hayır. Ekran kapalıyken de çalışmaya devam eder ve bildirimde geri sayım görünür. Uygulamayı kapatsan bile uçuş zamanında iner.": "No. It keeps running with the screen off, with a countdown in the notification. The flight lands on time even if you close the app.",
     "İnternet gerekiyor mu? Verilerim nerede?": "Does it need internet? Where is my data?",
-    "Hayır, her şey çevrimdışı çalışır. Hesap ve kayıt yoktur; uçuşların, damgaların ve serin yalnızca cihazında kalır.": "No, everything works offline. There is no account or sign-up; your flights, stamps and streak stay on your device."
+    "Hayır, her şey çevrimdışı çalışır. Hesap ve kayıt yoktur; uçuşların, damgaların ve serin yalnızca cihazında kalır.": "No, everything works offline. There is no account or sign-up; your flights, stamps and streak stay on your device.",
+    "Kaç gün kaldı? Düğün, tatil, doğum günü için ana ekranda gün sayacı widget'ı.": "Days until your event, or days since: countdown widgets for your home screen.",
+    "Geri sayım widget'ı ve gün sayacı: düğüne, tatile, doğum gününe ya da istediğin tarihe kaç gün kaldığını ana ekranında gör. Üzerinden kaç gün geçti de hesaplar.": "Countdown widget and days until counter: see how many days are left to your wedding, vacation, birthday or any date, right on your home screen. Days since works too.",
+    "Sınırsız sayaç: gelecek tarih için kaç gün kaldı, geçmiş tarih için kaç gün oldu": "Unlimited countdowns: days left for a future date, days since for a past one",
+    "Doğum günü ve yıl dönümü için her yıl tekrar": "Repeat every year for birthdays and anniversaries",
+    "Üç boyutta ana ekran widget'ı: 2x1, 2x2 ve ilerleme çubuklu 4x2": "Home-screen widgets in three sizes: 2x1, 2x2 and 4x2 with a progress bar",
+    "Hazır şablonlar: düğün, tatil, doğum günü, doğum tarihi (bebek), terhis, kaç gün oldu, yıl dönümü, emeklilik, yılbaşı ve Noel": "Ready templates: wedding, vacation, birthday, baby due date, military discharge, days since, anniversary, retirement, New Year and Christmas",
+    "Hatırlatıcılar: 100, 30, 7 ve 1 gün kala ve o gün. \"Kaç gün oldu\" sayaçlarında 7, 30, 100 ve 365. gün": "Reminders at 100, 30, 7 and 1 days to go, and on the day itself. Days since counters get milestones at 7, 30, 100 and 365 days",
+    "6 ücretsiz renk; bir reklam izleyerek 4 ek rengi ve fotoğraf arka planını kalıcı olarak aç": "6 free colours; unlock 4 more colours and a photo background, each for good, by watching one ad",
+    "Her sayacı resim olarak paylaş": "Share any countdown as a picture",
+    "Hesap açmak ya da üye olmak yok. İnternetsiz çalışır, sayaçların cihazında kalır.": "No account and no sign-up. It works offline, and your countdowns stay on your device.",
+    "Countdown Widget ücretli mi?": "Is Countdown Widget paid?",
+    "Hayır, ücretsizdir. Uygulamaya geri döndüğünde reklam görürsün; ek renkleri ve fotoğraf arka planını açmak için izlemeyi seçebileceğin isteğe bağlı reklamlar da var. Widget'ta asla reklam yoktur.": "No, it is free. You see an ad when you return to the app, plus optional ads you choose to watch to unlock extra colours and photo backgrounds. There are never ads on the widget.",
+    "Widget'ı nasıl eklerim?": "How do I add the widget?",
+    "+ düğmesine dokun, şablon seç ya da sıfırdan başla; tarihi ve rengi seç. Sonra ana ekrana uzun bas, Countdown Widget'ı ekle ve sayacını seç.": "Tap + and choose a template or start from scratch, then set the date and pick a colour. Long-press your home screen, add the Countdown Widget and choose your countdown.",
+    "Hayır. Hesap açmak ya da üye olmak yok; uygulama internetsiz çalışır ve sayaçların yalnızca cihazında kalır.": "No. There is no account or sign-up; the app works offline and your countdowns stay on your device."
 }

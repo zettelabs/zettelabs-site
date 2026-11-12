@@ -43,7 +43,7 @@ class SiteBasicsTest extends TestCase
 
     public function test_apps_without_their_own_faq_get_the_shared_one(): void
     {
-        foreach (['cleanpix', 'circlepix', 'simple-alarm', 'background-wizard', 'offlinescanner', 'skydesk'] as $slug) {
+        foreach (['cleanpix', 'circlepix', 'simple-alarm', 'background-wizard', 'offlinescanner', 'skydesk', 'countdown'] as $slug) {
             $this->get("/{$slug}")->assertOk()->assertSee('Common questions');
         }
     }
@@ -58,5 +58,11 @@ class SiteBasicsTest extends TestCase
     {
         $this->get('/skydesk')->assertOk()->assertSee('href="/skydesk/privacy"', false)->assertDontSee('play.google.com');
         $this->get('/skydesk/privacy')->assertOk()->assertSee('Skydesk Privacy Policy');
+    }
+
+    public function test_countdown_page_is_coming_soon_in_both_locales(): void
+    {
+        $this->withSession(['locale' => 'tr'])->get('/countdown')->assertOk()->assertSee("Yakında Google Play'de")->assertSee('images/apps/shot-countdown-1.webp', false)->assertDontSee('play.google.com');
+        $this->withSession(['locale' => 'en'])->get('/countdown')->assertOk()->assertSee('Coming soon on Google Play')->assertSee('images/apps/en/shot-countdown-1.webp', false)->assertSee('zettelabs-countdown.web.app/privacy-policy')->assertDontSee('play.google.com');
     }
 }
