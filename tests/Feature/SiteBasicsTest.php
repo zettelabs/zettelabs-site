@@ -43,7 +43,7 @@ class SiteBasicsTest extends TestCase
 
     public function test_apps_without_their_own_faq_get_the_shared_one(): void
     {
-        foreach (['cleanpix', 'circlepix', 'simple-alarm', 'background-wizard', 'offlinescanner'] as $slug) {
+        foreach (['cleanpix', 'circlepix', 'simple-alarm', 'background-wizard', 'offlinescanner', 'skydesk'] as $slug) {
             $this->get("/{$slug}")->assertOk()->assertSee('Common questions');
         }
     }
@@ -52,5 +52,11 @@ class SiteBasicsTest extends TestCase
     {
         $this->get('/offlinescanner')->assertOk()->assertSee('href="/offlinescanner/privacy"', false);
         $this->get('/offlinescanner/privacy')->assertOk()->assertSee('Offline Scanner Privacy Policy');
+    }
+
+    public function test_skydesk_page_is_coming_soon_and_links_its_privacy_policy(): void
+    {
+        $this->get('/skydesk')->assertOk()->assertSee('href="/skydesk/privacy"', false)->assertDontSee('play.google.com');
+        $this->get('/skydesk/privacy')->assertOk()->assertSee('Skydesk Privacy Policy');
     }
 }

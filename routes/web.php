@@ -43,8 +43,9 @@ Route::get('/privacy_policy_circlepix', [PageController::class, 'circlepixPrivac
 
 // Offline Scanner's policy lives under the app's own path (new app, no legacy Play URL).
 Route::view('/offlinescanner/privacy', 'legal.offlinescanner')->name('privacy.offlinescanner');
+Route::view('/skydesk/privacy', 'legal.skydesk')->name('privacy.skydesk');
 
 // Per-app branding pages, driven by config/apps.php.
 Route::get('/{slug}', [PageController::class, 'app'])
-    ->where('slug', 'background-wizard|cleanpix|circlepix|simple-alarm|offlinescanner')
+    ->where('slug', 'background-wizard|cleanpix|circlepix|simple-alarm|offlinescanner|skydesk')
     ->name('apps.show');

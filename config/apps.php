@@ -139,4 +139,25 @@ return [
         'screenshots' => ['shot-offlinescanner-1.webp', 'shot-offlinescanner-2.webp', 'shot-offlinescanner-3.webp', 'shot-offlinescanner-4.webp'],
     ],
 
+    // Not on Play yet: play_store stays null and the page shows "Yakında" until it is set.
+    'skydesk' => [
+        'name' => 'Skydesk',
+        'tagline' => 'Her ders veya iş seansını bir uçuşa çevir.',
+        'description' => 'Skydesk, tamamen çevrimdışı çalışan bir odak zamanlayıcıdır: rotanı seç, uçağa bin ve uçak yere inene kadar odakta kal. Hesap yok, kayıt yok.',
+        'features' => [
+            'Kalkış ve varış havalimanını seç; rotanın uçuş süresi odak seansın olur. İstersen hazır süreler ya da özel kaydırıcı',
+            'Uçağının dünya haritasında ilerleyişini, büyük geri sayımı, uçtuğun ve kalan kilometreyi izle',
+            'Ekran kapalıyken de çalışır, bildirimde geri sayım görünür; uygulamayı kapatsan bile zamanında iner',
+            'İsteğe bağlı kabin sesi: dikkat dağıtan sesleri örten yumuşak kabin uğultusu (kahverengi gürültü)',
+            'İsteğe bağlı Rahatsız Etme modu uçuş boyunca açık kalır, indiğinde eski haline döner',
+            'Pasaport: indiğin her şehir için damga, ayrıca ülkeler ve rozetler',
+            'Günlük seri, bu haftanın odak grafiği ve toplam uçuş, saat ve kilometreyle uçuş defteri',
+            'Hesap yok, kayıt yok: her şey çevrimdışı çalışır, verilerin cihazında kalır. Uçuş sırasında reklam yok.',
+        ],
+        'play_store' => null,
+        'privacy_url' => '/skydesk/privacy',
+        'icon' => 'icon-skydesk.webp',
+        'screenshots' => ['shot-skydesk-1.webp', 'shot-skydesk-2.webp', 'shot-skydesk-3.webp', 'shot-skydesk-4.webp'],
+    ],
+
 ];
