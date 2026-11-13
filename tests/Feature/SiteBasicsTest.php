@@ -70,4 +70,21 @@ class SiteBasicsTest extends TestCase
     {
         $this->get('/sinavsayaci/privacy')->assertOk()->assertSee('Sınav Sayacı Gizlilik Politikası')->assertSee('com.sayac.sinav.yks.lgs.kpss');
     }
+
+    public function test_exam_countdown_pages_render_and_are_in_the_sitemap(): void
+    {
+        foreach (array_keys(config('exams')) as $exam) {
+            $this->get("/{$exam}-kac-gun-kaldi")->assertOk()->assertSee('<html lang="tr">', false)
+                ->assertSee('"@type":"FAQPage"', false)->assertSee('href="'.url('/sinavsayaci').'"', false);
+        }
+        $this->get('/yks-kac-gun-kaldi')->assertSee("YKS'ye kaç gün kaldı?", false)->assertSee('19 Haziran 2027 Cumartesi, 10.15');
+        $this->get('/sitemap.xml')->assertSee('/msu-kac-gun-kaldi', false);
+        $this->get('/xyz-kac-gun-kaldi')->assertNotFound();
+    }
+
+    public function test_exam_cta_uses_play_store_once_set(): void
+    {
+        config(['apps.sinavsayaci.play_store' => 'https://play.google.com/store/apps/details?id=com.sayac.sinav.yks.lgs.kpss']);
+        $this->get('/lgs-kac-gun-kaldi')->assertSee('play.google.com/store/apps/details?id=com.sayac.sinav.yks.lgs.kpss', false);
+    }
 }

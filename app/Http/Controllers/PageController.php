@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Response;
 
@@ -15,7 +16,7 @@ class PageController extends Controller
 
     public function sitemap(): Response
     {
-        $urls = [route('home'), route('privacy'), route('terms'), ...array_map(fn (string $slug) => route('apps.show', $slug), array_keys(config('apps')))];
+        $urls = [route('home'), route('privacy'), route('terms'), ...array_map(fn (string $slug) => route('apps.show', $slug), array_keys(config('apps'))), ...array_map(fn (string $exam) => route('exams.show', $exam), array_keys(config('exams')))];
 
         $xml = '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
             . implode('', array_map(fn (string $u) => '<url><loc>' . e($u) . '</loc></url>', $urls))
@@ -102,6 +103,24 @@ class PageController extends Controller
         }
 
         return null;
+    }
+
+    public function exam(string $exam): View
+    {
+        app()->setLocale('tr');
+
+        $data = config("exams.{$exam}");
+        $sessions = array_map(fn (string $at) => Carbon::parse($at, 'Europe/Istanbul'), $data['sessions']);
+        // Count down to the next session; once all are past, keep the last one (page then says it is over).
+        $next = collect($sessions)->first(fn (Carbon $at) => $at->isFuture()) ?? end($sessions);
+
+        return view('exams.show', [
+            'exam' => $exam,
+            'data' => $data,
+            'sessions' => $sessions,
+            'next' => $next,
+            'cta' => config('apps.sinavsayaci.play_store') ?? route('apps.show', 'sinavsayaci'),
+        ]);
     }
 
     public function legacyPrivacy(string $appName): View

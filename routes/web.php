@@ -46,6 +46,11 @@ Route::view('/offlinescanner/privacy', 'legal.offlinescanner')->name('privacy.of
 Route::view('/skydesk/privacy', 'legal.skydesk')->name('privacy.skydesk');
 Route::view('/sinavsayaci/privacy', 'legal.sinavsayaci')->name('privacy.sinavsayaci');
 
+// Turkish exam countdown SEO pages, driven by config/exams.php.
+Route::get('/{exam}-kac-gun-kaldi', [PageController::class, 'exam'])
+    ->where('exam', 'yks|lgs|kpss|ales|dgs|msu')
+    ->name('exams.show');
+
 // Per-app branding pages, driven by config/apps.php.
 Route::get('/{slug}', [PageController::class, 'app'])
     ->where('slug', 'background-wizard|cleanpix|circlepix|simple-alarm|offlinescanner|skydesk|countdown|sinavsayaci')
