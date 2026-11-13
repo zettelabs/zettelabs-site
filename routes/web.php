@@ -48,5 +48,5 @@ Route::view('/sinavsayaci/privacy', 'legal.sinavsayaci')->name('privacy.sinavsay
 
 // Per-app branding pages, driven by config/apps.php.
 Route::get('/{slug}', [PageController::class, 'app'])
-    ->where('slug', 'background-wizard|cleanpix|circlepix|simple-alarm|offlinescanner|skydesk|countdown')
+    ->where('slug', 'background-wizard|cleanpix|circlepix|simple-alarm|offlinescanner|skydesk|countdown|sinavsayaci')
     ->name('apps.show');

@@ -180,4 +180,25 @@ return [
         'screenshots' => ['shot-countdown-1.webp', 'shot-countdown-2.webp', 'shot-countdown-3.webp', 'shot-countdown-4.webp'],
     ],
 
+    'sinavsayaci' => [
+        'name' => 'Sınav Sayacı',
+        'tagline' => 'Sınavına kaç gün kaldı? YKS, LGS, KPSS için ana ekranda geri sayım widget\'ı.',
+        'description' => 'YKS (TYT, AYT, YDT), LGS, KPSS, MSÜ, ALES, DGS, MEB-AGS, YDS, YÖKDİL, TUS ve DUS için geri sayım. Widget\'lar gece yarısı kendiliğinden güncellenir.',
+        'features' => [
+            'Üç boyutta widget: 2×1 gün sayısı, 2×2 sınav adı ve ilerleme çubuğu, 4×2 iki sınav ya da günün sözü. Widget\'ta reklam yok.',
+            'Güvenilir gün hesabı: yeni gün başlarken, telefon yeniden açılınca ya da saat değişince widget kendini yeniler',
+            'Birden çok sınav seç; gün, saat ve dakika sayacı, başvuru ve sonuç tarihleri',
+            'Günlük soru hedefi ve çalışma serisi',
+            'Deneme net takibi: TYT, AYT, LGS netlerini kaydet, gelişimini grafikte gör',
+            'Geri sayım duvar kâğıdı: "X gün kaldı" görselini ana ya da kilit ekranına koy veya paylaş',
+            'İsteğe bağlı sabah bildirimi; başvurunun bitmesine 3 gün kala ve sonuç günü haber verir',
+            'Tarihi kendin düzelt, okul sınavı ya da ehliyet gibi kendi sınavını ekle',
+            'Hesap yok, bulut yok: sınavların, netlerin ve hedeflerin yalnızca telefonunda durur',
+        ],
+        'play_store' => null,
+        'privacy_url' => '/sinavsayaci/privacy',
+        'icon' => 'icon-sinavsayaci.webp',
+        'screenshots' => ['shot-sinavsayaci-1.webp', 'shot-sinavsayaci-2.webp', 'shot-sinavsayaci-3.webp', 'shot-sinavsayaci-4.webp'],
+    ],
+
 ];
