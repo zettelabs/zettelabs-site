@@ -139,7 +139,6 @@ return [
         'screenshots' => ['shot-offlinescanner-1.webp', 'shot-offlinescanner-2.webp', 'shot-offlinescanner-3.webp', 'shot-offlinescanner-4.webp'],
     ],
 
-    // Not on Play yet: play_store stays null and the page shows "Yakında" until it is set.
     'skydesk' => [
         'name' => 'Skydesk',
         'tagline' => 'Her ders veya iş seansını bir uçuşa çevir.',
@@ -154,7 +153,7 @@ return [
             'Günlük seri, bu haftanın odak grafiği ve toplam uçuş, saat ve kilometreyle uçuş defteri',
             'Hesap yok, kayıt yok: her şey çevrimdışı çalışır, verilerin cihazında kalır. Uçuş sırasında reklam yok.',
         ],
-        'play_store' => null,
+        'play_store' => 'https://play.google.com/store/apps/details?id=com.zettelabs.skydesk',
         'privacy_url' => '/skydesk/privacy',
         'icon' => 'icon-skydesk.webp',
         'screenshots' => ['shot-skydesk-1.webp', 'shot-skydesk-2.webp', 'shot-skydesk-3.webp', 'shot-skydesk-4.webp'],
