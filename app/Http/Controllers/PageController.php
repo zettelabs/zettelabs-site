@@ -119,7 +119,10 @@ class PageController extends Controller
             'data' => $data,
             'sessions' => $sessions,
             'next' => $next,
-            'cta' => config('apps.sinavsayaci.play_store') ?? route('apps.show', 'sinavsayaci'),
+            // UTM referrer so Play acquisition shows installs from these SEO pages (PLAYBOOK 1d).
+            'cta' => ($play = config('apps.sinavsayaci.play_store'))
+                ? $play . '&referrer=' . rawurlencode("utm_source=zettelabs_site&utm_medium=seo&utm_campaign={$exam}")
+                : route('apps.show', 'sinavsayaci'),
         ]);
     }
 

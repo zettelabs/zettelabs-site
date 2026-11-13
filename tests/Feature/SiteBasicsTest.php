@@ -82,9 +82,17 @@ class SiteBasicsTest extends TestCase
         $this->get('/xyz-kac-gun-kaldi')->assertNotFound();
     }
 
+    public function test_sinavsayaci_landing_links_every_exam_page(): void
+    {
+        $page = $this->get('/sinavsayaci')->assertOk();
+        foreach (array_keys(config('exams')) as $exam) {
+            $page->assertSee('href="'.url("/{$exam}-kac-gun-kaldi").'"', false);
+        }
+    }
+
     public function test_exam_cta_uses_play_store_once_set(): void
     {
         config(['apps.sinavsayaci.play_store' => 'https://play.google.com/store/apps/details?id=com.sayac.sinav.yks.lgs.kpss']);
-        $this->get('/lgs-kac-gun-kaldi')->assertSee('play.google.com/store/apps/details?id=com.sayac.sinav.yks.lgs.kpss', false);
+        $this->get('/lgs-kac-gun-kaldi')->assertSee('play.google.com/store/apps/details?id=com.sayac.sinav.yks.lgs.kpss&amp;referrer=utm_source%3Dzettelabs_site%26utm_medium%3Dseo%26utm_campaign%3Dlgs', false);
     }
 }

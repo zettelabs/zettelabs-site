@@ -41,6 +41,14 @@
         </div>
     </section>
 
+    <section class="mx-auto max-w-6xl px-6 pt-24 md:pt-32">
+        <h2 class="text-3xl font-bold tracking-[-0.02em] text-ink md:text-5xl">{{ __('Sınavına kaç gün kaldı?') }}</h2>
+        <ul class="mt-8 flex flex-wrap gap-3">
+            @foreach (config('exams') as $slug => $exam)
+                <li><a href="{{ route('exams.show', $slug) }}" class="inline-block rounded-full bg-surface px-4 py-2 text-ink hover:text-accent">{{ $exam['to'] }} kaç gün kaldı?</a></li>
+            @endforeach
+        </ul>
+    </section>
 
     @include('apps.partials.faq', ['faq' => [
         'Sınav Sayacı ücretli mi?' => 'Hayır, ücretsizdir ve reklamlarla desteklenir. Widget ücretsizdir, hiçbir zaman kilitlenmez ve içinde reklam yoktur. 3 ek widget teması kısa bir reklam izleyerek açılır.',
