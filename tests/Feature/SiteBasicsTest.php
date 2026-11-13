@@ -54,9 +54,9 @@ class SiteBasicsTest extends TestCase
         $this->get('/offlinescanner/privacy')->assertOk()->assertSee('Offline Scanner Privacy Policy');
     }
 
-    public function test_skydesk_page_is_coming_soon_and_links_its_privacy_policy(): void
+    public function test_skydesk_page_links_play_and_its_privacy_policy(): void
     {
-        $this->get('/skydesk')->assertOk()->assertSee('href="/skydesk/privacy"', false)->assertDontSee('play.google.com');
+        $this->get('/skydesk')->assertOk()->assertSee('href="/skydesk/privacy"', false)->assertSee('play.google.com/store/apps/details?id=com.zettelabs.skydesk', false);
         $this->get('/skydesk/privacy')->assertOk()->assertSee('Skydesk Privacy Policy');
     }
 
