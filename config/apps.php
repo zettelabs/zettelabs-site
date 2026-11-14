@@ -201,4 +201,24 @@ return [
         'screenshots' => ['shot-sinavsayaci-1.webp', 'shot-sinavsayaci-2.webp', 'shot-sinavsayaci-3.webp', 'shot-sinavsayaci-4.webp'],
     ],
 
+    'tippyjelly' => [
+        'name' => 'Tippy Jelly',
+        'tagline' => 'Jöleleri bırak, sayıları birleştir, tahtayı dengede tut.',
+        'description' => 'Sevimli jöleleri sallanan bir tahtaya bırak, aynı sayıdakileri birleştir ve her şeyi dengede tut. Tippy Jelly, tek parmakla her yerde, internetsiz bile oynayabileceğin rahatlatıcı bir fizik bulmacası.',
+        'features' => [
+            'Kaydır, bırak, bitti: sola ya da sağa kaydır, parmağını kaldır. Kontrol bu kadar.',
+            'Jöleleri birleştir: civciv, kedi, ayı, tavşan, kurbağa ve geyik jöleleri 2, 4, 8 ve daha büyük sayılar taşır. Aynı sayıdaki iki jöle birbirine değince bir sonraki sayıya dönüşür.',
+            'Tahtayı dengede tut: tahta tek bir ayağın üzerinde duruyor. Her jölenin gerçek bir ağırlığı var ve büyüdükçe ağırlaşıyor. Bir tarafa fazla yüklenirsen tahta yan yatar.',
+            'Üç düşüş, oyun biter: üç jöle tahtadan düşerse tur sona erer. Turlar kısa.',
+            'Rekorunu kır: puanın birleştirdikçe artar, en iyi puanın telefonunda saklanır.',
+            'Dikey ekran, tek elle oynama',
+            'Çevrimdışı çalışır, internet gerekmez',
+            'Hesap yok, kayıt yok',
+        ],
+        'play_store' => 'https://play.google.com/store/apps/details?id=app.zettelabs.tippyjelly',
+        'privacy_url' => 'https://tippy-jelly.web.app/privacy-policy',
+        'icon' => 'icon-tippyjelly.webp',
+        'screenshots' => ['shot-tippyjelly-1.webp', 'shot-tippyjelly-2.webp', 'shot-tippyjelly-3.webp', 'shot-tippyjelly-4.webp'],
+    ],
+
 ];

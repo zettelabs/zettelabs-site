@@ -43,7 +43,7 @@ class SiteBasicsTest extends TestCase
 
     public function test_apps_without_their_own_faq_get_the_shared_one(): void
     {
-        foreach (['cleanpix', 'circlepix', 'simple-alarm', 'background-wizard', 'offlinescanner', 'skydesk', 'countdown'] as $slug) {
+        foreach (['cleanpix', 'circlepix', 'simple-alarm', 'background-wizard', 'offlinescanner', 'skydesk', 'countdown', 'tippyjelly'] as $slug) {
             $this->get("/{$slug}")->assertOk()->assertSee('Common questions');
         }
     }
@@ -52,6 +52,12 @@ class SiteBasicsTest extends TestCase
     {
         $this->get('/offlinescanner')->assertOk()->assertSee('href="/offlinescanner/privacy"', false);
         $this->get('/offlinescanner/privacy')->assertOk()->assertSee('Offline Scanner Privacy Policy');
+    }
+
+    public function test_tippyjelly_page_links_play_and_its_privacy_policy(): void
+    {
+        $this->get('/tippyjelly')->assertOk()->assertSee('Drop jellies, merge matching numbers')
+            ->assertSee('play.google.com/store/apps/details?id=app.zettelabs.tippyjelly', false)->assertSee('href="https://tippy-jelly.web.app/privacy-policy"', false);
     }
 
     public function test_skydesk_page_links_play_and_its_privacy_policy(): void

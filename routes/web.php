@@ -53,5 +53,5 @@ Route::get('/{exam}-kac-gun-kaldi', [PageController::class, 'exam'])
 
 // Per-app branding pages, driven by config/apps.php.
 Route::get('/{slug}', [PageController::class, 'app'])
-    ->where('slug', 'background-wizard|cleanpix|circlepix|simple-alarm|offlinescanner|skydesk|countdown|sinavsayaci')
+    ->where('slug', 'background-wizard|cleanpix|circlepix|simple-alarm|offlinescanner|skydesk|countdown|sinavsayaci|tippyjelly')
     ->name('apps.show');

@@ -564,5 +564,21 @@
     "Verilerim nerede?": "Where is my data?",
     "Hayır, ücretsizdir ve reklamlarla desteklenir. Widget ücretsizdir, hiçbir zaman kilitlenmez ve içinde reklam yoktur. 3 ek widget teması kısa bir reklam izleyerek açılır.": "No, it's free and supported by ads. The widget is free, is never locked and has no ads in it. 3 extra widget themes unlock by watching a short ad.",
     "ÖSYM'nin ve MEB'in yayımladığı 2027 sınav takvimlerinden. Takvim değişirse uygulama güncellenir; o zamana kadar tarihi elle düzeltebilirsin. Resmî duyuruları her zaman osym.gov.tr ve meb.gov.tr'den kontrol et.": "From the 2027 exam calendars published by ÖSYM and MEB. If a calendar changes the app is updated; until then you can fix a date by hand. Always check official announcements at osym.gov.tr and meb.gov.tr.",
-    "Hesap yok, bulut yok. Sınavların, netlerin ve hedeflerin yalnızca telefonunda durur. Yalnızca reklamlar internet kullanır. Sınav Sayacı'nın ÖSYM, MEB veya herhangi bir kamu kurumuyla bağlantısı yoktur.": "No account, no cloud. Your exams, nets and goals stay on your phone only. Only ads use the internet. Sınav Sayacı is not affiliated with ÖSYM, MEB or any public body."
+    "Hesap yok, bulut yok. Sınavların, netlerin ve hedeflerin yalnızca telefonunda durur. Yalnızca reklamlar internet kullanır. Sınav Sayacı'nın ÖSYM, MEB veya herhangi bir kamu kurumuyla bağlantısı yoktur.": "No account, no cloud. Your exams, nets and goals stay on your phone only. Only ads use the internet. Sınav Sayacı is not affiliated with ÖSYM, MEB or any public body.",
+    "Jöleleri bırak, sayıları birleştir, tahtayı dengede tut.": "Drop jellies, merge matching numbers, keep the board balanced.",
+    "Sevimli jöleleri sallanan bir tahtaya bırak, aynı sayıdakileri birleştir ve her şeyi dengede tut. Tippy Jelly, tek parmakla her yerde, internetsiz bile oynayabileceğin rahatlatıcı bir fizik bulmacası.": "Drop cute jellies onto a wobbly seesaw, merge the matching ones and keep everything balanced. Tippy Jelly is a relaxing physics puzzle you can play with one finger, anywhere, even offline.",
+    "Kaydır, bırak, bitti: sola ya da sağa kaydır, parmağını kaldır. Kontrol bu kadar.": "Drag, drop, done: slide left or right and let go. That is all the controls there are.",
+    "Jöleleri birleştir: civciv, kedi, ayı, tavşan, kurbağa ve geyik jöleleri 2, 4, 8 ve daha büyük sayılar taşır. Aynı sayıdaki iki jöle birbirine değince bir sonraki sayıya dönüşür.": "Merge the jellies: chick, cat, bear, rabbit, frog and deer jellies carry numbers: 2, 4, 8 and up. When two jellies with the same number touch, they merge into the next number.",
+    "Tahtayı dengede tut: tahta tek bir ayağın üzerinde duruyor. Her jölenin gerçek bir ağırlığı var ve büyüdükçe ağırlaşıyor. Bir tarafa fazla yüklenirsen tahta yan yatar.": "Keep the board balanced: the board rests on a single pin. Every jelly has real weight, and the bigger it gets, the heavier it is. Pile too much on one side and the board tips.",
+    "Üç düşüş, oyun biter: üç jöle tahtadan düşerse tur sona erer. Turlar kısa.": "Three falls and it's over: lose three jellies off the edge and the round ends. Rounds are short.",
+    "Rekorunu kır: puanın birleştirdikçe artar, en iyi puanın telefonunda saklanır.": "Beat your best: your score is counted as you merge, and your best score is saved on your phone.",
+    "Dikey ekran, tek elle oynama": "Portrait mode, one-handed play",
+    "Çevrimdışı çalışır, internet gerekmez": "Works offline, no internet needed",
+    "Hesap yok, kayıt yok": "No account, no sign-up",
+    "Tippy Jelly ücretli mi?": "Is Tippy Jelly paid?",
+    "Hayır, ücretsizdir ve reklamlarla desteklenir: küçük bir banner ve turlar arasında ara sıra çıkan bir reklam.": "No. It is free to play and supported by ads: a small banner and an occasional ad between rounds.",
+    "İnternet ya da hesap gerekiyor mu?": "Do I need internet or an account?",
+    "Hayır. Çevrimdışı çalışır, internet gerekmez. Hesap yok, kayıt yok.": "No. It works offline, no internet needed. No account, no sign-up.",
+    "Puanım nerede saklanıyor?": "Where is my score saved?",
+    "En iyi puanın telefonunda saklanır.": "Your best score is saved on your phone."
 }
