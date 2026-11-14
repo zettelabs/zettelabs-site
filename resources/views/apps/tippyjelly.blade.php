@@ -87,7 +87,7 @@
         .tj :focus-visible { outline: 3px solid var(--tj-pink); outline-offset: 3px; }
 
         /* Hero: the violet ground of the game, and the board you can play on. */
-        .tj-hero { min-height: calc(100svh - 76px); padding-block: 40px 56px; display: flex; align-items: center; }
+        .tj-hero { min-height: calc(100svh - 76px); padding-block: 24px 32px; display: flex; align-items: center; }
         .tj-hero-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 40px; align-items: center; width: 100%; }
         @media (min-width: 1024px) { .tj-hero-grid { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 48px; } }
         .tj-id { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 1.1875rem; }
@@ -100,7 +100,7 @@
         .tj-hero .tj-lead { margin-top: 32px; max-width: 34ch; }
         .tj-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px; margin-top: 32px; }
 
-        .tj-stage { position: relative; width: min(100%, calc((100svh - 230px) * .851)); min-width: min(100%, 320px); margin-inline: auto; }
+        .tj-stage { position: relative; width: min(100%, calc((100svh - 180px) * .851)); min-width: min(100%, 320px); margin-inline: auto; }
         .tj-board { position: relative; aspect-ratio: 400 / 470; }
         .tj-board canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: none; touch-action: pan-y; cursor: crosshair; }
         .tj-board img { width: 100%; height: 100%; object-fit: cover; border-radius: var(--tj-r); }
@@ -110,6 +110,8 @@
         .tj-controls { align-items: center; gap: 16px; margin-top: 8px; }
         .tj-controls input { flex: 1; min-width: 0; accent-color: var(--tj-honey); height: 44px; cursor: pointer; }
         .tj-note { margin-top: 12px; color: var(--tj-muted); font-size: 1rem; text-align: center; }
+        /* Wide screens: the keyboard controls sit in the empty floor under the pin, so the board itself can grow. */
+        @media (min-width: 1024px) { .tj-controls { position: absolute; left: 12%; right: 12%; bottom: 44px; margin: 0; } .tj-stage .tj-note { margin-top: 8px; } }
         .tj-over {
             position: absolute; left: 50%; top: 38%; translate: -50% -50%; display: none; text-align: center;
             background: var(--tj-card); border-radius: var(--tj-r); padding: 28px 36px; min-width: 240px;
@@ -132,7 +134,7 @@
             .tj-sheet { height: max(480px, calc(100svh - 24px - var(--n) * 72px)); }
             .tj-sheet-in { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; grid-template-rows: 72px 1fr; height: 100%; padding-bottom: 0; }
             .tj-sheet h3 { grid-column: 1 / 7; grid-row: 1; min-height: 72px; font-size: clamp(1.75rem, 3vw, 2.75rem); }
-            .tj-sheet p { grid-column: 1 / 6; grid-row: 2; align-self: end; margin: 0 0 56px; font-size: 1.1875rem; }
+            .tj-sheet p { grid-column: 1 / 7; grid-row: 2; align-self: start; margin: 24px 0 0; font-size: 1.3125rem; line-height: 1.5; font-weight: 600; max-width: 34ch; }
             .tj-sheet figure { grid-column: 7 / 13; grid-row: 1 / 3; margin: 72px 0 0; aspect-ratio: auto; border-radius: var(--tj-r) var(--tj-r) 0 0; }
         }
         /* Sheets stack only where each one, pinned, still fits the screen whole. */
@@ -164,8 +166,8 @@
         .tj-fact.tj-reprint { animation: tj-in .3s ease-out; }
         @keyframes tj-in { from { opacity: 0; transform: translateY(6px); } }
         @media (max-width: 1023px) {
-            .tj-cast-list { flex-direction: row; gap: 24px; overflow-x: auto; padding-bottom: 8px; scrollbar-width: none; }
-            .tj-name { font-size: 1.625rem; flex: none; }
+            .tj-cast-list { flex-direction: row; flex-wrap: wrap; gap: 0 24px; }
+            .tj-name { font-size: 1.625rem; flex: none; min-height: 44px; align-items: center; }
             .tj-name[aria-pressed="true"] { transform: none; }
         }
 
