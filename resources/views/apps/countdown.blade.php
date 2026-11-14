@@ -39,7 +39,7 @@
 
     // The reminder bar: 100 → 30 → 7 → 1 → the day, segments as long as the real gaps.
     $stages = [
-        ['days' => 70, 'from' => 100, 'theme' => 'lemon', 'text' => '100 gün kala ilk hatırlatma gelir. Sayaç ana ekranda her sabah bir eksilir.'],
+        ['days' => 70, 'from' => 100, 'theme' => 'lemon', 'text' => '100 gün kala ilk hatırlatma gelir. Widget her gece yarısı bir eksilir.'],
         ['days' => 23, 'from' => 30, 'theme' => 'mint', 'text' => '30 gün kala ikinci hatırlatma. Widget\'ı değiştirmek istersen renk ya da boyut seç.'],
         ['days' => 6, 'from' => 7, 'theme' => 'paper', 'text' => '7 gün kala üçüncü hatırlatma. Sayacı resim olarak paylaşabilirsin.'],
         ['days' => 1, 'from' => 1, 'theme' => 'tangerine', 'text' => '1 gün kala son hatırlatma.'],
@@ -51,7 +51,7 @@
         'Widget\'ı nasıl eklerim?' => '+ düğmesine dokun, şablon seç ya da sıfırdan başla; tarihi ve rengi seç. Sonra ana ekrana uzun bas, Countdown Widget\'ı ekle ve sayacını seç.',
         'Tarih geçince ne olur?' => 'Sayaç durmaz: o günden itibaren kaç gün geçtiğini sayar. "Her yıl tekrar" açıksa bir sonraki yıla geçer.',
         'Hatırlatmalar ne zaman gelir?' => '100, 30, 7 ve 1 gün kala ve o gün. "Kaç gün oldu" sayaçlarında 7, 30 ve 100. günde ve her yıl dönümünde.',
-        'Kaç sayaç ekleyebilirim?' => 'Sınırsız. Her sayacın kendi rengi, boyutu ve hatırlatma ayarı olur.',
+        'Kaç sayaç ekleyebilirim?' => 'Sınırsız. Her sayacın kendi rengi ve hatırlatma ayarı olur.',
         'Fotoğraf arka planı nasıl açılır?' => 'Renk seçiminde ► işaretli bir seçeneğe dokun ve bir reklam izle; o renk ya da fotoğraf arka planı kalıcı olarak açılır.',
         'Hesap açmam gerekiyor mu?' => 'Hayır. Hesap açmak ya da üye olmak yok; uygulama internetsiz çalışır ve sayaçların yalnızca cihazında kalır.',
     ];
@@ -203,7 +203,7 @@
             transition: width 300ms ease-out;
         }
         [data-ui].cw-widget:not([data-size="4x2"]) .cw-w-bar,
-        [data-ui].cw-widget[data-size="2x1"] .cw-w-date {
+        [data-ui].cw-widget:not([data-size="4x2"]) .cw-w-date {
             display: none;
         }
 
@@ -481,7 +481,7 @@
 
                 <div class="mt-16 lg:mt-[50vh]" data-reveal>
                     <p class="text-2xl font-semibold leading-tight">{{ __('Üç boyut.') }}</p>
-                    <p class="mt-3 max-w-[44ch] text-[17px] leading-relaxed">{{ __('2×1 yalnızca sayı, 2×2 sayı ve tarih, 4×2 ilerleme çubuğuyla. Boyutu ana ekranda seçersin.') }}</p>
+                    <p class="mt-3 max-w-[44ch] text-[17px] leading-relaxed">{{ __('2×1 ve 2×2 ad, sayı ve etiketi gösterir; 4×2 tarihi ve ilerleme çubuğunu ekler. Boyutu ana ekranda seçersin.') }}</p>
                     <fieldset class="mt-5 flex flex-wrap gap-2">
                         <legend class="sr-only">{{ __('Widget boyutu') }}</legend>
                         @foreach (['2x1', '2x2', '4x2'] as $size)

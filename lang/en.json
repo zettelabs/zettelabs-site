@@ -300,7 +300,7 @@
     "İnternet olmadan çalışır mı?": "Does it work without internet?",
     "Evet. Tarayıcı modülü ilk kullanımda Google Play hizmetleri üzerinden bir kez indirilir (yaklaşık 200 KB); sonrası tamamen çevrimdışı çalışır.": "Yes. The scanner module is downloaded once through Google Play services the first time you use it (about 200 KB). After that, scanning works fully offline.",
     "Metin tanıma hangi dilleri destekler?": "Which languages does text recognition support?",
-    "Latin alfabesi kullanan dilleri: Türkçe, İngilizce, İspanyolca, Portekizce, Almanca, Endonezce ve benzerleri.": "Latin alphabet languages, such as English, Spanish, Portuguese, German, Turkish and Indonesian.",
+    "Latin alfabesi kullanan dilleri: Türkçe, İngilizce, İspanyolca, Portekizce, Almanca, Endonezce ve benzerleri.": "Languages written in the Latin alphabet: English, Spanish, Portuguese, German, Turkish, Indonesian and the like.",
     "Her ders veya iş seansını bir uçuşa çevir.": "Turn every study or work session into a flight.",
     "Skydesk, tamamen çevrimdışı çalışan bir odak zamanlayıcıdır: rotanı seç, uçağa bin ve uçak yere inene kadar odakta kal. Hesap yok, kayıt yok.": "Skydesk is a focus timer that works fully offline: pick your route, board, and stay focused until the plane touches down. No account, no sign-up.",
     "Kalkış ve varış havalimanını seç; rotanın uçuş süresi odak seansın olur. İstersen hazır süreler ya da özel kaydırıcı": "Choose a departure and a destination airport; the flight time of your route is your focus session. Or use a preset or the custom slider",
@@ -516,5 +516,13 @@
     "Diller": "Languages",
     "Arama": "Search",
     "Telefon": "Phone",
-    "Sorular": "Questions"
+    "Sorular": "Questions",
+    "Cihazda": "On device",
+    "Taramalar": "Scans",
+    "Kenarlar bulundu": "Edges found",
+    "sayfaya kırpılmış": "cropped to the page",
+    "Google Play'de aç ve ilk belgeni tara. Tarama, PDF ve metin tanıma cihazında kalır. Taramalar ekranındaki kutuya bir kelime yaz: dört örnek belge onu metninde bulur.": "Open it on Google Play and scan your first document. Scanning, PDFs and text recognition stay on the device. Type a word into the box on the Scans screen: the four sample documents find it in their text.",
+    "Sınırsız. Her sayacın kendi rengi ve hatırlatma ayarı olur.": "As many as you like. Each has its own colour and reminder setting.",
+    "100 gün kala ilk hatırlatma gelir. Widget her gece yarısı bir eksilir.": "The first reminder comes at 100 days to go. The widget drops by one every midnight.",
+    "2×1 ve 2×2 ad, sayı ve etiketi gösterir; 4×2 tarihi ve ilerleme çubuğunu ekler. Boyutu ana ekranda seçersin.": "2×1 and 2×2 show the name, the number and the label; 4×2 adds the date and a progress bar. You choose the size on the home screen."
 }

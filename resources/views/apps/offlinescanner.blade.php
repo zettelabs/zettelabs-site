@@ -13,7 +13,7 @@
         ['file' => 'receipt-flat.webp', 'title' => 'Berghotel Grosse Scheidegg', 'date' => __('9 Kas 2026 01:16'), 'text' => 'Berghotel Grosse Scheidegg, 3818 Grindelwald, Familie R. Müller. Rech. Nr. 4572, 30.07.2007 13:29:17, Bar, Tisch 7/01. 2x Latte Macchiato à 4.50 CHF 9.00. 1x Gloki à 5.00 CHF 5.00. 1x Schweinschnitzel à 22.00 CHF 22.00. 1x Chässpätzli à 18.50 CHF 18.50. Total: CHF 54.50. Incl. 7.6% MwSt 54.50 CHF: 3.85. Entspricht in Euro 36.33 EUR. Es bediente Sie: Ursula.'],
         ['file' => 'typewritten-letter-of-pierre-chouteau-st-louis.webp', 'title' => 'Pierre Chouteau, St. Louis', 'date' => __('9 Kas 2026 01:15'), 'text' => 'Sept. 5, 1903. Miss Mary Louise Dalton, Missouri Historical Socy., St. Louis. My dear Miss Dalton: I think the following will fully answer your inquiries, but if locations, months and days are desired, many can be furnished. Pierre Ligueste de Laclede, born 1724, emigrated to Louisiana 1755, founded St. Louis 1764, died 1778. He died June 20th, 1778, at the mouth of the Arkansas river while en route from New Orleans to St. Louis. Very truly yours, Pierre Chouteau. Dictated.'],
         ['file' => 'a-very-early-typewritten-letter-as-part.webp', 'title' => 'Justices Court, Salt Lake City', 'date' => __('8 Kas 2026 18:40'), 'text' => 'In the Justices Court of the Fifth Precinct of Salt Lake City, Utah Territory. Salt Lake City Foundry and Manufacturing Company, a corporation, Plaintiff, vs. Pleasant Valley Coal Company, a corporation, Defendant. Complaint. November 28, 1884. One coal screen 2146, $171.68. Cartage on same, .50. December 1, 1884. Cash prepaid freight 9.60. Total $181.78. Le Grand Young, Attorney for Plaintiff. Subscribed and sworn to before me this 20th day of April, 1886. W. Van Cott, Notary public.'],
-        ['file' => 'handwritten-letter-from-t-k-riddick-house.webp', 'title' => 'Hotel Hermitage, Nashville', 'date' => __('8 Kas 2026 18:22'), 'text' => 'Hotel Hermitage, Meyer Hotel Co., Proprietors, Robert R. Meyer, President. Nashville, Tenn. Hon. Bainbridge Colby, Washington D.C. Dear Sir: I have just wired you as follows: Mailed you tonight copies of our Points of Order and Protest against attempted reconsideration by the House of Resolution ratifying Suffrage Amendment. Also opinion of Attorney General holding House had no right to reconsider. Please examine before taking further action, which I now confirm.'],
+        ['file' => 'handwritten-letter-from-t-k-riddick-house.webp', 'title' => 'Hotel Hermitage, Nashville', 'date' => __('8 Kas 2026 18:22'), 'text' => 'Hotel Hermitage, Meyer Hotel Co., Proprietors. Robert R. Meyer, President. Fireproof. European. Nashville, Tenn. When in Knoxville stop at Hotel Farragut. When in Atlanta stop at Hotel Winecoff. Robt. E. Hyde, Resident Manager.'],
     ];
     $docsJson = json_encode(array_map(fn ($d) => ['title' => $d['title'], 'text' => $d['text']], $docs));
     $excerpt = fn (string $t) => mb_substr($t, 0, 60) . '…';
@@ -47,7 +47,7 @@
         ['tab' => 'Ücret', 'q' => 'Offline Scanner ücretli mi?', 'a' => 'Hayır, ücretsizdir ve reklamlarla desteklenir. Reklamlar tarama ekranında değil, PDF kaydedildikten sonra ve uygulamaya dönüşte gelir.'],
         ['tab' => 'Gizlilik', 'q' => 'Belgelerim bir yere yükleniyor mu?', 'a' => 'Hayır. Tarama, PDF oluşturma ve metin tanıma telefonunda yapılır; hesap ve bulut yüklemesi yoktur. Yalnızca reklamlar internet kullanır.'],
         ['tab' => 'İnternet', 'q' => 'İnternet olmadan çalışır mı?', 'a' => 'Evet. Tarayıcı modülü ilk kullanımda Google Play hizmetleri üzerinden bir kez indirilir (yaklaşık 200 KB); sonrası tamamen çevrimdışı çalışır.'],
-        ['tab' => 'Diller', 'q' => 'Metin tanıma hangi dilleri destekler?', 'a' => 'Latin alfabesi kullanan dilleri: Türkçe, İngilizce, İspanyolca, Portekizce, Almanca, Endonezce ve benzerleri. El yazısında sonuç yazının okunaklılığına bağlıdır.'],
+        ['tab' => 'Diller', 'q' => 'Metin tanıma hangi dilleri destekler?', 'a' => 'Latin alfabesi kullanan dilleri: Türkçe, İngilizce, İspanyolca, Portekizce, Almanca, Endonezce ve benzerleri.'],
         ['tab' => 'Arama', 'q' => 'Arama neyi arar?', 'a' => 'Her taramanın tanınan metnini ve adını. Bir ad, tutar ya da tarih yazarsın; eşleşen taramalar listede kalır.'],
         ['tab' => 'Telefon', 'q' => 'Hangi telefonlarda çalışır?', 'a' => 'Android 7.0 ve üzeri, Google Play hizmetleri olan telefonlarda.'],
     ];
@@ -350,7 +350,7 @@
                                     <img src="{{ $pic('receiptswiss.webp') }}" alt="{{ __('Masadaki fiş; bulunan kenarlar sarı çizgiyle işaretli') }}" width="900" height="1200" loading="lazy" class="block aspect-[3/4] w-full object-cover">
                                     <svg class="absolute inset-0 h-full w-full" viewBox="0 0 300 400" aria-hidden="true"><polygon points="38,22 262,22 262,392 32,392" fill="none" stroke="#F5B641" stroke-width="3"/><circle cx="38" cy="22" r="6" fill="#F5B641"/><circle cx="262" cy="22" r="6" fill="#F5B641"/><circle cx="262" cy="392" r="6" fill="#F5B641"/><circle cx="32" cy="392" r="6" fill="#F5B641"/></svg>
                                 </div>
-                                <p class="os-ui-label p-3">{{ __('Kenarlar bulundu · dokun ve düzelt') }}</p>
+                                <p class="os-ui-label p-3">{{ __('Kenarlar bulundu') }}</p>
                             @elseif ($i === 1)
                                 <img src="{{ $pic('receipt-flat.webp') }}" alt="{{ __('Aynı fiş, düzleştirilmiş ve kırpılmış') }}" width="689" height="1106" loading="lazy" class="block aspect-[3/4] w-full object-cover object-top">
                                 <p class="os-ui-label p-3">{{ __('Sayfa 1 · düzleştirildi') }}</p>
@@ -419,8 +419,7 @@
                 <div class="mt-10">
                     @foreach ($faq as $i => $item)
                         <details class="os-cardq os-folder" name="os-faq" @if ($loop->first) open @endif data-reveal style="--tx: {{ min($i * 150, 700) }}px; background: {{ ['#dcd8e8', '#3b3352', '#F5B641'][$i % 3] }}; color: {{ $i % 3 === 1 ? '#f5f4f8' : '#0f0c18' }}; @if (! $loop->first) margin-top: -4px; @endif">
-                            <span class="os-tab" aria-hidden="true">{{ __($item['tab']) }}</span>
-                            <summary class="flex min-h-[96px] items-center justify-between gap-4 px-5 text-[18px] font-medium lg:px-6 lg:text-[20px]">{{ __($item['q']) }}<span class="text-[20px]" aria-hidden="true">+</span></summary>
+                            <summary class="flex min-h-[96px] items-center justify-between gap-4 px-5 text-[18px] font-medium lg:px-6 lg:text-[20px]"><span class="os-tab" aria-hidden="true">{{ __($item['tab']) }}</span>{{ __($item['q']) }}<span class="text-[20px]" aria-hidden="true">+</span></summary>
                             <p class="max-w-[50ch] px-6 pb-8 text-[17px] leading-relaxed">{{ __($item['a']) }}</p>
                         </details>
                     @endforeach
@@ -434,7 +433,7 @@
         <div class="mx-auto flex min-h-[90svh] max-w-6xl flex-col gap-12 px-6 py-16 lg:grid lg:grid-cols-12 lg:items-center lg:gap-6 lg:py-24">
             <div class="lg:col-span-6 lg:self-end lg:pb-4">
                 <h2 class="os-big font-extrabold">{{ __('Taramaların') }}<br>{{ __('telefonunda.') }}</h2>
-                <p class="mt-6 max-w-[40ch] text-[17px] leading-relaxed">{{ __('Google Play\'de aç ve ilk belgeni bir dakikada tara. Tarama, PDF ve metin tanıma cihazında kalır; dört örnek belge yukarıdaki kutuya yazdığın kelimeyi bulur.') }}</p>
+                <p class="mt-6 max-w-[40ch] text-[17px] leading-relaxed">{{ __('Google Play\'de aç ve ilk belgeni tara. Tarama, PDF ve metin tanıma cihazında kalır. Taramalar ekranındaki kutuya bir kelime yaz: dört örnek belge onu metninde bulur.') }}</p>
             </div>
 
             <div class="w-full max-w-[440px] lg:col-span-5 lg:col-start-8" data-reveal>
@@ -471,11 +470,11 @@
     <div class="mx-auto max-w-6xl px-6 pt-10">
         <p class="max-w-[60ch] text-[15px] leading-relaxed text-ink-dim">
             {{ __('Örnek belgeler açık koleksiyonlardan; hiçbiri uygulamanın kendi taraması değildir:') }}
-            <a href="https://commons.wikimedia.org/wiki/File:ReceiptSwiss.jpg" class="underline underline-offset-2 hover:text-ink">ReceiptSwiss</a> (Audrius Meskauskas, CC BY-SA 3.0);
-            <a href="https://commons.wikimedia.org/wiki/File:Typewritten_letter_of_Pierre_Chouteau,_St._Louis,_to_Miss_Mary_Louise_Dalton,_Missouri_Historical_Society,_St._Louis,_September_5,_1903.jpg" class="underline underline-offset-2 hover:text-ink">Pierre Chouteau, 1903</a> (Missouri Historical Society, {{ __('kamu malı') }});
-            <a href="https://commons.wikimedia.org/wiki/File:A_Very_Early_Typewritten_Letter_as_Part_of_a_Court_Case_in_the_Utah_Territory,_dated_1886.jpg" class="underline underline-offset-2 hover:text-ink">Utah Territory, 1886</a> ({{ __('kamu malı') }});
-            <a href="https://commons.wikimedia.org/wiki/File:Handwritten_Letter_from_T._K._Riddick,_House_of_Representatives_of_Tennessee_to_Bainbridge_Colby,_Secretary_of_State_-_NARA_-_18544898_(page_1).jpg" class="underline underline-offset-2 hover:text-ink">T. K. Riddick, 1920</a> (NARA, {{ __('kamu malı') }});
-            <a href="https://collections.museumsvictoria.com.au/items/2003257" class="underline underline-offset-2 hover:text-ink">Notebook, Mastrino, c. 1920</a> (Museums Victoria, CC BY 4.0).
+            <a href="https://commons.wikimedia.org/wiki/File:ReceiptSwiss.webp" class="underline underline-offset-2 hover:text-ink">ReceiptSwiss</a> (Audrius Meskauskas, <a href="https://creativecommons.org/licenses/by-sa/3.0/" class="underline underline-offset-2 hover:text-ink">CC BY-SA 3.0</a>; {{ __('sayfaya kırpılmış') }});
+            <a href="https://commons.wikimedia.org/wiki/File:Typewritten_letter_of_Pierre_Chouteau,_St._Louis,_to_Miss_Mary_Louise_Dalton,_Missouri_Historical_Society,_September_5,_1903_-_DPLA_-_f7afaf7cc9d87b0cfc2d154272e31ea9.webp" class="underline underline-offset-2 hover:text-ink">Pierre Chouteau, 1903</a> (Missouri Historical Society, {{ __('kamu malı') }});
+            <a href="https://commons.wikimedia.org/wiki/File:A_Very_Early_Typewritten_Letter_as_Part_of_a_Court_Case_in_the_Utah_Territory,_dated_1886.tif" class="underline underline-offset-2 hover:text-ink">Utah Territory, 1886</a> ({{ __('kamu malı') }});
+            <a href="https://commons.wikimedia.org/wiki/File:Handwritten_Letter_from_T._K._Riddick,_House_of_Representatives_of_Tennessee_to_Bainbridge_Colby,_Secretary_of_State_Informing_Him_That_He_Had_Wired_the_Points_of_Order_and_the_Stat_-_DPLA_-_36b8012453b269f1bf0367114aab8ab9_(page_1).webp" class="underline underline-offset-2 hover:text-ink">T. K. Riddick, 1920</a> (NARA, {{ __('kamu malı') }});
+            <a href="https://collections.museumsvictoria.com.au/items/252183" class="underline underline-offset-2 hover:text-ink">Notebook, Mastrino, c. 1920</a> (Museums Victoria, <a href="https://creativecommons.org/licenses/by/4.0/" class="underline underline-offset-2 hover:text-ink">CC BY 4.0</a>).
         </p>
     </div>
 </div>
@@ -515,7 +514,7 @@
 
         // Links that open a folder also open the matching section's details card, so the drawer answers.
         root.querySelectorAll('.os-cardq').forEach((d) => {
-            const sign = () => { d.querySelector('summary span').textContent = d.open ? '–' : '+'; };
+            const sign = () => { d.querySelector('summary span:last-child').textContent = d.open ? '–' : '+'; };
             d.addEventListener('toggle', sign);
             sign();
         });
