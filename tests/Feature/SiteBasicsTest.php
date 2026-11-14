@@ -81,7 +81,7 @@ class SiteBasicsTest extends TestCase
     {
         foreach (array_keys(config('exams')) as $exam) {
             $this->get("/{$exam}-kac-gun-kaldi")->assertOk()->assertSee('<html lang="tr">', false)
-                ->assertSee('"@type":"FAQPage"', false)->assertSee('href="'.url('/sinavsayaci').'"', false);
+                ->assertSee('"@type":"FAQPage"', false)->assertSee('play.google.com/store/apps/details?id=com.sayac.sinav.yks.lgs.kpss', false)->assertSee('"@context":"https://schema.org"', false);
         }
         $this->get('/yks-kac-gun-kaldi')->assertSee("YKS'ye kaç gün kaldı?", false)->assertSee('19 Haziran 2027 Cumartesi, 10.15');
         $this->get('/sitemap.xml')->assertSee('/msu-kac-gun-kaldi', false);

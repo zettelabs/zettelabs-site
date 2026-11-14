@@ -82,7 +82,7 @@
     </section>
 
     <script type="application/ld+json">{!! json_encode([
-        '@context' => 'https://schema.org',
+        "\x40context" => 'https://schema.org',
         '@type' => 'FAQPage',
         'mainEntity' => collect($faq)->map(fn ($a, $q) => ['@type' => 'Question', 'name' => $q, 'acceptedAnswer' => ['@type' => 'Answer', 'text' => $a]])->values(),
     ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG) !!}</script>

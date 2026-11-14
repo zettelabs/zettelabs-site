@@ -195,7 +195,7 @@ return [
             'Tarihi kendin düzelt, okul sınavı ya da ehliyet gibi kendi sınavını ekle',
             'Hesap yok, bulut yok: sınavların, netlerin ve hedeflerin yalnızca telefonunda durur',
         ],
-        'play_store' => null,
+        'play_store' => 'https://play.google.com/store/apps/details?id=com.sayac.sinav.yks.lgs.kpss',
         'privacy_url' => '/sinavsayaci/privacy',
         'icon' => 'icon-sinavsayaci.webp',
         'screenshots' => ['shot-sinavsayaci-1.webp', 'shot-sinavsayaci-2.webp', 'shot-sinavsayaci-3.webp', 'shot-sinavsayaci-4.webp'],
