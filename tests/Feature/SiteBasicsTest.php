@@ -66,10 +66,10 @@ class SiteBasicsTest extends TestCase
         $this->get('/skydesk/privacy')->assertOk()->assertSee('Skydesk Privacy Policy');
     }
 
-    public function test_countdown_page_is_coming_soon_in_both_locales(): void
+    public function test_countdown_page_links_play_in_both_locales(): void
     {
-        $this->withSession(['locale' => 'tr'])->get('/countdown')->assertOk()->assertSee("Yakında Google Play'de")->assertSee('images/apps/screen-countdown-1.webp', false)->assertDontSee('play.google.com');
-        $this->withSession(['locale' => 'en'])->get('/countdown')->assertOk()->assertSee('Coming soon on Google Play')->assertSee('images/apps/en/screen-countdown-1.webp', false)->assertSee('zettelabs-countdown.web.app/privacy-policy')->assertDontSee('play.google.com');
+        $this->withSession(['locale' => 'tr'])->get('/countdown')->assertOk()->assertSee("Google Play'de aç")->assertSee('images/apps/screen-countdown-1.webp', false)->assertSee('play.google.com/store/apps/details?id=countdown.widget.days.event.timer', false);
+        $this->withSession(['locale' => 'en'])->get('/countdown')->assertOk()->assertDontSee('Coming soon on Google Play')->assertSee('images/apps/en/screen-countdown-1.webp', false)->assertSee('zettelabs-countdown.web.app/privacy-policy')->assertSee('play.google.com/store/apps/details?id=countdown.widget.days.event.timer', false);
     }
 
     public function test_sinavsayaci_privacy_policy_is_published(): void

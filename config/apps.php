@@ -159,7 +159,6 @@ return [
         'screenshots' => ['shot-skydesk-1.webp', 'shot-skydesk-2.webp', 'shot-skydesk-3.webp', 'shot-skydesk-4.webp'],
     ],
 
-    // Not on Play yet: play_store stays null and the page shows "Yakında" until it is set.
     'countdown' => [
         'name' => 'Countdown Widget',
         'tagline' => 'Kaç gün kaldı? Düğün, tatil, doğum günü için ana ekranda gün sayacı widget\'ı.',
@@ -174,7 +173,7 @@ return [
             'Her sayacı resim olarak paylaş',
             'Hesap açmak ya da üye olmak yok. İnternetsiz çalışır, sayaçların cihazında kalır.',
         ],
-        'play_store' => null,
+        'play_store' => 'https://play.google.com/store/apps/details?id=countdown.widget.days.event.timer',
         'privacy_url' => 'https://zettelabs-countdown.web.app/privacy-policy',
         'icon' => 'icon-countdown.webp',
         'screenshots' => ['shot-countdown-1.webp', 'shot-countdown-2.webp', 'shot-countdown-3.webp', 'shot-countdown-4.webp'],
