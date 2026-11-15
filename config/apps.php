@@ -19,7 +19,7 @@ return [
         'play_store' => 'https://play.google.com/store/apps/details?id=background.erase.replace.change.blur.remove',
         'privacy_url' => 'https://backgroundmagic-beb46.web.app/privacy-policy',
         'icon' => 'icon-background-wizard.webp?v=2',
-        'screenshots' => ['shot-background-wizard-1.webp', 'shot-background-wizard-2.webp', 'shot-background-wizard-3.webp', 'shot-background-wizard-4.webp', 'shot-background-wizard-5.webp', 'shot-background-wizard-6.webp'],
+        'screenshots' => ['shot-background-wizard-1.webp', 'shot-background-wizard-2.webp', 'shot-background-wizard-3.webp', 'shot-background-wizard-4.webp', 'shot-background-wizard-5.webp', 'shot-background-wizard-6.webp', 'shot-background-wizard-7.webp'],
     ],
 
     'cleanpix' => [

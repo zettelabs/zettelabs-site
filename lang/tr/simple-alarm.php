@@ -35,6 +35,7 @@ return [
             ['Her gün', '7 gün', 'Hafta sonu dahil her sabah.'],
             ['Bir kez', 'tek sefer', 'Yalnızca bir sabah için.'],
             ['Sonrakini atla', 'tek dokunuş', 'Programı bozmadan bir sabahı geç.'],
+            ['Geri al', 'silinen alarm', 'Yanlışlıkla sildiğin alarmı geri getir.'],
         ],
         'Uyanış' => [
             ['Tam ekran alarm', 'büyük saat', 'Saat ve alarmın adı ekranı kaplar.'],
@@ -42,10 +43,16 @@ return [
             ['Kaydırarak kapat', 'tek hareket', 'Yanlışlıkla kapanmaz.'],
             ['Kalan süre', 'sa. ve dk.', 'Listede her alarmın çalmasına ne kadar kaldığı.'],
         ],
+        'Gerçekten uyan' => [
+            ['Uyanma görevi', '4 seçenek', 'Kod yaz, matematik sorusu çöz, telefonu salla ya da QR kodu veya barkod okut.'],
+            ['Uyanma kontrolü', 'birkaç dk sonra', 'Uyanık mısın diye sorar; cevap yoksa alarm yeniden çalar.'],
+            ['Erteleme sınırı', '1, 2, 3 ya da sınırsız', 'Alarm başına erteleme hakkı.'],
+        ],
         'Ses ve görünüm' => [
             ['Hazır sesler', '15', 'Acoustic’ten LostVoices’a.'],
             ['Kendi müziğin', 'Tonlarım', 'Telefonundaki bir şarkıyla uyan.'],
             ['Ses düzeyi', 'alarm başına', 'Her alarmın kendi ses düzeyi.'],
+            ['Titreşim', 'alarm başına', 'Her alarmda ayrı açılıp kapanır.'],
             ['Arka plan', 'fotoğraf', 'Çalan alarmın arkasındaki manzara.'],
         ],
     ],

@@ -14,7 +14,7 @@
     ];
     $stages = [
         ['#cfe0f2', 2, 'Bir dokunuş', 'Önce galeriden bir fotoğraf seç.'],
-        ['#f3c6dc', 3, 'Birkaç saniye', 'Sonra yapay zekâ arka planı telefonunda kaldırır.'],
+        ['#f3c6dc', 3, 'Birkaç saniye', 'Sonra yapay zekâ arka planı telefonunda kaldırır; yüzün ve omuzların halkaya kendiliğinden yerleşir.'],
         ['#f8eccd', 6, 'Ne kadar istersen', 'Ardından hazır bir stil seç ya da dolgu, kenarlık ve neonu kendin ayarla.'],
         ['#cfe9dd', 2, 'Bir dokunuş', 'Son olarak galeriye kaydet ya da hemen paylaş.'],
     ];
@@ -221,7 +221,7 @@
                         <svg class="h-[0.9em] w-[0.9em]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>
                         {{ __('Paylaş') }}
                     </span>
-                    <figcaption class="relative p-5"><span class="block text-lg font-semibold">{{ __('Kaydet ve paylaş') }}</span><span class="block text-base">{{ __('Galeriye ya da doğrudan WhatsApp ve LinkedIn\'e.') }}</span></figcaption>
+                    <figcaption class="relative p-5"><span class="block text-lg font-semibold">{{ __('Kaydet ve paylaş') }}</span><span class="block text-base">{{ __('Galeriye ya da doğrudan WhatsApp ve LinkedIn\'e. Kaydetmeden önce 48, 32 ve 24 dp\'deki küçük hâlini gör.') }}</span></figcaption>
                 </figure>
 
                 {{-- 3.2.0: frame shapes and the per-platform size guide. --}}
@@ -232,7 +232,7 @@
                         <span class="block h-[1em] w-[1em] rounded-[22%] bg-[var(--cp-ink)]"></span>
                         <span class="block h-[1em] w-[1em] bg-[var(--cp-coral)] [clip-path:polygon(50%_0,100%_25%,100%_75%,50%_100%,0_75%,0_25%)]"></span>
                     </span>
-                    <figcaption class="relative p-5"><span class="block text-lg font-semibold">{{ __('Çerçeve şekilleri') }}</span><span class="block text-base">{{ __('Daire, kare, yuvarlak köşeli kare ya da altıgen.') }}</span></figcaption>
+                    <figcaption class="relative p-5"><span class="block text-lg font-semibold">{{ __('Çerçeve şekilleri') }}</span><span class="block text-base">{{ __('Daire, kare, yuvarlak köşeli kare ya da altıgen. Kırpma yok modu fotoğrafın tamamını sığdırır.') }}</span></figcaption>
                 </figure>
 
                 <figure data-reveal class="w6 h3 flex flex-col justify-end bg-[var(--cp-ink)] text-[var(--cp-paper)]">
@@ -241,7 +241,7 @@
                             <li class="rounded-full border-2 border-[var(--cp-paper)]/40 px-4 py-1.5">{{ $platform }}</li>
                         @endforeach
                     </ul>
-                    <figcaption class="p-5 pt-0"><span class="block text-lg font-semibold">{{ __('Boyut rehberi') }}</span><span class="block text-base">{{ __('Her platform için önerilen profil fotoğrafı boyutu.') }}</span></figcaption>
+                    <figcaption class="p-5 pt-0"><span class="block text-lg font-semibold">{{ __('Boyut rehberi') }}</span><span class="block text-base">{{ __('Her platform için önerilen boyut. Fotoğrafın 1080 × 1080 px kaydedilir.') }}</span></figcaption>
                 </figure>
             </div>
         </section>
@@ -273,7 +273,7 @@
     </div>
 
 @include('apps.partials.faq', ['faq' => [
-        'CirclePix ücretli mi?' => 'Hayır, ücretsizdir ve reklamlarla desteklenir. Pro stiller, ödüllü bir reklam izleyince sınırlı bir süre için açılır.',
+        'CirclePix ücretli mi?' => 'Hayır, ücretsizdir ve reklamlarla desteklenir. Pro stiller, kısa bir reklam izleyince 24 saat açık kalır.',
         'Fotoğraflarım bir yere yükleniyor mu?' => 'Hayır. Arka plan kesimi telefonunda çalışır. Model yalnızca bir kez Google Play hizmetleri üzerinden indirilir; fotoğrafların gönderilmez.',
         'Kaydettiklerimi nerede bulurum?' => 'Galerindeki Pictures/Profile Picture Maker klasöründe. Uygulama içi kamerayla çektiklerin Pictures/CameraX-Image klasörüne kaydedilir.',
         'Kamera izni neden isteniyor?' => 'Yalnızca uygulama içi kamerayı kullanmak istediğinde istenir. Galeriden fotoğraf seçmek için gerekmez.',

@@ -39,6 +39,10 @@ class SiteBasicsTest extends TestCase
     {
         $this->get('/terms')->assertOk()->assertSee('Terms of Use');
         $this->get('/llms.txt')->assertOk()->assertHeader('Content-Type', 'text/plain; charset=utf-8')->assertSee('/background-wizard', false)->assertSee('/terms', false);
+
+        foreach (array_keys(config('apps')) as $slug) {
+            $this->get('/llms.txt')->assertSee("/{$slug})", false);
+        }
     }
 
     public function test_apps_without_their_own_faq_get_the_shared_one(): void

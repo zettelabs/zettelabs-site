@@ -6,7 +6,7 @@
 @php
     // The app's own before/after pairs: the same frame, only the background changes.
     $tools = [
-        ['tab' => 'Kaldır', 'title' => 'Arka planı kaldır', 'fact' => 'Şeffaf PNG, tam çözünürlük', 'before' => 'remove-original', 'after' => 'remove-removed', 'alt' => 'Arka planı kaldırılmış hali',
+        ['tab' => 'Kaldır', 'title' => 'Arka planı kaldır', 'fact' => 'Şeffaf PNG, tam çözünürlük: çıkartmalar, ikonlar ve kesimler için', 'before' => 'remove-original', 'after' => 'remove-removed', 'alt' => 'Arka planı kaldırılmış hali',
             'text' => 'Yapay zekâ konuyu bulur, gerisini siler. Kesimi tam çözünürlükte şeffaf PNG olarak kaydet; istersen boş kenarları kırp.'],
         ['tab' => 'Değiştir', 'title' => 'Arka planı değiştir', 'fact' => 'Şehir, fantastik, minimalist, doğa, mevsimsel ya da düz renk', 'before' => 'change-original', 'after' => 'change-changed', 'alt' => 'Arka planı değiştirilmiş hali',
             'text' => 'Kendini bir şehre, fantastik bir dünyaya ya da doğaya taşı veya sade bir renk seç. Galerindeki bir fotoğraf da arka plan olabilir; konuyu sürükle, iki parmakla boyutlandır.'],
@@ -14,12 +14,20 @@
             'text' => 'Her fotoğrafa yumuşak portre görünümü. Gücü tek bir kaydırıcıyla ayarla; orijinali görmek için Karşılaştır\'a dokun.'],
     ];
     $steps = [
-        ['name' => 'Aracı seç', 'text' => 'Ana ekranda Kaldır, Değiştir ya da Bulanıklaştır\'a dokun.', 'shot' => 3, 'alt' => 'Background Wizard ana ekranı', 'tile' => 'bg-surface', 'size' => 'bw-tile-s'],
+        ['name' => 'Amacını seç', 'text' => 'Ana ekran fotoğrafı ne için kullanacağını sorar: ürün fotoğrafı, evcil hayvan, profil fotoğrafı ya da vesikalık. Serbest düzenleme Kaldır ve Bulanıklaştır araçlarını korur.', 'shot' => 3, 'alt' => 'Background Wizard ana ekranı: amaç kartları', 'tile' => 'bg-surface', 'size' => 'bw-tile-s'],
         ['name' => 'Fotoğrafı ayarla', 'text' => 'Galeriden ya da kameradan bir fotoğraf seç; arka planı ya da bulanıklık gücünü belirle.', 'shot' => 1, 'alt' => 'Arka plan değiştirme ekranı', 'tile' => 'bg-[#0c2a3a]', 'size' => 'bw-tile-m'],
-        ['name' => 'Kaydet ve paylaş', 'text' => 'Sonuç galerindeki “Background Wizard” albümüne kaydedilir; istediğin uygulamada paylaş.', 'shot' => 4, 'alt' => 'Fotoğrafa kaydedildi ekranı', 'tile' => 'bg-[#123c52]', 'size' => 'bw-tile-l'],
+        ['name' => 'Kaydet ve paylaş', 'text' => 'Pazaryeri ilanı (1:1, 2000 px), hikâye (9:16), şeffaf PNG ya da orijinal boyutu seç. Sonuç galerindeki “Background Wizard” albümüne kaydedilir; istediğin uygulamada paylaş.', 'shot' => 4, 'alt' => 'Boyut seçme ekranı: pazaryeri ilanı, hikâye, şeffaf PNG', 'tile' => 'bg-[#123c52]', 'size' => 'bw-tile-l'],
+    ];
+    $modes = [
+        ['title' => 'Vesikalık ve pasaport fotoğrafı', 'shot' => 5, 'alt' => 'Vesikalık ekranı: boyut ve düz arka plan seçimi',
+            'text' => 'Değiştir sekmesinde Vesikalık\'ı seç. Boyutu seç (35×45 mm, 2×2 inç, 3×4 cm ya da 4×6 cm), düz beyaz, açık gri, açık mavi ya da kırmızı bir arka plan belirle; konu senin için kadraja oturtulur.',
+            'note' => 'Baskı sayfaları fotoğrafını 10×15 cm ya da A4 sayfaya 300 dpi\'de dizer. Yazdırmadan önce ülkendeki fotoğraf kurallarını kontrol et.'],
+        ['title' => 'Ürün fotoğrafları', 'shot' => 6, 'alt' => 'Ürün fotoğrafı ekranı: otomatik kesilmiş bir ayakkabı',
+            'text' => 'Beyaz, açık gri, krem, mermer ya da şeffaf zeminde otomatik kesim. Gölge ekleyebilir, kenarları silen ve geri getiren fırçayla elle düzeltebilirsin.',
+            'note' => 'Pazaryeri ilanı için 1:1, 2000 px olarak kaydedebilirsin.'],
     ];
     $faq = [
-        'Background Wizard ücretli mi?' => 'Hayır, ücretsizdir ve reklamlarla desteklenir. Düzenleme ekranında reklam gösterilmez. Ek arka plan koleksiyonları kısa bir reklam izleyerek 24 saatliğine açılır.',
+        'Background Wizard ücretli mi?' => 'Hayır, ücretsizdir ve reklamlarla desteklenir. Düzenleme ekranında reklam gösterilmez. Ek arka plan koleksiyonları ve baskı sayfaları kısa bir reklam izleyerek 24 saatliğine açılır.',
         'Fotoğraflarım bir yere yükleniyor mu?' => 'Hayır. Konuyu bulan yapay zekâ telefonunda çalışır; fotoğrafların cihazından çıkmaz.',
         'Kesimi hangi biçimde kaydediyor?' => 'Şeffaf arka planlı PNG olarak, tam çözünürlükte. İstersen boş kenarları kırpıp kesimi konuya sıkıca oturtabilirsin.',
         'Kendi fotoğrafımı arka plan yapabilir miyim?' => 'Evet. Galerindeki herhangi bir fotoğrafı seçebilir ya da şehir, fantastik, minimalist, doğa ve mevsimsel koleksiyonlarından veya düz renklerden birini kullanabilirsin.',
@@ -142,18 +150,20 @@
             </div>
         </section>
 
-        {{-- ID / passport photo mode: store screenshot 6, with the sizes and print sheets. --}}
+        {{-- The two modes with their own screen: ID photo (store screenshot 6) and product photo (7). --}}
         <section class="bg-surface">
-            <div class="mx-auto grid max-w-6xl items-center gap-10 px-6 py-24 md:grid-cols-12 md:gap-6 md:py-32">
-                <div class="md:col-span-6 md:col-start-1">
-                    <h2 class="text-[length:var(--bw-h)] font-bold leading-[1.05] tracking-[-0.025em] text-ink">{{ __('Vesikalık ve pasaport fotoğrafı') }}</h2>
-                    <p class="mt-5 max-w-[42ch] text-xl text-ink">{{ __('Değiştir sekmesinde Vesikalık\'ı seç. Boyutu seç (35×45 mm, 2×2 inç, 3×4 cm ya da 4×6 cm), düz beyaz, açık gri, açık mavi ya da kırmızı bir arka plan belirle; konu senin için kadraja oturtulur.') }}</p>
-                    <p class="mt-4 max-w-[42ch] text-base text-ink-dim">{{ __('Baskı sayfaları fotoğrafını 10×15 cm ya da A4 sayfaya 300 dpi\'de dizer. Yazdırmadan önce ülkendeki fotoğraf kurallarını kontrol et.') }}</p>
+            @foreach ($modes as $i => $mode)
+                <div class="mx-auto grid max-w-6xl items-center gap-10 px-6 {{ $i ? 'pb-24 md:pb-32' : 'py-24 md:py-32' }} md:grid-cols-12 md:gap-6">
+                    <div class="md:col-span-6 {{ $i ? 'md:order-2 md:col-start-7' : 'md:col-start-1' }}">
+                        <h2 class="text-[length:var(--bw-h)] font-bold leading-[1.05] tracking-[-0.025em] text-ink">{{ __($mode['title']) }}</h2>
+                        <p class="mt-5 max-w-[42ch] text-xl text-ink">{{ __($mode['text']) }}</p>
+                        <p class="mt-4 max-w-[42ch] text-base text-ink-dim">{{ __($mode['note']) }}</p>
+                    </div>
+                    <div data-reveal class="md:col-span-5 {{ $i ? 'md:col-start-1' : 'md:col-start-8' }}">
+                        <img src="{{ asset($app['screenshots'][$mode['shot']]) }}" alt="{{ __($mode['alt']) }}" width="540" height="960" loading="lazy" class="mx-auto w-[min(78%,20rem)] rounded-3xl md:w-[min(100%,20rem)]">
+                    </div>
                 </div>
-                <div data-reveal class="md:col-span-5 md:col-start-8">
-                    <img src="{{ asset($app['screenshots'][5]) }}" alt="{{ __('Vesikalık ekranı: boyut ve düz arka plan seçimi') }}" width="540" height="960" loading="lazy" class="mx-auto w-[min(78%,20rem)] rounded-3xl md:w-[min(100%,20rem)]">
-                </div>
-            </div>
+            @endforeach
         </section>
 
         {{-- Three stages, each tile larger than the one before. --}}

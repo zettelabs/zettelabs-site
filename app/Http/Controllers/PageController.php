@@ -54,10 +54,7 @@ class PageController extends Controller
 
         ## Apps
 
-        - [Background Wizard]({bw}): remove, replace or blur photo backgrounds on Android.
-        - [CleanPix]({cp}): find duplicate and similar photos and free up space.
-        - [CirclePix]({ci}): turn a photo into a profile picture with a cut-out subject in a styled circle.
-        - [Simple Alarm]({sa}): a simple, customizable alarm app.
+        {apps}
 
         ## Policies
 
@@ -69,9 +66,11 @@ class PageController extends Controller
         zettelabs@gmail.com
         TXT;
 
+        // Every app in config/apps.php, with its tagline in English.
+        $apps = collect(config('apps'))->map(fn (array $app, string $slug) => "- [{$app['name']}](" . route('apps.show', $slug) . '): ' . __($app['tagline'], [], 'en'))->implode("\n");
+
         return response(strtr($text, [
-            '{bw}' => route('apps.show', 'background-wizard'), '{cp}' => route('apps.show', 'cleanpix'),
-            '{ci}' => route('apps.show', 'circlepix'), '{sa}' => route('apps.show', 'simple-alarm'),
+            '{apps}' => $apps,
             '{privacy}' => route('privacy'), '{terms}' => route('terms'),
         ]))->header('Content-Type', 'text/plain; charset=utf-8');
     }

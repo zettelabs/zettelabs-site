@@ -35,6 +35,7 @@ return [
             ['Every day', '7 days', 'Every morning, weekends included.'],
             ['Once', 'one time', 'Just for one morning.'],
             ['Skip next', 'one tap', 'Skip a morning without touching the schedule.'],
+            ['Undo', 'deleted alarm', 'Bring back an alarm you deleted by mistake.'],
         ],
         'Waking up' => [
             ['Full-screen alarm', 'big clock', 'The time and the alarm’s name fill the screen.'],
@@ -42,10 +43,16 @@ return [
             ['Swipe to dismiss', 'one move', 'It never switches off by accident.'],
             ['Time left', 'hr and min', 'How long until each alarm rings, right in the list.'],
         ],
+        'Really awake' => [
+            ['Wake-up mission', '4 choices', 'Type a code, solve a math problem, shake your phone or scan a QR code or barcode.'],
+            ['Wake-up check', 'minutes later', 'It asks if you’re awake; no answer, and the alarm rings again.'],
+            ['Snooze limit', '1, 2, 3 or unlimited', 'Snoozes allowed per alarm.'],
+        ],
         'Sound and look' => [
             ['Built-in tones', '15', 'From Acoustic to LostVoices.'],
             ['Your own music', 'My Tones', 'Wake up to a song on your phone.'],
             ['Volume', 'per alarm', 'Each alarm keeps its own volume.'],
+            ['Vibration', 'per alarm', 'On or off for each alarm.'],
             ['Background', 'photo', 'The view behind the ringing alarm.'],
         ],
     ],
