@@ -11,14 +11,15 @@
         'Bu tarih kesin mi?' => $data['estimated']
             ? "Hayır, bu tarih tahminidir: {$data['source']}. Resmî takvim açıklanınca güncellenir."
             : "Tarih resmî takvimden alındı: {$data['source']}, son kontrol " . \Carbon\Carbon::parse($data['checked'])->locale('tr')->translatedFormat('j F Y') . ". Kurum takvimi değiştirebilir; kesin bilgi için resmî duyuruları takip et.",
+        ...($data['faq'] ?? []),
         'Geri sayımı telefonumda nasıl görürüm?' => "Sınav Sayacı uygulamasıyla. {$data['name']} geri sayımını ana ekranına widget olarak koyar; widget her gece kendiliğinden güncellenir. Ücretsizdir, hesap gerektirmez.",
     ];
     $others = collect(config('exams'))->except($exam);
 @endphp
 @extends('layouts.site')
 
-@section('title', "{$data['to']} kaç gün kaldı? 2027 {$data['name']} geri sayım")
-@section('description', "2027 {$data['name']} ne zaman, kaç gün kaldı? {$fmt($next)} tarihine canlı geri sayım, oturum tarihleri ve resmî kaynak.")
+@section('title', "{$data['name']} 2027 kaç gün kaldı? " . ($over ? 'Sınav yapıldı' : $next->locale('tr')->translatedFormat('j F Y') . ' geri sayım'))
+@section('description', ($over ? "2027 {$data['name']} yapıldı." : "{$data['name']} 2027 sınavına bugün " . intdiv($left, 86400) . " gün kaldı ({$fmt($next)}).") . ' ' . ($data['meta'] ?? 'Canlı geri sayım, oturum tarihleri ve resmî kaynak.'))
 
 @section('content')
 
@@ -64,6 +65,17 @@
             @endforeach
         </ul>
         <p class="mt-8 max-w-[60ch] text-lg text-ink">{{ $data['about'] }}</p>
+        @isset($data['more'])
+            <h2 class="mt-12 text-2xl font-bold text-ink md:text-3xl">{{ $data['more_title'] }}</h2>
+            <ul class="mt-4 max-w-[60ch] list-disc space-y-2 pl-6 text-lg text-ink">
+                @foreach ($data['more'] as $line)
+                    <li>{{ $line }}</li>
+                @endforeach
+            </ul>
+        @endisset
+        @foreach ($data['related'] ?? [] as $slug => $text)
+            <p class="mt-6"><a href="{{ route('exams.show', $slug) }}" class="font-medium text-accent underline underline-offset-4 hover:text-accent-deep">{{ $text }} →</a></p>
+        @endforeach
         <p class="mt-4 text-sm text-ink-dim">
             Kaynak: {{ $data['source'] }}{{ $data['estimated'] ? ' — tarih tahminidir, resmî değildir' : '' }}. Son kontrol: {{ \Carbon\Carbon::parse($data['checked'])->locale('tr')->translatedFormat('j F Y') }}.
             Bu sayfanın ÖSYM veya MEB ile bağlantısı yoktur.
