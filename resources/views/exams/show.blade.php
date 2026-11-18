@@ -78,6 +78,7 @@
         @endforeach
         <p class="mt-4 text-sm text-ink-dim">
             Kaynak: {{ $data['source'] }}{{ $data['estimated'] ? ' — tarih tahminidir, resmî değildir' : '' }}. Son kontrol: {{ \Carbon\Carbon::parse($data['checked'])->locale('tr')->translatedFormat('j F Y') }}.
+            @isset($data['more']) Sınav biçimi bilgileri {{ $exam === 'lgs' ? "MEB'in" : "ÖSYM'nin" }} 2026 kılavuzlarından; 2027 kılavuzu çıkınca değişebilir. @endisset
             Bu sayfanın ÖSYM veya MEB ile bağlantısı yoktur.
         </p>
     </section>

@@ -48,8 +48,8 @@ return [
         'more' => [
             'Sözel oturum: 50 soru, 75 dakika (Türkçe 20, T.C. İnkılap Tarihi ve Atatürkçülük 10, Din Kültürü 10, yabancı dil 10).',
             'Sayısal oturum: 40 soru, 80 dakika (matematik 20, fen bilimleri 20).',
-            'Üç yanlış bir doğruyu götürür.',
-            'Sınava girmek zorunlu değildir; girmeyen öğrenciler adrese dayalı yerleştirmeyle liseye yerleşir.',
+            'Her testte yanlış cevap sayısının üçte biri doğru sayısından düşülür (üç yanlış bir doğruyu götürür).',
+            'Sınava girmek isteğe bağlıdır; girmeyen öğrenciler yerel yerleştirmeyle (ikamet adresi, okul başarı puanı ve devamsızlığa göre) liseye yerleşir.',
         ],
     ],
 
@@ -71,8 +71,8 @@ return [
         'more' => [
             "KPSS Lisans (B grubu), KPSS Ön Lisans ve KPSS Ortaöğretim ÖSYM'nin 2027 takviminde yok; son olarak 2026'da yapıldılar. Sonraki tarihleri kesinleşmedi.",
             'Öğretmen adayları için ÖABT artık KPSS içinde değil, MEB Akademi Giriş Sınavı (MEB-AGS) kapsamında: AGS 8 Mayıs, ÖABT 9 Mayıs 2027. Başvuru 19-29 Mart, sonuç 11 Haziran 2027.',
-            'Genel Yetenek-Genel Kültür testi 120 soru, 130 dakikadır: genel yetenek (Türkçe, matematik) 60, genel kültür (tarih, coğrafya, vatandaşlık, güncel bilgiler) 60 soru.',
-            'Alan Bilgisi testleri (hukuk, iktisat, maliye, işletme, muhasebe, çalışma ekonomisi, istatistik, kamu yönetimi, uluslararası ilişkiler) iki güne yayılır; aday yalnız hedeflediği kadronun istediği testlere girer.',
+            'Genel Yetenek-Genel Kültür testi 120 soru, 130 dakikadır: genel yetenek (sözel ve sayısal bölüm) 60, genel kültür (tarih, Türkiye coğrafyası, temel yurttaşlık bilgisi, Türkiye ve dünyayla ilgili güncel konular) 60 soru.',
+            'Alan Bilgisi testleri iki güne yayılan üç testlik oturumlardır: kamu yönetimi, uluslararası ilişkiler, çalışma ekonomisi ve endüstri ilişkileri; hukuk, iktisat, maliye; işletme, muhasebe, istatistik. Aday, başvuruda seçtiği oturumlara girer.',
         ],
         'related' => ['ales' => "Lisansüstü eğitim veya araştırma görevlisi kadrosu için ALES'e kalan süre"],
         'faq' => [
@@ -117,8 +117,8 @@ return [
         'checked' => '2026-11-18',
         'more_title' => 'DGS kısaca',
         'more' => [
-            'Sayısal 50, sözel 50 soru; süre 150 dakika.',
-            'Yerleştirmede DGS puanına ön lisans başarı puanın (OBP) da eklenir.',
+            'Sayısal 50, sözel 50 soru; süre 135 dakika.',
+            'Yerleştirme puanı, DGS puanına ön lisans başarı puanın (ÖBP) eklenerek hesaplanır.',
             'Başvuru 26 Mayıs – 3 Haziran, geç başvuru 15 Haziran, sonuç 12 Ağustos 2027.',
         ],
         'related' => ['ales' => "Lisansı bitirince yüksek lisans için ALES'e kalan süre"],
@@ -139,7 +139,7 @@ return [
         'more_title' => 'MSÜ sınavı kısaca',
         'more' => [
             'Sınav TYT biçimindedir: 120 soru, 165 dakika (Türkçe 40, sosyal bilimler 20, temel matematik 40, fen bilimleri 20).',
-            "Puanı yeterli adaylar MSÜ'nün sonraki seçim aşamalarına (sağlık, spor ve mülakat gibi) çağrılır; ayrıntılar MSÜ kılavuzunda.",
+            "Taban puanı geçen ve tercih yapan adaylar ikinci seçim aşamalarına (fiziki yeterlilik testi, mülakat gibi) çağrılır; ardından sağlık kurulu raporu istenir. Harp okulları için aynı yıl YKS'ye de girmek gerekir; ayrıntılar MSÜ kılavuzunda.",
         ],
         'related' => ['yks' => "Konular TYT ile aynı: YKS'ye kalan süre"],
         'faq' => [
