@@ -44,7 +44,7 @@
     ];
 
     $faq = [
-        ['tab' => 'Ücret', 'q' => 'Offline Scanner ücretli mi?', 'a' => 'Hayır, ücretsizdir ve reklamlarla desteklenir. Reklamlar tarama ekranında değil, PDF kaydedildikten sonra ve uygulamaya dönüşte gelir.'],
+        ['tab' => 'Ücret', 'q' => 'Offline Scanner ücretli mi?', 'a' => 'Hayır, ücretsizdir ve reklamlarla desteklenir. Reklamlar tarama ekranında değil, PDF kaydedildikten sonra ve uygulamaya dönüşte gelir. İstersen uygulama içinde tek seferlik satın alımla reklamları kalıcı olarak kaldırabilirsin; abonelik yoktur ve diğer tüm özellikler ücretsiz kalır.'],
         ['tab' => 'Gizlilik', 'q' => 'Belgelerim bir yere yükleniyor mu?', 'a' => 'Hayır. Tarama, PDF oluşturma ve metin tanıma telefonunda yapılır; hesap ve bulut yüklemesi yoktur. Yalnızca reklamlar internet kullanır.'],
         ['tab' => 'İnternet', 'q' => 'İnternet olmadan çalışır mı?', 'a' => 'Evet. Tarayıcı modülü ilk kullanımda Google Play hizmetleri üzerinden bir kez indirilir (yaklaşık 200 KB); sonrası tamamen çevrimdışı çalışır.'],
         ['tab' => 'Diller', 'q' => 'Metin tanıma hangi dilleri destekler?', 'a' => 'Latin alfabesi kullanan dilleri: Türkçe, İngilizce, İspanyolca, Portekizce, Almanca, Endonezce ve benzerleri.'],

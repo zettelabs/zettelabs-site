@@ -134,6 +134,7 @@ return [
             'PDF\'i ya da metni paylaş, metni kopyala',
             'Belgelerin telefonundan çıkmaz: tarama, PDF oluşturma ve metin tanıma cihazında yapılır. Yalnızca reklamlar internet kullanır.',
             'Tarayıcı modülü ilk kullanımda Google Play hizmetleri üzerinden bir kez indirilir (yaklaşık 200 KB); sonrası tamamen çevrimdışı çalışır.',
+            'Ücretsiz ve reklamlarla desteklenir. Reklamsız kullanmak istersen uygulama içinde tek seferlik satın alımla reklamları kalıcı olarak kaldır: abonelik yok, diğer tüm özellikler herkese ücretsiz.',
         ],
         'play_store' => 'https://play.google.com/store/apps/details?id=com.scanner.offline.pdf.ocr',
         'privacy_url' => '/offlinescanner/privacy',

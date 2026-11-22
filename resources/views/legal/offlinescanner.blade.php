@@ -11,7 +11,7 @@
             Privacy Policy
         </span>
         <h1 class="mt-5 text-3xl font-semibold text-ink md:text-4xl">Offline Scanner Privacy Policy</h1>
-        <p class="mt-4 text-sm text-ink-dim">App: Offline Scanner: PDF &amp; OCR (com.scanner.offline.pdf.ocr) · Developer: Zettelabs · Effective: 9 November 2026 · Applies to version 0.1.0 and later</p>
+        <p class="mt-4 text-sm text-ink-dim">App: Offline Scanner: PDF &amp; OCR (com.scanner.offline.pdf.ocr) · Developer: Zettelabs · Effective: 22 November 2026 · Applies to version 0.2.0 and later</p>
 
         <p class="mt-8 text-ink-dim">This policy explains what information Offline Scanner handles, why, and the choices you have. Offline Scanner does not require an account and does not ask for your name, email address, phone number or contacts.</p>
 
@@ -29,12 +29,13 @@
             <tr><td>Camera (requested by the Google Play services scanner screen)</td><td>To photograph the document you want to scan. Offline Scanner itself declares no camera permission; the Play services module asks when you first scan.</td></tr>
             <tr><td>Photos (system photo picker)</td><td>Only the photos you pick are handed to the app. No broad gallery access is requested.</td></tr>
             <tr><td>Internet</td><td>To load ads, app configuration and crash reports (see below). Documents are never sent.</td></tr>
+            <tr><td>Google Play billing</td><td>To offer the optional Pro purchase (remove ads) through Google Play.</td></tr>
             </tbody></table></div>
         </section>
 
         <section class="mt-10">
             <h2 class="text-xl font-semibold text-ink">3. Information collected by third-party services</h2>
-            <p class="mt-3 text-ink-dim">Offline Scanner is free and supported by ads. It uses the following Google services, which may collect information automatically from your device:</p>
+            <p class="mt-3 text-ink-dim">Offline Scanner is free and supported by ads. An optional one-time purchase, Offline Scanner Pro, removes the ads; every other feature is the same with or without it. The app uses the following Google services, which may collect information automatically from your device:</p>
             <div class="mt-3 overflow-x-auto"><table class="w-full border-collapse text-left text-sm text-ink-dim">
             <thead><tr class="border-b border-line text-ink"><th class="p-2 font-semibold">Service</th><th class="p-2 font-semibold">Purpose</th><th class="p-2 font-semibold">Data it may collect</th></tr></thead><tbody class="[&_td]:border-b [&_td]:border-line [&_td]:p-2 [&_td]:align-top">
             <tr><td>Google AdMob</td><td>Showing ads (app open and interstitial ads)</td><td>Advertising ID, IP address, device and app information, ad interactions</td></tr>
@@ -42,8 +43,10 @@
             <tr><td>Firebase Analytics</td><td>Understanding how the app is used (for example whether a scan is completed) so we can improve it</td><td>App usage events, app instance ID, device and app information, approximate location derived from IP</td></tr>
             <tr><td>Firebase Crashlytics</td><td>Diagnosing crashes</td><td>Crash logs, device state at the time of the crash, app instance ID</td></tr>
             <tr><td>Firebase Remote Config</td><td>Adjusting app settings, such as ad frequency, without an update</td><td>App instance ID, device and app information</td></tr>
+            <tr><td>Google Play Billing</td><td>Processing the optional Pro purchase and restoring it on your Google account</td><td>Purchase history for this app (product, purchase token, order status). Payment details are handled by Google Play and are never shared with us.</td></tr>
             </tbody></table></div>
             <p class="mt-3 text-ink-dim">These services are governed by their own policies: <a class="text-accent underline underline-offset-2 hover:text-accent-deep" href="https://policies.google.com/privacy">Google Privacy Policy</a>, <a class="text-accent underline underline-offset-2 hover:text-accent-deep" href="https://policies.google.com/technologies/partner-sites">How Google uses information from apps that use its services</a>, and <a class="text-accent underline underline-offset-2 hover:text-accent-deep" href="https://firebase.google.com/support/privacy">Firebase privacy information</a>.</p>
+            <p class="mt-3 text-ink-dim">If you buy Pro, the app keeps a flag on your device that ads are removed, and Firebase Analytics records the purchase events (for example that a purchase completed, with its price and currency). We never receive your name, email address or card details from the purchase.</p>
             <p class="mt-3 text-ink-dim">We do not sell your personal information. Data is transmitted over encrypted connections (HTTPS).</p>
         </section>
 
@@ -58,7 +61,7 @@
 
         <section class="mt-10">
             <h2 class="text-xl font-semibold text-ink">5. Data retention</h2>
-            <p class="mt-3 text-ink-dim">Scans stay on your device until you delete them, clear the app's storage or uninstall the app. Firebase Analytics data is retained for up to 14 months; Crashlytics crash data for up to 90 days. Advertising data is retained according to Google's policies.</p>
+            <p class="mt-3 text-ink-dim">Scans stay on your device until you delete them, clear the app's storage or uninstall the app. Firebase Analytics data is retained for up to 14 months; Crashlytics crash data for up to 90 days. Advertising data is retained according to Google's policies. Purchase records are kept by Google Play according to its policies so that your purchase can be restored.</p>
         </section>
 
         <section class="mt-10">
