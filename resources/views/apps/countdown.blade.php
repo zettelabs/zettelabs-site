@@ -47,7 +47,7 @@
     ];
 
     $faq = [
-        'Countdown Widget ücretli mi?' => 'Hayır, ücretsizdir. Uygulamaya geri döndüğünde reklam görürsün; ek renkleri ve fotoğraf arka planını açmak için izlemeyi seçebileceğin isteğe bağlı reklamlar da var. Widget\'ta asla reklam yoktur.',
+        'Countdown Widget ücretli mi?' => 'Hayır, ücretsizdir. Uygulamaya geri döndüğünde reklam görürsün; ek renkleri ve fotoğraf arka planını açmak için izlemeyi seçebileceğin isteğe bağlı reklamlar da var. Widget\'ta asla reklam yoktur. Tek seferlik Pro satın alımı tüm reklamları kaldırır.',
         'Widget\'ı nasıl eklerim?' => '+ düğmesine dokun, şablon seç ya da sıfırdan başla; tarihi ve rengi seç. Sonra ana ekrana uzun bas, Countdown Widget\'ı ekle ve sayacını seç.',
         'Tarih geçince ne olur?' => 'Sayaç durmaz: o günden itibaren kaç gün geçtiğini sayar. "Her yıl tekrar" açıksa bir sonraki yıla geçer.',
         'Hatırlatmalar ne zaman gelir?' => '100, 30, 7 ve 1 gün kala ve o gün. "Kaç gün oldu" sayaçlarında 7, 30 ve 100. günde ve her yıl dönümünde.',
@@ -471,6 +471,7 @@
                 <div class="mt-16 lg:mt-[50vh]" data-reveal>
                     <p class="text-2xl font-semibold leading-tight">{{ __('Altı renk, hepsi ücretsiz.') }}</p>
                     <p class="mt-3 max-w-[44ch] text-[17px] leading-relaxed">{{ __('Dört renk daha ve fotoğraf arka planı, bir reklam izleyince kalıcı olarak açılır.') }}</p>
+                    <p class="mt-3 max-w-[44ch] text-[17px] leading-relaxed">{{ __('Tek seferlik Pro satın alımı tüm reklamları kaldırır; tüm renkler ve fotoğraf arka planı reklam izlemeden açılır.') }}</p>
                     <fieldset class="mt-5 flex flex-wrap gap-4">
                         <legend class="sr-only">{{ __('Widget rengi') }}</legend>
                         @foreach ($themes as $key => $theme)

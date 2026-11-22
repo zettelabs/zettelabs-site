@@ -172,6 +172,7 @@ return [
             'Hazır şablonlar: düğün, tatil, doğum günü, doğum tarihi (bebek), terhis, kaç gün oldu, yıl dönümü, emeklilik, yılbaşı ve Noel',
             'Hatırlatıcılar: 100, 30, 7 ve 1 gün kala ve o gün. "Kaç gün oldu" sayaçlarında 7, 30, 100 ve 365. gün',
             '6 ücretsiz renk; bir reklam izleyerek 4 ek rengi ve fotoğraf arka planını kalıcı olarak aç',
+            'Tek seferlik Pro satın alımı tüm reklamları kaldırır; tüm renkler ve fotoğraf arka planı reklam izlemeden açılır.',
             'Her sayacı resim olarak paylaş',
             'Hesap açmak ya da üye olmak yok. İnternetsiz çalışır, sayaçların cihazında kalır.',
         ],
