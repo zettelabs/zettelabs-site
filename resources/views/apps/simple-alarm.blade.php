@@ -380,7 +380,7 @@
 </div>
 
 @include('apps.partials.faq', ['faq' => [
-        'Simple Alarm ücretli mi?' => 'Hayır, ücretsizdir ve reklamlarla desteklenir.',
+        'Simple Alarm ücretli mi?' => 'Hayır, ücretsizdir ve reklamlarla desteklenir. Reklam istemiyorsan Simple Alarm Pro, tek seferlik bir satın alımla reklamları kalıcı olarak kaldırır. Tüm alarm özellikleri ücretsiz kalır.',
         'Alarmlarım bir yere yükleniyor mu?' => 'Hayır. Alarmların yalnızca cihazında, uygulamanın özel alanında saklanır.',
         'Kendi alarm sesimi seçebilir miyim?' => 'Evet. Dosya seçiciden seçtiğin ses dosyası çalar; dosya yüklenmez, uygulama yalnızca seçtiğin dosyaya erişir.',
         'Neden bildirim ve tam zamanlı alarm izni istiyor?' => 'Alarmın tam saatinde çalması ve kilit ekranında görünmesi için.',

@@ -114,6 +114,7 @@ return [
             'Uyanma kontrolü: cevap yoksa alarm yeniden çalar',
             'Erteleme sınırı: 1, 2, 3 ya da sınırsız',
             'Saniyeler içinde alarm: saati kaydır, günleri seç, bitti',
+            'Ücretsiz ve reklamlarla desteklenir. Simple Alarm Pro, tek seferlik bir satın alımla reklamları kalıcı olarak kaldırır; tüm alarm özellikleri ücretsiz kalır.',
         ],
         'play_store' => 'https://play.google.com/store/apps/details?id=com.alarm.simple.clock',
         'privacy_url' => 'https://simple-alarm-79b72.web.app/privacy-policy',
