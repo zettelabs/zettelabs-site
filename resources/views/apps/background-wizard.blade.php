@@ -27,7 +27,7 @@
             'note' => 'Pazaryeri ilanı için 1:1, 2000 px olarak kaydedebilirsin.'],
     ];
     $faq = [
-        'Background Wizard ücretli mi?' => 'Hayır, ücretsizdir ve reklamlarla desteklenir. Düzenleme ekranında reklam gösterilmez. Ek arka plan koleksiyonları ve baskı sayfaları kısa bir reklam izleyerek 24 saatliğine açılır.',
+        'Background Wizard ücretli mi?' => 'Hayır, ücretsizdir ve reklamlarla desteklenir. Düzenleme ekranında reklam gösterilmez. Ek arka plan koleksiyonları ve baskı sayfaları kısa bir reklam izleyerek 24 saatliğine açılır. Reklamsız istersen tek seferlik Pro satın alımı tüm reklamları kaldırır ve tüm arka planları ile baskı sayfalarını reklam izlemeden açar; Satın alımı geri yükle ile geri getirebilirsin.',
         'Fotoğraflarım bir yere yükleniyor mu?' => 'Hayır. Konuyu bulan yapay zekâ telefonunda çalışır; fotoğrafların cihazından çıkmaz.',
         'Kesimi hangi biçimde kaydediyor?' => 'Şeffaf arka planlı PNG olarak, tam çözünürlükte. İstersen boş kenarları kırpıp kesimi konuya sıkıca oturtabilirsin.',
         'Kendi fotoğrafımı arka plan yapabilir miyim?' => 'Evet. Galerindeki herhangi bir fotoğrafı seçebilir ya da şehir, fantastik, minimalist, doğa ve mevsimsel koleksiyonlarından veya düz renklerden birini kullanabilirsin.',

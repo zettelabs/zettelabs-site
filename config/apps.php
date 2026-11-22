@@ -15,6 +15,7 @@ return [
             'Amaç odaklı ana ekran: “Ne için kullanacaksın?” sorusuyla ürün fotoğrafı, evcil hayvan, profil fotoğrafı ya da vesikalık seç',
             'Ürün fotoğrafı modu: beyaz, açık gri, krem, mermer ya da şeffaf arka plan, açılıp kapanan gölge ve elle kenar düzeltme',
             'Gideceği yere göre boyut: pazar yeri için 2000 px 1:1, 9:16 hikâye, şeffaf PNG ya da orijinal boyut',
+            'Pro: tek seferlik satın alımla tüm reklamlar kalkar, tüm arka planlar ve baskı sayfaları reklam izlemeden açılır',
         ],
         'play_store' => 'https://play.google.com/store/apps/details?id=background.erase.replace.change.blur.remove',
         'privacy_url' => 'https://backgroundmagic-beb46.web.app/privacy-policy',
