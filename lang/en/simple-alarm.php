@@ -55,6 +55,11 @@ return [
             ['Vibration', 'per alarm', 'On or off for each alarm.'],
             ['Background', 'photo', 'The view behind the ringing alarm.'],
         ],
+        'Peace of mind' => [
+            ['Exact alarms', 'to the minute', 'It rings at the minute you set.'],
+            ['Phone restart', 'automatic', 'Your alarms come back on their own after you restart your phone.'],
+            ['Account', 'not needed', 'No sign-up, email or phone number.'],
+        ],
     ],
 
     'morning_title' => 'Set it tonight, wake up',

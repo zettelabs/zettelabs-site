@@ -55,6 +55,11 @@ return [
             ['Titreşim', 'alarm başına', 'Her alarmda ayrı açılıp kapanır.'],
             ['Arka plan', 'fotoğraf', 'Çalan alarmın arkasındaki manzara.'],
         ],
+        'İçin rahat olsun' => [
+            ['Tam zamanlı alarm', 'dakikasında', 'Kurduğun dakikada çalar.'],
+            ['Yeniden başlatma', 'kendiliğinden', 'Telefonu yeniden başlatınca alarmların kendiliğinden geri gelir.'],
+            ['Hesap', 'gerekmez', 'Üyelik, e-posta ya da telefon numarası istemez.'],
+        ],
     ],
 
     'morning_title' => 'Akşam kur, sabah uyan',
