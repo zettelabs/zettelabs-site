@@ -131,7 +131,7 @@ return [
             'Tek seferde çok sayfalı PDF',
             'Cihaz-içi OCR: her sayfadan metin çıkar (Latin alfabesi kullanan diller: Türkçe, İngilizce, İspanyolca, Portekizce, Almanca, Endonezce vb.)',
             'Tüm taramalarının metninde tek yerden arama',
-            'PDF\'i ya da metni paylaş, metni kopyala',
+            'PDF\'i ya da metni paylaş, metni kopyala, taramayı istediğin zaman sil',
             'Belgelerin telefonundan çıkmaz: tarama, PDF oluşturma ve metin tanıma cihazında yapılır. Yalnızca reklamlar internet kullanır.',
             'Tarayıcı modülü ilk kullanımda Google Play hizmetleri üzerinden bir kez indirilir (yaklaşık 200 KB); sonrası tamamen çevrimdışı çalışır.',
         ],
