@@ -10,7 +10,7 @@
             Privacy Policy
         </span>
         <h1 class="mt-5 text-3xl font-semibold text-ink md:text-4xl">Background Wizard Privacy Policy</h1>
-        <p class="mt-4 text-sm text-ink-dim">App: Background Wizard (background.erase.replace.change.blur.remove) · Developer: Zettelabs · Effective: 7 November 2026 · Applies to version 2.0 and later</p>
+        <p class="mt-4 text-sm text-ink-dim">App: Background Wizard (background.erase.replace.change.blur.remove) · Developer: Zettelabs · Effective: 22 November 2026 · Applies to version 2.0 and later</p>
 
         <p class="mt-8 text-ink-dim">This policy explains what information Background Wizard handles, why, and the choices you have. Background Wizard does not require an account and does not ask for your name, email address, phone number or contacts.</p>
 
@@ -43,7 +43,7 @@
 
         <section class="mt-10">
             <h2 class="text-xl font-semibold text-ink">4. Information collected by third-party services</h2>
-            <p class="mt-3 text-ink-dim">Background Wizard is free and supported by ads. It uses the following Google services, which may collect information automatically from your device:</p>
+            <p class="mt-3 text-ink-dim">Background Wizard is free and supported by ads. An optional one-time purchase, Background Wizard Pro, removes all ads. It uses the following Google services, which may collect information automatically from your device:</p>
             <div class="mt-3 overflow-x-auto">
                 <table class="w-full border-collapse text-left text-sm text-ink-dim">
                     <thead>
@@ -53,8 +53,9 @@
                         <tr><td>Google AdMob</td><td>Showing ads (app open, interstitial, native and rewarded ads)</td><td>Advertising ID, IP address, device and app information, ad interactions</td></tr>
                         <tr><td>Google User Messaging Platform</td><td>Asking for and storing your ad consent where required by law</td><td>Your consent choices, device information</td></tr>
                         <tr><td>Google ML Kit (subject segmentation)</td><td>Finding the subject in your photo, on your device</td><td>The model runs on your device; Google Play services may download the model and collect usage and diagnostic information about the API. Your photos are not sent.</td></tr>
-                        <tr><td>Firebase Analytics</td><td>Understanding how the app is used (for example, which tools are opened) so we can improve it</td><td>App usage events, app instance ID, device and app information, approximate location derived from IP</td></tr>
+                        <tr><td>Firebase Analytics</td><td>Understanding how the app is used (for example, which tools are opened, or whether a Pro purchase was started and completed) so we can improve it</td><td>App usage events, app instance ID, device and app information, approximate location derived from IP</td></tr>
                         <tr><td>Firebase Crashlytics</td><td>Diagnosing crashes</td><td>Crash logs, device state at the time of the crash, app instance ID</td></tr>
+                        <tr><td>Google Play Billing</td><td>Processing the optional Pro purchase and restoring it on your Google account</td><td>Order ID, purchase status and time, your Google account (held by Google Play). Your payment details are handled by Google Play and are never shared with us.</td></tr>
                         <tr><td>Firebase Remote Config</td><td>Adjusting app settings, such as ad frequency, without an update</td><td>App instance ID, device and app information</td></tr>
                     </tbody>
                 </table>
@@ -72,7 +73,7 @@
 
         <section class="mt-10">
             <h2 class="text-xl font-semibold text-ink">6. Data retention</h2>
-            <p class="mt-3 text-ink-dim">The app keeps only small settings (such as whether you have seen the introduction) and temporary share copies on your device. Firebase Analytics data is retained for up to 14 months; Crashlytics crash data for up to 90 days. Advertising data is retained according to Google's policies.</p>
+            <p class="mt-3 text-ink-dim">The app keeps only small settings (such as whether you have seen the introduction and whether you own Pro) and temporary share copies on your device. Firebase Analytics data is retained for up to 14 months; Crashlytics crash data for up to 90 days. Advertising data is retained according to Google's policies.</p>
         </section>
 
         <section class="mt-10">
