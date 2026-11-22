@@ -10,7 +10,7 @@
             Privacy Policy
         </span>
         <h1 class="mt-5 text-3xl font-semibold text-ink md:text-4xl">Simple Alarm Privacy Policy</h1>
-        <p class="mt-4 text-sm text-ink-dim">App: Simple Alarm (com.alarm.simple.clock) · Developer: Zettelabs · Effective: 23 October 2026</p>
+        <p class="mt-4 text-sm text-ink-dim">App: Simple Alarm (com.alarm.simple.clock) · Developer: Zettelabs · Effective: 22 November 2026</p>
 
         <p class="mt-8 text-ink-dim">This policy explains what information Simple Alarm handles, why, and the choices you have. Simple Alarm does not require an account and does not ask for your name, email address, phone number or contacts.</p>
 
@@ -19,6 +19,7 @@
             <p class="mt-3 text-ink-dim">The alarms you create (time, repeat days, label, sound and background choice) are stored <strong class="text-ink">only on your device</strong>, in the app's private storage. They are never uploaded to us or to any third party.</p>
             <p class="mt-3 text-ink-dim">If you choose your own alarm sound, you pick the file through the Android file picker. Simple Alarm only gets access to the file you pick, keeps a reference to it so the alarm can play it, and never uploads it.</p>
             <p class="mt-3 text-ink-dim">Alarm screen background images are downloaded from our public content server (cdn.jsdelivr.net). Like any web request, this reveals your IP address to the content server; no other information is sent.</p>
+            <p class="mt-3 text-ink-dim">If you buy Simple Alarm Pro, the app stores only a yes/no flag on your device saying that Pro is active, so ads stay off. Nothing about your purchase is sent to us.</p>
         </section>
 
         <section class="mt-10">
@@ -36,13 +37,14 @@
 
         <section class="mt-10">
             <h2 class="text-xl font-semibold text-ink">3. Information collected by third-party services</h2>
-            <p class="mt-3 text-ink-dim">Simple Alarm is free and supported by ads. It uses the following Google services, which may collect information automatically from your device:</p>
+            <p class="mt-3 text-ink-dim">Simple Alarm is free and supported by ads. An optional one-time purchase, Simple Alarm Pro, removes all ads. The app uses the following Google services, which may collect information automatically from your device:</p>
             <div class="mt-3 overflow-x-auto"><table class="w-full border-collapse text-left text-sm text-ink-dim">
             <thead><tr class="border-b border-line text-ink"><th class="p-2 font-semibold">Service</th><th class="p-2 font-semibold">Purpose</th><th class="p-2 font-semibold">Data it may collect</th></tr></thead><tbody class="[&_td]:border-b [&_td]:border-line [&_td]:p-2 [&_td]:align-top">
             <tr><td>Google AdMob</td><td>Showing ads (banner, interstitial and app open ads)</td><td>Advertising ID, IP address, device and app information, ad interactions</td></tr>
             <tr><td>Google User Messaging Platform</td><td>Asking for and storing your ad consent where required by law</td><td>Your consent choices, device information</td></tr>
             <tr><td>Firebase Analytics</td><td>Understanding how the app is used (for example, which screens are opened) so we can improve it</td><td>App usage events, app instance ID, device and app information, approximate location derived from IP</td></tr>
             <tr><td>Firebase Crashlytics</td><td>Diagnosing crashes</td><td>Crash logs, device state at the time of the crash, app instance ID</td></tr>
+            <tr><td>Google Play Billing</td><td>Processing the optional Simple Alarm Pro purchase and restoring it on a new device</td><td>Your purchase status for the app (order and purchase token). Google handles your payment details; we never see them.</td></tr>
             <tr><td>Firebase Remote Config</td><td>Adjusting app settings, such as ad frequency, without an update</td><td>App instance ID, device and app information</td></tr>
             </tbody></table></div>
             <p class="mt-3 text-ink-dim">These services are governed by their own policies: <a class="text-accent underline underline-offset-2 hover:text-accent-deep" href="https://policies.google.com/privacy">Google Privacy Policy</a>, <a class="text-accent underline underline-offset-2 hover:text-accent-deep" href="https://policies.google.com/technologies/partner-sites">How Google uses information from apps that use its services</a>, and <a class="text-accent underline underline-offset-2 hover:text-accent-deep" href="https://firebase.google.com/support/privacy">Firebase privacy information</a>.</p>
@@ -61,7 +63,7 @@
 
         <section class="mt-10">
             <h2 class="text-xl font-semibold text-ink">5. Data retention</h2>
-            <p class="mt-3 text-ink-dim">Your alarms are kept on your device until you delete them, clear the app's storage or uninstall the app. Firebase Analytics data is retained for up to 14 months; Crashlytics crash data for up to 90 days. Advertising data is retained according to Google's policies.</p>
+            <p class="mt-3 text-ink-dim">Your alarms and your Pro status are kept on your device until you delete them, clear the app's storage or uninstall the app. After a reinstall you can bring Pro back with Restore purchase, which asks Google Play for your purchase. Firebase Analytics data is retained for up to 14 months; Crashlytics crash data for up to 90 days. Advertising data is retained according to Google's policies.</p>
         </section>
 
         <section class="mt-10">
