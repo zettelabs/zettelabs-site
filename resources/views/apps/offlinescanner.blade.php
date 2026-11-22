@@ -40,7 +40,7 @@
         ['name' => 'Otomatik kenar bulma', 'fact' => 'Perspektif düzeltilir; masa kadrajdan çıkar.', 'file' => 'receiptswiss.webp', 'alt' => 'Ahşap bir masada duran bir restoran fişi'],
         ['name' => 'Cihaz-içi OCR', 'fact' => 'Her sayfadan metin; Latin alfabesiyle yazılmış diller.', 'file' => 'a-very-early-typewritten-letter-as-part.webp', 'alt' => '1886 tarihli daktiloyla yazılmış bir mahkeme dilekçesi'],
         ['name' => 'Tüm taramalarda ara', 'fact' => 'Bir ad, tutar ya da tarih yaz; sonuç metinden gelir.', 'file' => 'handwritten-letter-from-t-k-riddick-house.webp', 'alt' => '1920 tarihli, otel antetli el yazısı bir mektup'],
-        ['name' => 'PDF\'i ya da metni paylaş', 'fact' => 'Metni kopyala, PDF\'i gönder.', 'shot' => 2, 'alt' => 'Offline Scanner: tanınan metin ekranı'],
+        ['name' => 'PDF\'i ya da metni paylaş', 'fact' => 'Metni kopyala, PDF\'i gönder, taramayı istediğin zaman sil.', 'shot' => 2, 'alt' => 'Offline Scanner: tanınan metin ekranı'],
     ];
 
     $faq = [
