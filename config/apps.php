@@ -35,6 +35,7 @@ return [
             'Silme kararı tamamen sende',
             'Fotoğraflar cihazından hiç çıkmaz',
             'Açık görünüm; karanlık mod sistemi izler',
+            'Pro: tek seferlik satın alımla tüm reklamlar ve günlük silme sınırı kalkar, Akıllı seçim her zaman açık kalır',
         ],
         'play_store' => 'https://play.google.com/store/apps/details?id=com.similarphotofinder.cleaner.removeduplicate',
         'privacy_url' => 'https://similiar-finder.web.app/privacy-policy',

@@ -441,7 +441,7 @@
 </div>
 
 @include('apps.partials.faq', ['faq' => [
-        'CleanPix ücretli mi?' => 'Hayır, ücretsizdir ve reklamlarla desteklenir.',
+        'CleanPix ücretli mi?' => 'Hayır, ücretsizdir ve reklamlarla desteklenir. Bazı özellikler kısa bir reklam izleyerek açılır. Reklamsız istersen tek seferlik CleanPix Pro satın alımı (abonelik değil) tüm reklamları ve günlük silme sınırını kaldırır, Akıllı seçim her zaman açık kalır; Satın alımı geri yükle ile aynı Google hesabıyla geri getirebilirsin.',
         'Fotoğraflarım bir yere yükleniyor mu?' => 'Hayır. Tarama ve karşılaştırma tamamen cihazında yapılır; fotoğrafların ve tarama sonuçları telefonundan çıkmaz.',
         'Fotoğraflar kendiliğinden silinir mi?' => 'Hayır. Yalnızca senin seçip onayladığın fotoğraflar silinir. Android 11 ve üzerinde sistem de ayrıca onay sorar.',
         'Neden fotoğraflara erişim istiyor?' => 'Galerindeki kopya ve benzer fotoğrafları bulmak için. Yalnızca seçtiğin fotoğraflara izin verirsen sadece onları tarar.',
