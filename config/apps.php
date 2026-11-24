@@ -32,6 +32,7 @@ return [
             'Kopyalar boyutlarıyla seçili gelir, orijinal korunur; tek dokunuşla temizle',
             'Eski ekran görüntülerini ve büyük videoları temizle: Depolama dökümü 3 aydan eski ekran görüntülerini ve 100 MB üstü videoları bulur, birkaç dokunuşla yer açarsın.',
             'Kaydırarak temizle: silmek için sola, tutmak için sağa kaydır; son seçimi geri al',
+            'Bitti ekranı açılan yeri gösterir, sıradaki temizliği önerir: benzer fotoğraflar, eski ekran görüntüleri, büyük videolar',
             'Silme kararı tamamen sende',
             'Fotoğraflar cihazından hiç çıkmaz',
             'Açık görünüm; karanlık mod sistemi izler',

@@ -147,7 +147,7 @@
     "Seç": "Select",
     "Karşılaştır": "Compare",
     "Bir grubu tam ekranda aç ve silmeden önce kareler arasında kaydır. Neyin kalacağına sen karar verirsin.": "Open a group full screen and swipe through it before anything goes. You decide what stays.",
-    "Onayla; CleanPix kaç fotoğrafın gittiğini ve ne kadar yer açıldığını gösterir.": "Confirm, and CleanPix shows how many photos went and how much space you got back.",
+    "Onayla; CleanPix açılan yeri ve telefonunda kalan boş alanı gösterir, ardından sıradaki temizliği önerir: benzer fotoğraflar, eski ekran görüntüleri ve büyük videolar.": "Confirm, and CleanPix shows the space you got back and how much is free on your phone, then suggests what to clean next: similar photos, old screenshots and large videos.",
     "CleanPix ekranı: :stage": "CleanPix screen: :stage",
     "Uygulamanın içinden": "Inside the app",
     "Karşılaştırma telefonunda yapılır; CleanPix hiçbir fotoğrafı internete yüklemez.": "The comparison runs on your phone; CleanPix never uploads a photo.",
@@ -157,7 +157,7 @@
     "Tam ekran karşılaştırma": "Full-screen compare",
     "Silmeden önce her kareye büyük bak.": "Look at every frame full size before deleting.",
     "Temiz bir galeri": "A clean gallery",
-    "Kaç fotoğrafın gittiğini ve açılan yeri gösterir.": "Shows how many photos went and the space you got back.",
+    "Açılan yeri gösterir ve sıradaki temizliği önerir.": "Shows the space you got back and suggests what to clean next.",
     "İndir": "Install",
     "CleanPix'i Google Play'de aç ve telefonuna kur.": "Open CleanPix on Google Play and install it on your phone.",
     "Örnek rulodaki fotoğraflar Wikimedia Commons'tan:": "Sample roll photos from Wikimedia Commons:",
@@ -647,5 +647,6 @@
     "Kopyalar seçili gelir": "Duplicates come preselected",
     "Orijinal korunur, kopyalar tek dokunuşla gider.": "The original stays protected; the copies go in one tap.",
     "Depolama dökümü 3 aydan eski ekran görüntülerini ve 100 MB üstü videoları bulur; birkaç dokunuşla yer aç.": "Storage breakdown finds screenshots older than 3 months and videos over 100 MB; free up space in a few taps.",
+    "Bitti ekranı açılan yeri gösterir, sıradaki temizliği önerir: benzer fotoğraflar, eski ekran görüntüleri, büyük videolar": "The Done screen shows the space you got back and suggests what to clean next: similar photos, old screenshots, large videos",
     "Kaydırarak temizle: silmek için sola, tutmak için sağa kaydır; son seçimi geri al": "Swipe to clean: left to delete, right to keep, and undo your last choice"
 }

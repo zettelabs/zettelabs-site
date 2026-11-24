@@ -25,7 +25,7 @@
         ['name' => 'Grupla', 'text' => 'Seri çekimler ve birbirine çok benzeyen kareler yan yana gruplanır; her grubun orijinali işaretlenir. Boş duvar ya da karanlık kare gibi sıradan çekimler gruplanmaz.', 'shot' => 1],
         ['name' => 'Seç', 'text' => 'Kopyalar kapladıkları yerle birlikte seçili gelir, orijinal korunur. İstersen Akıllı seçim her gruptaki en iyi fotoğrafı tutar.', 'shot' => 2],
         ['name' => 'Karşılaştır', 'text' => 'Bir grubu tam ekranda aç ve silmeden önce kareler arasında kaydır. Neyin kalacağına sen karar verirsin.', 'shot' => 6],
-        ['name' => 'Sil', 'text' => 'Onayla; CleanPix kaç fotoğrafın gittiğini ve ne kadar yer açıldığını gösterir.', 'shot' => 7],
+        ['name' => 'Sil', 'text' => 'Onayla; CleanPix açılan yeri ve telefonunda kalan boş alanı gösterir, ardından sıradaki temizliği önerir: benzer fotoğraflar, eski ekran görüntüleri ve büyük videolar.', 'shot' => 7],
     ];
 
     // Each tile is a crop of a real screenshot (540×960): [x, y, w, h] in its pixels, and the window's width in the tile.
@@ -35,7 +35,7 @@
         ['name' => 'Depolama bir bakışta', 'fact' => 'Telefonunda ne kadar yer kullandığını tarama başlamadan gör.', 'shot' => 3, 'crop' => [96, 462, 348, 180], 'width' => 60, 'wide' => true],
         ['name' => 'Tam ekran karşılaştırma', 'fact' => 'Silmeden önce her kareye büyük bak.', 'shot' => 6, 'crop' => [82, 370, 376, 560], 'width' => 58],
         ['name' => 'Eski ekran görüntüleri ve büyük videolar', 'fact' => 'Depolama dökümü 3 aydan eski ekran görüntülerini ve 100 MB üstü videoları bulur; birkaç dokunuşla yer aç.', 'shot' => 4, 'crop' => [96, 588, 348, 170], 'width' => 60, 'wide' => true],
-        ['name' => 'Temiz bir galeri', 'fact' => 'Kaç fotoğrafın gittiğini ve açılan yeri gösterir.', 'shot' => 7, 'crop' => [96, 540, 348, 370], 'width' => 70],
+        ['name' => 'Temiz bir galeri', 'fact' => 'Açılan yeri gösterir ve sıradaki temizliği önerir.', 'shot' => 7, 'crop' => [96, 460, 348, 440], 'width' => 70],
     ];
     $crop = fn (array $t) => sprintf(
         'width:%d%%;aspect-ratio:%d/%d;--w:%.2f%%;--x:%.2f%%;--y:%.2f%%',
