@@ -639,7 +639,7 @@
     "Eski ekran görüntülerini ve büyük videoları temizle: Depolama dökümü 3 aydan eski ekran görüntülerini ve 100 MB üstü videoları bulur, birkaç dokunuşla yer açarsın.": "Clear old screenshots and big videos: Storage breakdown finds screenshots older than 3 months and videos over 100 MB, so you can free up space in a few taps.",
     "Açık görünüm; karanlık mod sistemi izler": "Light look; dark mode follows your system",
     "Pro: tek seferlik satın alımla tüm reklamlar ve günlük silme sınırı kalkar, Akıllı seçim her zaman açık kalır": "Pro: a one-time purchase removes all ads and the daily delete limit, and keeps Smart select always on",
-    "Tek dokunuşla tara; seçilecek mod ya da ayar yok. İlerleme yüzde olarak görünür, tarama arka planda sürer.": "Scan with one tap; no modes or settings to pick. Progress shows as a percentage, and the scan keeps running in the background.",
+    "Tek dokunuşla tara; seçilecek mod ya da ayar yok. İlerleme yüzde olarak görünür, tarama arka planda sürer, bitince haber veririz.": "Scan with one tap; no modes or settings to pick. Progress shows as a percentage, and the scan keeps running in the background; we'll let you know when it's done.",
     "Seri çekimler ve birbirine çok benzeyen kareler yan yana gruplanır; her grubun orijinali işaretlenir. Boş duvar ya da karanlık kare gibi sıradan çekimler gruplanmaz.": "Burst shots and near-identical frames are grouped side by side, with each group's original marked. Plain shots like blank walls or dark frames aren't grouped.",
     "Kopyalar kapladıkları yerle birlikte seçili gelir, orijinal korunur. İstersen Akıllı seçim her gruptaki en iyi fotoğrafı tutar.": "Duplicates come preselected with the space each one takes, and the original stays protected. Or let Smart select keep the best photo in each group.",
     "Tek, hassas tarama": "One accurate scan",
@@ -648,5 +648,5 @@
     "Orijinal korunur, kopyalar tek dokunuşla gider.": "The original stays protected; the copies go in one tap.",
     "Depolama dökümü 3 aydan eski ekran görüntülerini ve 100 MB üstü videoları bulur; birkaç dokunuşla yer aç.": "Storage breakdown finds screenshots older than 3 months and videos over 100 MB; free up space in a few taps.",
     "Bitti ekranı açılan yeri gösterir, sıradaki temizliği önerir: benzer fotoğraflar, eski ekran görüntüleri, büyük videolar": "The Done screen shows the space you got back and suggests what to clean next: similar photos, old screenshots, large videos",
-    "Kaydırarak temizle: silmek için sola, tutmak için sağa kaydır; son seçimi geri al": "Swipe to clean: left to delete, right to keep, and undo your last choice"
+    "Kaydırarak temizle: silmek için sola, tutmak için sağa kaydır; son seçimi geri al; silmeden önce telefonun onayı istenir": "Swipe to clean: left to delete, right to keep, undo your last choice; your phone asks you to confirm before deleting"
 }

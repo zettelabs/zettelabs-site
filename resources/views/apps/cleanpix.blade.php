@@ -21,7 +21,7 @@
     $freed = array_sum(array_column($roll, 'frees'));
 
     $stages = [
-        ['name' => 'Tara', 'text' => 'Tek dokunuşla tara; seçilecek mod ya da ayar yok. İlerleme yüzde olarak görünür, tarama arka planda sürer.', 'shot' => 5],
+        ['name' => 'Tara', 'text' => 'Tek dokunuşla tara; seçilecek mod ya da ayar yok. İlerleme yüzde olarak görünür, tarama arka planda sürer, bitince haber veririz.', 'shot' => 5],
         ['name' => 'Grupla', 'text' => 'Seri çekimler ve birbirine çok benzeyen kareler yan yana gruplanır; her grubun orijinali işaretlenir. Boş duvar ya da karanlık kare gibi sıradan çekimler gruplanmaz.', 'shot' => 1],
         ['name' => 'Seç', 'text' => 'Kopyalar kapladıkları yerle birlikte seçili gelir, orijinal korunur. İstersen Akıllı seçim her gruptaki en iyi fotoğrafı tutar.', 'shot' => 2],
         ['name' => 'Karşılaştır', 'text' => 'Bir grubu tam ekranda aç ve silmeden önce kareler arasında kaydır. Neyin kalacağına sen karar verirsin.', 'shot' => 6],
@@ -30,7 +30,7 @@
 
     // Each tile is a crop of a real screenshot (540×960): [x, y, w, h] in its pixels, and the window's width in the tile.
     $tiles = [
-        ['name' => 'Tek, hassas tarama', 'fact' => 'Ayar yok; ilerleme yüzde olarak görünür.', 'shot' => 5, 'crop' => [96, 570, 348, 310], 'width' => 50, 'wide' => true],
+        ['name' => 'Tek, hassas tarama', 'fact' => 'Ayar yok; ilerleme yüzde olarak görünür.', 'shot' => 5, 'crop' => [96, 490, 348, 400], 'width' => 50, 'wide' => true],
         ['name' => 'Kopyalar seçili gelir', 'fact' => 'Orijinal korunur, kopyalar tek dokunuşla gider.', 'shot' => 2, 'crop' => [96, 520, 348, 390], 'width' => 70],
         ['name' => 'Depolama bir bakışta', 'fact' => 'Telefonunda ne kadar yer kullandığını tarama başlamadan gör.', 'shot' => 3, 'crop' => [96, 462, 348, 180], 'width' => 60, 'wide' => true],
         ['name' => 'Tam ekran karşılaştırma', 'fact' => 'Silmeden önce her kareye büyük bak.', 'shot' => 6, 'crop' => [82, 370, 376, 560], 'width' => 58],
